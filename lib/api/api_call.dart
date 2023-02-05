@@ -1,0 +1,226 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
+import 'package:mpayparent/model/retailerDetailsResponse.dart';
+import 'package:mpayparent/model/user_login_response.dart';
+
+import '../main.dart';
+import '../model/balance_report_response.dart';
+import '../utils/constant_function.dart';
+import 'url.dart';
+
+class ApiCall {
+  static final Dio _dio = Dio();
+  static final ApiCall _instance = ApiCall._internal();
+
+  factory ApiCall() {
+    return _instance;
+  }
+
+  ApiCall._internal() {
+    _dio.options.baseUrl = baseUrl;
+    _dio.interceptors.add(MyApp.alice.getDioInterceptor());
+  }
+
+  //Login
+  Future<dynamic> checkLogin(String mobileNo, String mpin, String token) async {
+    try {
+      var params = {"MPIN": mpin, "mobileno": mobileNo, "MobileToken": token};
+
+      log(jsonEncode(params));
+
+      final response = await _dio.post(loginUrl, data: params);
+
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //deviceCheck
+  checkDevice(int userId, String deviceId) async {
+    try {
+      var params = {
+        "UserID": userId,
+        "DeviceID": deviceId,
+        "DeviceType": 1,
+      };
+
+      final response = await _dio.get(checkDeviceUrl, queryParameters: params);
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //Otp Verfication
+  Future<dynamic> otpVerification(String mobileNo, String otp) async {
+    try {
+      var params = {
+        "mobileno": mobileNo,
+        "OTP": otp,
+      };
+
+      log(jsonEncode(params));
+
+      final response = await _dio.post(otpVerficationUrl, data: params);
+
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //ReSend Otp
+  Future<dynamic> resendOTP(String mobileNo, String token) async {
+    try {
+      var params = {"appusermobileno": mobileNo, "MobileToken": token};
+
+      log(jsonEncode(params));
+
+      final response = await _dio.post(resendOTPUrl, queryParameters: params);
+
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //Logout device
+  Future<dynamic> logoutDevice(String userId, String deviceType) async {
+    try {
+      var params = {
+        "UserID": userId,
+        "DeviceType": deviceType,
+      };
+
+      log(jsonEncode(params));
+
+      final response = await _dio.get(logoutUrl, queryParameters: params);
+
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //notification
+  getNotificationList(int userId) async {
+    try {
+      final response =
+          await _dio.get(notificationUrl, queryParameters: {'UserID': userId});
+      log('response code ${response.requestOptions.path} ${response.statusCode} ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //Get balance
+  Future<BalanceReportResponse?> getBalance(int userId, int roleId) async {
+    try {
+      var params = {"ParentID": userId, "RoleID": roleId};
+      final response =
+          await _dio.get(retailerBalanceUrl, queryParameters: params);
+      log('response code ${response.requestOptions.path} ${response.statusCode} ${response.data}');
+
+      return BalanceReportResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+    return null;
+  }
+
+  //Get current balance for user
+  getCurrentBalance(int userId) async {
+    try {
+      var params = {
+        "UserID": userId,
+      };
+      final response =
+          await _dio.get(mywalletBalanceUrl, queryParameters: params);
+      log('response code ${response.requestOptions.path} ${response.statusCode} ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //get MyTransactipnReport
+  Future<dynamic> getMyTranactionReport(
+      int userId, String fromDate, String toDate) async {
+    try {
+      var params = {
+        "UserID": userId,
+        "StartDate": fromDate,
+        "EndDate": toDate,
+      };
+
+      final response =
+          await _dio.get(myTransactionUrl, queryParameters: params);
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  Future<RetailerDetailsResponse?> getRetailerDistributor(
+      String userId, String roleId, String showAll) async {
+    try {
+      var params = {"UserID": userId, "RoleID": roleId, "ShowAll": showAll};
+      final response =
+          await _dio.get(retailerDistributorUrl, queryParameters: params);
+      log('response code ${response.requestOptions.path} ${response.statusCode} ${response.data}');
+
+      return RetailerDetailsResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+    return null;
+  }
+}
