@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upgrader/upgrader.dart';
 
+import '../../../common/notification/notification_screen.dart';
+import '../../../common/profile/profile_screen.dart';
 import '../home/home_screen.dart';
-import '../notification/notification_screen.dart';
-import '../profile/profile_screen.dart';
 import 'bottom_navigation_bar.dart';
 
 class MainScreen extends StatelessWidget {

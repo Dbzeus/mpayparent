@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mpayparent/screens/distributor/main/profile/profile_controller.dart';
-
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../../utils/constant_function.dart';
-import '../../../../utils/custom_colors.dart';
-import '../../../../utils/session.dart';
+import '../../../utils/constant_function.dart';
+import '../../../utils/custom_colors.dart';
+import '../../../utils/session.dart';
+import 'profile_controller.dart';
 
 class ProfileScreen extends GetView<ProfileController> {
   ProfileScreen({Key? key}) : super(key: key);
@@ -51,7 +50,7 @@ class ProfileScreen extends GetView<ProfileController> {
                     children: [
                       const CircleAvatar(
                         backgroundImage: AssetImage(
-                          'assets/icon/p.png',
+                          'assets/icon/profile.png',
                         ),
                       ),
                       const SizedBox(

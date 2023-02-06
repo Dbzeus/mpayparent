@@ -22,7 +22,7 @@ class CustomWalletCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: gradient,
-          stops: [0.0, 50, 50, 1.0],
+          stops: const [0.0, 50, 50, 1.0],
           end: Alignment.bottomCenter,
           begin: Alignment.topCenter,
         ),

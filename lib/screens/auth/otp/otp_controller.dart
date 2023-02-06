@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../api/api_call.dart';
-import '../../model/user_login_response.dart';
-import '../../routes/app_routes.dart';
-import '../../utils/constant_function.dart';
-import '../../utils/session.dart';
+import '../../../api/api_call.dart';
+import '../../../model/user_login_response.dart';
+import '../../../routes/app_routes.dart';
+import '../../../utils/constant_function.dart';
+import '../../../utils/session.dart';
 
 class OtpController extends GetxController {
   TextEditingController fieldOne = TextEditingController();

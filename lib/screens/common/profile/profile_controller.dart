@@ -1,11 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../../api/api_call.dart';
-import '../../../../routes/app_routes.dart';
-import '../../../../utils/constant_function.dart';
-import '../../../../utils/constant_widgets.dart';
-import '../../../../utils/session.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+import '../../../api/api_call.dart';
+import '../../../routes/app_routes.dart';
+import '../../../utils/constant_function.dart';
+import '../../../utils/constant_string.dart';
+import '../../../utils/constant_widgets.dart';
+import '../../../utils/custom_colors.dart';
+import '../../../utils/session.dart';
 
 class ProfileController extends GetxController {
   RxBool isLoading = false.obs;
@@ -45,7 +50,7 @@ class ProfileController extends GetxController {
   }
 
   showSupportSheet() {
-    /* Get.bottomSheet(
+    Get.bottomSheet(
       Container(
         width: Get.width,
         height: Get.height * 0.2,
@@ -74,6 +79,7 @@ class ProfileController extends GetxController {
                     )),
               ),
             ),
+            const Divider(indent: 24, endIndent: 24,),
             ListTile(
               title: const Text(supportMailId),
               trailing: InkWell(
@@ -94,6 +100,6 @@ class ProfileController extends GetxController {
           ],
         ),
       ),
-    );*/
+    );
   }
 }

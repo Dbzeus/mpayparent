@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../../api/api_call.dart';
-import '../../../../utils/constant_function.dart';
-import '../../../../utils/session.dart';
+import '../../../api/api_call.dart';
+import '../../../utils/constant_function.dart';
+import '../../../utils/session.dart';
+
 
 class NotificationController extends GetxController {
   RxBool isLoading = false.obs;

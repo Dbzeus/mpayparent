@@ -2,95 +2,65 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../widgets/custom_button.dart';
-import '../widgets/custom_keyboard.dart';
+
+import '../widgets/custom_edittext.dart';
+import 'constant_function.dart';
 import 'custom_colors.dart';
 
-Future showMpinBottomSheet({
-  bool isDismissable = false,
+Future showMpinDialog({
+  bool isDismissable = true,
   bool isForgetEnable = false,
   Function()? forgotClicked,
 }) async {
-  RxString keyValue = ''.obs;
-  return await Get.bottomSheet(
-      backgroundColor: Colors.white,
-      enableDrag: isDismissable,
-      isDismissible: isDismissable,
-      Column(
-        children: [
-          GestureDetector(
-            onTap: () {
-              Get.back(result: 'back');
-            },
-            child: const Padding(
-              padding: EdgeInsets.all(12),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Text("Cancel",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    )),
+  final mpinController = TextEditingController();
+  return await Get.dialog(
+      Dialog(
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          height: Get.height * 0.22,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Enter MPIN',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
               ),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const Text("Enter Your MPIN",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              )),
-          const SizedBox(
-            height: 25,
-          ),
-          Obx(
-            () => Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: List.generate(
-                  4,
-                  (index) => Container(
-                        margin: const EdgeInsets.all(12),
-                        width: 14,
-                        height: 14,
-                        decoration: BoxDecoration(
-                            color: keyValue.value.length > index
-                                ? secondaryButtonColor
-                                : Colors.grey,
-                            shape: BoxShape.circle),
-                      )),
-            ),
-          ),
-          const Spacer(),
-          CustomKeyboard(onChange: (String text) {
-            //pass the changing value to RxString
-            keyValue(text);
-          }, onDone: (String text) {
-            //when mpin is done check
-            Get.back(result: int.parse(keyValue.value));
-          }),
-          const SizedBox(
-            height: 10,
-          ),
-          isForgetEnable
-              ? Expanded(
-                  child: InkWell(
+              const Divider(),
+              CustomEditText(
+                controller: mpinController,
+                hintText: 'MPIN',
+                maxLength: 4,
+                isOnlyInt: true,
+                keyboardType: TextInputType.number,
+              ),
+              const Spacer(),
+              Align(
+                alignment: Alignment.centerRight,
+                child: CustomButton(
+                    width: 100,
+                    height: 35,
                     onTap: () {
-                      forgotClicked!();
-                      Get.back(result: 'forgot');
+                      if (mpinController.text.length == 4) {
+                        Get.back(result: int.parse(mpinController.text));
+                      } else {
+                        toast('Enter Valid MPIN');
+                      }
                     },
-                    child: const Text("Forget MPIN? ",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: secondaryTextColor,
-                          fontWeight: FontWeight.bold,
-                        )),
-                  ),
-                )
-              : const SizedBox.shrink()
-        ],
-      ));
+                    text: 'Validate'),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: isDismissable);
+
 }
 
 Future showCustomAlertDialog({

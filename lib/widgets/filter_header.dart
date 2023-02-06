@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -69,7 +68,8 @@ class _FilterHeaderState extends State<FilterHeader> {
                     showCursor: false,
                     controller: fromDateController,
                     hintText: "",
-                    fontSize: 13,
+                    style: const TextStyle(fontSize: 13),
+
                     onTab: () async {
                       var selectedDate = await showDatePicker(
                         initialDate: fromDate,
@@ -108,7 +108,7 @@ class _FilterHeaderState extends State<FilterHeader> {
                     showCursor: false,
                     controller: toDateController,
                     hintText: "",
-                    fontSize: 13,
+                    style: const TextStyle(fontSize: 13),
                     onTab: () async {
                       var selectedDate = (await showDatePicker(
                         initialDate: toDate,

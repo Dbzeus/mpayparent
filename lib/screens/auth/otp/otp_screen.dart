@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../utils/constant_function.dart';
-import '../../utils/custom_colors.dart';
-import '../../widgets/custom_button.dart';
-import '../../widgets/custom_edittext.dart';
+import '../../../utils/constant_function.dart';
+import '../../../utils/custom_colors.dart';
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/custom_edittext.dart';
 import 'otp_controller.dart';
 
 class OtpScreen extends GetView<OtpController> {
@@ -19,29 +19,25 @@ class OtpScreen extends GetView<OtpController> {
       onTap: () => Get.focusScope?.unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: const Text(
+            'BACK',
+            style: TextStyle(color: Colors.black),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            color: Colors.black, onPressed: () => Get.back(),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.white,
+        ),
         body: Padding(
           padding: const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GestureDetector(
-                  onTap: () => Get.back(),
-                  child: Row(
-                    children: const [
-                      Icon(
-                        Icons.arrow_back_rounded,
-                        size: 20,
-                      ),
-                      SizedBox(
-                        width: 6,
-                      ),
-                      Text('BACK'),
-                    ],
-                  )),
-              const SizedBox(
-                height: 12,
-              ),
+
               const Text("OTP\nVerify!",
                   style: TextStyle(
                     fontSize: 26,
@@ -170,9 +166,11 @@ class OtpScreen extends GetView<OtpController> {
         textAlign: TextAlign.center,
         keyboardType: TextInputType.number,
         maxLength: 1,
-        fontSize: 25,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 25,
+        ),
         showCursor: false,
-        fontWeight: FontWeight.bold,
         onChanged: (value) {
           if (value.length == 1 && last == false) {
             Get.focusScope?.nextFocus();

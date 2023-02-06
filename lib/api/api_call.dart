@@ -41,6 +41,7 @@ class ApiCall {
       log(e.toString());
       toast(null);
     }
+    return null;
   }
 
   //deviceCheck

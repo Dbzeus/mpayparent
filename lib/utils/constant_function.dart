@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -25,8 +26,8 @@ isNetConnected() async {
 }
 
 toast(String? msg) {
-  /* debugPrint(msg ?? "Something went wrong");
-  Fluttertoast.showToast(
+   debugPrint(msg ?? "Something went wrong");
+  /*Fluttertoast.showToast(
     msg: msg ?? "Something went wrong",
   );*/
 }

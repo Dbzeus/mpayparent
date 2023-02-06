@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mpayparent/model/balance_report_response.dart';
-import 'package:mpayparent/screens/balance_report_activity/balance_report_controller.dart';
 import 'package:mpayparent/utils/custom_colors.dart';
 import 'package:mpayparent/widgets/custom_edittext.dart';
 
-import '../../utils/constant_string.dart';
+import '../../../utils/constant_string.dart';
+import 'balance_report_controller.dart';
 
 class BalanceReportActivityScreen extends GetView<BalanceReportController> {
   @override
@@ -29,7 +29,7 @@ class BalanceReportActivityScreen extends GetView<BalanceReportController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Balance"),
+        title: Text(controller.title.value),
       ),
       body: SingleChildScrollView(
         child: Column(

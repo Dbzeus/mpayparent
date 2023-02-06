@@ -1,10 +1,12 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:mpayparent/screens/balance_report_activity/balance_report_activity.dart';
+
 import 'package:mpayparent/screens/distributor/retailer_details/retailer_details_screen.dart';
 import '../reports/my_transaction/my_transaction_report.dart';
+import '../screens/auth/login/login_screen.dart';
+import '../screens/auth/otp/otp_screen.dart';
+import '../screens/common/balance_report/balance_report_activity.dart';
 import '../screens/distributor/main/main/main_screen.dart';
-import '../screens/login/login_screen.dart';
-import '../screens/otp/otp_screen.dart';
+
 import 'app_routes.dart';
 
 class AppPages {

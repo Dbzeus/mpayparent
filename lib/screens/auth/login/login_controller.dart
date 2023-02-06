@@ -1,18 +1,12 @@
-//import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../api/api_call.dart';
-import '../../model/user_login_response.dart';
-import '../../routes/app_routes.dart';
-import '../../utils/constant_function.dart';
-import '../../utils/constant_widgets.dart';
-//import 'package:paymentapp/api/api_call.dart';
-//import 'package:paymentapp/routes/app_routes.dart';
-
-//import '../../model/user_login_response.dart';
-//import '../../utils/constant_function.dart';
+import '../../../api/api_call.dart';
+import '../../../model/user_login_response.dart';
+import '../../../routes/app_routes.dart';
+import '../../../utils/constant_function.dart';
+import '../../../utils/constant_widgets.dart';
 
 class LoginController extends GetxController {
   TextEditingController mobileNoController = TextEditingController();
@@ -37,7 +31,7 @@ class LoginController extends GetxController {
 
       if (await isNetConnected()) {
         isLoading(true);
-        //String token = (await FirebaseMessaging.instance.getToken()) ?? '';
+        // String token = (await FirebaseMessaging.instance.getToken()) ?? '';
         var loginResponse = await ApiCall().checkLogin(
             mobileNoController.text, mpinController.text, ""); //LogIn
         isLoading(false);
@@ -46,8 +40,7 @@ class LoginController extends GetxController {
           var userData = UserData.fromJson(loginResponse['ReturnData']);
           var deviceCheckResponse = await ApiCall().checkDevice(userData.id,
               await getId()); //checking the Multiple login in mobile device
-          if (deviceCheckResponse !=
-              null /*&& deviceCheckResponse["Status"]*/) {
+          if (deviceCheckResponse != null && deviceCheckResponse["Status"]) {
             Get.toNamed(AppRoutes.otpScreen, arguments: {
               "userData": userData,
             });

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../utils/custom_colors.dart';
-import '../../widgets/custom_button.dart';
-import '../../widgets/custom_edittext.dart';
+import '../../../utils/custom_colors.dart';
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/custom_edittext.dart';
 import 'login_controller.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -34,7 +34,7 @@ class LoginScreen extends GetView<LoginController> {
               const SizedBox(
                 height: 12,
               ),
-              const Text("Login \nto Account",
+              const Text("Login",
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
@@ -57,6 +57,7 @@ class LoginScreen extends GetView<LoginController> {
                   keyboardType: TextInputType.number,
                   maxLength: 10,
                   isOnlyInt: true,
+                  width: double.infinity,
                   hintText: "Mobile Number"),
               const SizedBox(
                 height: 12,
@@ -67,14 +68,16 @@ class LoginScreen extends GetView<LoginController> {
                   keyboardType: TextInputType.number,
                   maxLength: 4,
                   obsecureText: true,
-                  fontSize: 20,
+                  style: const TextStyle(
+                      letterSpacing: 2
+                  ),
                   isOnlyInt: true,
                   hintText: "MPIN"),
               const SizedBox(
                 height: 24,
               ),
               Obx(
-                () => CustomButton(
+                    () => CustomButton(
                   text: "Login",
                   isLoading: controller.isLoading.value,
                   onTap: () => controller.logIn(),
