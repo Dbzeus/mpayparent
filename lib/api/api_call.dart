@@ -2,8 +2,11 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:mpayparent/model/distributorRequestResponse.dart';
+import 'package:mpayparent/model/myTransactionResponse.dart';
+import 'package:mpayparent/model/parentDashboardResponse.dart';
 import 'package:mpayparent/model/retailerDetailsResponse.dart';
-import 'package:mpayparent/model/user_login_response.dart';
+import 'package:mpayparent/model/retailerTopupHistoryResponse.dart';
 
 import '../main.dart';
 import '../model/balance_report_response.dart';
@@ -165,6 +168,24 @@ class ApiCall {
     return null;
   }
 
+  //Parent Dashboard
+  Future<ParentDashboardResponse?> parentDashboard() async {
+    try {
+      final response = await _dio.get(
+        parentDashboardUrl,
+      );
+      log('response code ${response.requestOptions.path} ${response.statusCode} ${response.data}');
+
+      return ParentDashboardResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+    return null;
+  }
+
   //Get current balance for user
   getCurrentBalance(int userId) async {
     try {
@@ -185,7 +206,7 @@ class ApiCall {
   }
 
   //get MyTransactipnReport
-  Future<dynamic> getMyTranactionReport(
+  Future<MyTransactionResponse?> getMyTranactionReport(
       int userId, String fromDate, String toDate) async {
     try {
       var params = {
@@ -198,15 +219,17 @@ class ApiCall {
           await _dio.get(myTransactionUrl, queryParameters: params);
       log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
 
-      return response.data;
+      return MyTransactionResponse.fromJson(response.data);
     } on DioError catch (e) {
       toast(e.response?.data['Message'] ?? e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
     }
+    return null;
   }
 
+  //get Retailer details
   Future<RetailerDetailsResponse?> getRetailerDistributor(
       String userId, String roleId, String showAll) async {
     try {
@@ -223,5 +246,135 @@ class ApiCall {
       toast(null);
     }
     return null;
+  }
+
+  //Request Topup
+  Future<dynamic> requestTopup(var params) async {
+    try {
+      log(jsonEncode(params));
+
+      final response = await _dio.post(distributorTopupUrl, data: params);
+
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //get user bank details
+  getRetailerBankList(int userId) async {
+    try {
+      final response = await _dio
+          .get(userBankDetailsUrl, queryParameters: {'UserID': userId});
+      log('response code ${response.requestOptions.path} ${response.statusCode} ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //distributor topup the account for retailer
+  Future<dynamic> retailerDistributorTopup(var params) async {
+    try {
+      log(jsonEncode(params));
+
+      final response =
+          await _dio.post(retailerDistributorTopupUrl, data: params);
+
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //distributor topup the account for retailer
+  Future<dynamic> retailerDistributorRequestedTopup(var params) async {
+    try {
+      log(jsonEncode(params));
+
+      final response =
+          await _dio.post(retailerDistributorRequestedTopupUrl, data: params);
+
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //get distributor Request Report
+  Future<DistributorRequestResponse?> getDistributorRequestReport(
+    int requestFrom,
+    int requestTo,
+    int requestStatus,
+    String fromDate,
+    String toDate,
+  ) async {
+    try {
+      var params = {
+        "RequestFrom": requestFrom,
+        "RequestTo": requestTo,
+        "RequestStatus": requestStatus,
+        "StartDate": fromDate,
+        "EndDate": toDate,
+      };
+      log(jsonEncode(params));
+      final response =
+          await _dio.get(distributorRequestUrl, queryParameters: params);
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return DistributorRequestResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //Get Retailer Topup History Report
+  Future<RetailerTopupHistoryResponse?> getRetailerTopupHistoryReport(
+    int userId,
+    int transType,
+    String fromDate,
+    String toDate,
+  ) async {
+    try {
+      var params = {
+        "SendeID": userId,
+        "TransType": transType,
+        "FromDate": fromDate,
+        "ToDate": toDate,
+      };
+      log(jsonEncode(params));
+      final response = await _dio.get(retailerTopupHistoryReportUrl,
+          queryParameters: params);
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return RetailerTopupHistoryResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
   }
 }

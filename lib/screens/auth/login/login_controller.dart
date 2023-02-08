@@ -40,7 +40,8 @@ class LoginController extends GetxController {
           var userData = UserData.fromJson(loginResponse['ReturnData']);
           var deviceCheckResponse = await ApiCall().checkDevice(userData.id,
               await getId()); //checking the Multiple login in mobile device
-          if (deviceCheckResponse != null && deviceCheckResponse["Status"]) {
+          if (deviceCheckResponse !=
+              null /*&& deviceCheckResponse["Status"]*/) {
             Get.toNamed(AppRoutes.otpScreen, arguments: {
               "userData": userData,
             });

@@ -31,78 +31,76 @@ class BalanceReportActivityScreen extends GetView<BalanceReportController> {
       appBar: AppBar(
         title: Text(controller.title.value),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 8,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: CustomEditText(
-                controller: controller.searchController,
-                hintText: "Search",
-                maxLines: 1,
-                onChanged: (text) {
-                  controller.onSearchChanged(text);
-                },
-                suffixIcon: const Icon(
-                  Icons.search,
-                  size: 20,
-                ),
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 8,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: CustomEditText(
+              controller: controller.searchController,
+              hintText: "Search",
+              maxLines: 1,
+              onChanged: (text) {
+                controller.onSearchChanged(text);
+              },
+              suffixIcon: const Icon(
+                Icons.search,
+                size: 20,
               ),
             ),
-            const SizedBox(
-              height: 8,
-            ),
-            Container(
-              height: 30,
-              width: Get.width,
-              color: primaryColor,
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text("Total Balance",
-                      style: TextStyle(
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Container(
+            height: 30,
+            width: Get.width,
+            color: primaryColor,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("Total Balance",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: textColor,
+                      fontWeight: FontWeight.bold,
+                    )),
+                Obx(
+                  () => Text("$rs ${controller.totalBalance.value}",
+                      style: const TextStyle(
                         fontSize: 14,
                         color: textColor,
                         fontWeight: FontWeight.bold,
                       )),
-                  Obx(
-                    () => Text("$rs ${controller.totalBalance.value}",
-                        style: const TextStyle(
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Obx(
+            () => controller.balanceList.isEmpty
+                ? const Center(
+                    child: Text("No Records found",
+                        style: TextStyle(
                           fontSize: 14,
-                          color: textColor,
                           fontWeight: FontWeight.bold,
                         )),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Obx(
-              () => controller.retailerList.isEmpty
-                  ? const Center(
-                      child: Text("No Records found",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    )
-                  : ListView.builder(
-                      itemCount: controller.retailerList.length,
-                      scrollDirection: Axis.vertical,
-                      padding: const EdgeInsets.all(8),
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (__, index) => _showRetailerBalanceReport(
-                          controller.retailerList[index])),
-            ),
-          ],
-        ),
+                  )
+                : ListView.builder(
+                    itemCount: controller.balanceList.length,
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.all(8),
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (__, index) => _showRetailerBalanceReport(
+                        controller.balanceList[index])),
+          ),
+        ],
       ),
     );
   }
@@ -111,6 +109,7 @@ class BalanceReportActivityScreen extends GetView<BalanceReportController> {
     return Container(
       height: 60,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      margin: const EdgeInsets.only(bottom: 6),
       decoration: boxDecoration,
       child: Center(
         child: Row(

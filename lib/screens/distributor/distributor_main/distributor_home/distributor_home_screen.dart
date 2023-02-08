@@ -5,13 +5,13 @@ import 'package:mpayparent/utils/custom_colors.dart';
 import '../../../../utils/constant_string.dart';
 import '../../../../widgets/dashboard_card.dart';
 import 'custom_menu.dart';
-import 'home_controller.dart';
+import 'distributor_home_controller.dart';
 
-class HomeScreen extends GetView<HomeController> {
+class DistributorHomeScreen extends GetView<DistributorHomeController> {
   @override
-  final controller = Get.put(HomeController());
+  final controller = Get.put(DistributorHomeController());
 
-  HomeScreen({Key? key}) : super(key: key);
+  DistributorHomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +31,26 @@ class HomeScreen extends GetView<HomeController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: DashboardCard('My Balance',
-                          controller.distributorCurrentBalance.string),
+                    Obx(
+                      () => Expanded(
+                        child: DashboardCard('My Balance',
+                            controller.distributorCurrentBalance.string),
+                      ),
                     ),
                     const SizedBox(
                       width: 12,
                     ),
-                    Expanded(
-                        child: DashboardCard('Retailer Balance',
-                            controller.retailerTotalBalance.string,
-                            onTab: () => controller.showRetailersList()))
+                    Obx(
+                      () => Expanded(
+                          child: DashboardCard('Retailer Balance',
+                              controller.retailerTotalBalance.string,
+                              onTab: () => controller.showRetailersList())),
+                    )
                   ],
                 ),
-                const SizedBox(height: 24,),
+                const SizedBox(
+                  height: 24,
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

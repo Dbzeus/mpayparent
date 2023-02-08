@@ -9,6 +9,8 @@ import '../../../model/user_login_response.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/constant_function.dart';
 import '../../../utils/session.dart';
+import '../../sales/sales_main/sales_main/sales_main_screen.dart';
+import '../../sales/sales_main/sales_main/sales_main_screen.dart';
 
 class OtpController extends GetxController {
   TextEditingController fieldOne = TextEditingController();
@@ -66,8 +68,11 @@ class OtpController extends GetxController {
       if (await isNetConnected()) {
         isLoading(true);
         var otpResponse = await ApiCall().otpVerification(data.mobileno, otp);
+
+        print(data.appRoleID.toString());
         isLoading(false);
         if (otpResponse != null) {
+          print(data.appRoleID.toString());
           if (data.appRoleID.isEqual(5)) {
             //roleId 5 is for distributor
             //use conditions to check sales,finance and distributor
@@ -79,11 +84,25 @@ class OtpController extends GetxController {
               _box.write(Session.roleId, data.appRoleID);
               _box.write(Session.deviceType, "1");
               _box.write(Session.isLogin, true);
-              Get.offAllNamed(AppRoutes.mainScreen);
+              Get.offAllNamed(AppRoutes.distributorMainScreen);
             }
-          } else {
-            toast(otpResponse['Message']);
+          } else if (data.appRoleID == 4) {
+            print(data.appRoleID.toString());
+            //roleId 5 is for distributor
+            //use conditions to check sales,finance and distributor
+            //if (otpResponse['Status']) {
+            _box.write(Session.userName, data.firstname);
+            _box.write(Session.userMobile, data.mobileno);
+            _box.write(Session.userMpin, data.mpin);
+            _box.write(Session.userId, data.id);
+            _box.write(Session.roleId, data.appRoleID);
+            _box.write(Session.deviceType, "1");
+            _box.write(Session.isLogin, true);
+            Get.offAllNamed(AppRoutes.salesMainScreen);
+            //}
           }
+        } else {
+          toast(otpResponse['Message']);
         }
       }
     }

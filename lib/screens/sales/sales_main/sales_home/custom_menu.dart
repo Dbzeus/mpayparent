@@ -1,37 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mpayparent/screens/sales/sales_main/sales_home/sales_home_controller.dart';
 
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/custom_colors.dart';
-import 'home_controller.dart';
 
 class CustomMenu extends StatelessWidget {
   var menus = [
     {
-      'title': 'My Transaction',
+      'title': 'Distributor',
       'iconUrl': "assets/icon/transfer_money.png",
       'onClickUrl': AppRoutes.myTransactionReportScreen
     },
     {
-      'title': 'Retailer',
+      'title': 'Toup',
       'iconUrl': "assets/icon/transfer_status.png",
       'onClickUrl': AppRoutes.retailerDetailScreen
     },
     {
-      'title': 'DMT Report',
+      'title': 'DMT Transaction',
       'iconUrl': "assets/icon/transfer_report.png",
-      'onClickUrl': "" //AppRoutes.dmtReport
-    },
-    {
-      'title': 'Topup Report',
-      'iconUrl': "assets/icon/topup.png",
-      'onClickUrl': "" //AppRoutes.topupReport
+      'onClickUrl': AppRoutes.distributorWalletReportRequestScreen
     },
   ];
 
   CustomMenu(this.controller, {super.key});
 
-  HomeController controller;
+  SalesHomeController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +37,7 @@ class CustomMenu extends StatelessWidget {
           childAspectRatio: 0.97,
           crossAxisSpacing: 20,
           mainAxisSpacing: 16),
-      itemCount: 2, //menus.length,
+      itemCount: 3, //menus.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (_, index) {

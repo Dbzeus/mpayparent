@@ -15,7 +15,11 @@ void main() async {
   var box = GetStorage();
   String route = AppRoutes.loginScreen;
   if (box.read(Session.isLogin) ?? false) {
-    route = AppRoutes.mainScreen;
+    if (box.read(Session.roleId) == 5) {
+      route = AppRoutes.distributorMainScreen;
+    } else if (box.read(Session.roleId) == 4) {
+      route = AppRoutes.salesMainScreen;
+    }
   }
 
   runApp(MyApp(route));

@@ -1,16 +1,17 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:mpayparent/model/myTransactionResponse.dart';
 
-import '../../api/api_call.dart';
-import '../../utils/constant_function.dart';
-import '../../utils/session.dart';
+import '../../../api/api_call.dart';
+import '../../../utils/constant_function.dart';
+import '../../../utils/session.dart';
 
 class MyTransactionReportController extends GetxController {
   final _box = GetStorage();
   RxBool isLoading = false.obs;
-  RxList reportData = RxList();
-  List searchList = [];
+  RxList<MyTransactionResponseReturnData> reportData = RxList();
+  List<MyTransactionResponseReturnData> searchList = [];
   DateTime today = DateTime.now();
 
   @override
@@ -26,14 +27,15 @@ class MyTransactionReportController extends GetxController {
       toast("Select From & To Dates");
     } else {
       isLoading(true);
-      final reportResponse = await ApiCall()
+      MyTransactionResponse? reportResponse = await ApiCall()
           .getMyTranactionReport(_box.read(Session.userId), startDate, endDate);
       isLoading(false);
-      if (reportResponse != null && reportResponse["Status"]) {
-        reportData(reportResponse["ReturnData"]);
+      if (reportResponse != null && reportResponse.status) {
+        reportData(reportResponse.returnData);
+        searchList = reportResponse.returnData;
         //searchList = reportResponse.reportData;
       } else {
-        toast(reportResponse["Message"]);
+        toast(reportResponse?.message);
       }
     }
   }
@@ -44,15 +46,11 @@ class MyTransactionReportController extends GetxController {
     } else {
       reportData(searchList
           .where((element) =>
-              element.reqName
+              element.description
                   .toString()
                   .toLowerCase()
                   .contains(text.toLowerCase()) ||
-              element.remarks
-                  .toString()
-                  .toLowerCase()
-                  .contains(text.toLowerCase()) ||
-              element.requestStatus
+              element.userName
                   .toString()
                   .toLowerCase()
                   .contains(text.toLowerCase()))

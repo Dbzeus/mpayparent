@@ -12,7 +12,7 @@ import '../../../../utils/constant_string.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_edittext.dart';
 
-class HomeController extends GetxController {
+class DistributorHomeController extends GetxController {
   RxString distributorCurrentBalance = "-1".obs;
   RxString retailerTotalBalance = "-1".obs;
   final _box = GetStorage();
@@ -68,21 +68,11 @@ class HomeController extends GetxController {
   }
 
   showRetailersList() async {
-    if (await isNetConnected()) {
-      BalanceReportResponse? retailerBalanceResponse = await ApiCall().getBalance(
-          userId,
-          retailerRoleId); //Retailer id = 6 is constant,its used for show total retailers balance,is fixed
-      if (retailerBalanceResponse != null && retailerBalanceResponse.status) {
-        if (retailerBalanceResponse.returnData.isNotEmpty) {
-          retailerTotalBalance(retailerBalanceResponse.message);
-          Get.toNamed(AppRoutes.balanceReportActivityScreen, arguments: {
-            "response": retailerBalanceResponse.returnData,
-            "balance": retailerTotalBalance,
-          });
-          //Not included the AEPS Amount
-        }
-      }
-    }
+    Get.toNamed(AppRoutes.balanceReportActivityScreen, arguments: {
+      "ISALL": false,
+      "ROLEID": retailerRoleId,
+      "TITLE": "Retailer Balance"
+    });
   }
 
   onRefresh() async {

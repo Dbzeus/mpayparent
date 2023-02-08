@@ -66,6 +66,10 @@ class RetailerDetailsScreen extends GetView<RetailerDetailsController> {
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
     );
   }
 

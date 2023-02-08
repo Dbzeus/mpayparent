@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mpayparent/screens/distributor/distributor_main/distributor_home/distributor_home_screen.dart';
 import 'package:upgrader/upgrader.dart';
 
 import '../../../common/notification/notification_screen.dart';
 import '../../../common/profile/profile_screen.dart';
-import '../home/home_screen.dart';
+
 import 'bottom_navigation_bar.dart';
 
-class MainScreen extends StatelessWidget {
-  MainScreen({Key? key}) : super(key: key);
+class DistributorMainScreen extends StatelessWidget {
+  DistributorMainScreen({Key? key}) : super(key: key);
 
-  final pages = [HomeScreen(), NotificationScreen(), ProfileScreen()];
+  final pages = [
+    DistributorHomeScreen(),
+    NotificationScreen(),
+    ProfileScreen()
+  ];
 
   RxInt selectedIndex = 0.obs;
 
