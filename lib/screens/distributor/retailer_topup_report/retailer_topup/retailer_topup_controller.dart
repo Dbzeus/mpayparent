@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
 import 'package:mpayparent/api/api_call.dart';
 import 'package:mpayparent/model/retailerDetailsResponse.dart';
-
 import 'package:mpayparent/utils/constant_function.dart';
 import 'package:mpayparent/utils/constant_widgets.dart';
 import 'package:mpayparent/utils/session.dart';

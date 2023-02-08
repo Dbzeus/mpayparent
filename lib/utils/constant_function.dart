@@ -1,10 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
 import 'package:platform_device_id/platform_device_id.dart';
 
 import '../api/api_call.dart';
@@ -26,10 +25,10 @@ isNetConnected() async {
 }
 
 toast(String? msg) {
-   debugPrint(msg ?? "Something went wrong");
-  /*Fluttertoast.showToast(
+  debugPrint(msg ?? "Something went wrong");
+  Fluttertoast.showToast(
     msg: msg ?? "Something went wrong",
-  );*/
+  );
 }
 
 Future<String> getId() async {

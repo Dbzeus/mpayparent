@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mpayparent/model/balance_report_response.dart';
@@ -8,7 +7,7 @@ import 'package:mpayparent/widgets/custom_edittext.dart';
 import '../../../utils/constant_string.dart';
 import 'balance_report_controller.dart';
 
-class BalanceReportActivityScreen extends GetView<BalanceReportController> {
+class BalanceReportScreen extends GetView<BalanceReportController> {
   @override
   final controller = Get.put(BalanceReportController());
 
@@ -23,21 +22,18 @@ class BalanceReportActivityScreen extends GetView<BalanceReportController> {
         )
       ]);
 
-  BalanceReportActivityScreen({Key? key}) : super(key: key);
+  BalanceReportScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(controller.title.value),
+        title: Obx(() => Text(controller.title.value)),
       ),
       body: Column(
         children: [
-          const SizedBox(
-            height: 8,
-          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             child: CustomEditText(
               controller: controller.searchController,
               hintText: "Search",
@@ -51,54 +47,54 @@ class BalanceReportActivityScreen extends GetView<BalanceReportController> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 8,
-          ),
           Container(
-            height: 30,
+            height: 50,
             width: Get.width,
             color: primaryColor,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text("Total Balance",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       color: textColor,
-                      fontWeight: FontWeight.bold,
                     )),
                 Obx(
-                  () => Text("$rs ${controller.totalBalance.value}",
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: textColor,
-                        fontWeight: FontWeight.bold,
-                      )),
+                      () =>
+                      Text("$rs ${controller.totalBalance.value}",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.greenAccent,
+                            fontWeight: FontWeight.bold,
+                          )),
                 ),
               ],
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          Obx(
-            () => controller.balanceList.isEmpty
-                ? const Center(
-                    child: Text("No Records found",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        )),
-                  )
-                : ListView.builder(
-                    itemCount: controller.balanceList.length,
-                    scrollDirection: Axis.vertical,
-                    padding: const EdgeInsets.all(8),
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (__, index) => _showRetailerBalanceReport(
-                        controller.balanceList[index])),
+          Expanded(
+            child: Obx(
+                  () =>
+              controller.isLoading.value
+                  ? const Center(
+                child: CircularProgressIndicator(),
+              )
+                  : controller.balanceList.isEmpty
+                  ? const Center(
+                child: Text("No Records found",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    )),
+              )
+                  : ListView.builder(
+                  itemCount: controller.balanceList.length,
+                  padding: const EdgeInsets.all(8),
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (__, index) =>
+                      _showRetailerBalanceReport(
+                          controller.balanceList[index])),
+            ),
           ),
         ],
       ),
@@ -123,6 +119,7 @@ class BalanceReportActivityScreen extends GetView<BalanceReportController> {
                 Text(response.firstName,
                     style: const TextStyle(
                       fontSize: 14,
+                        fontWeight: FontWeight.bold
                     )),
                 Text(response.mobileNo.toString(),
                     style: const TextStyle(

@@ -9,8 +9,6 @@ import '../../../model/user_login_response.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/constant_function.dart';
 import '../../../utils/session.dart';
-import '../../sales/sales_main/sales_main/sales_main_screen.dart';
-import '../../sales/sales_main/sales_main/sales_main_screen.dart';
 
 class OtpController extends GetxController {
   TextEditingController fieldOne = TextEditingController();
@@ -73,10 +71,10 @@ class OtpController extends GetxController {
         isLoading(false);
         if (otpResponse != null) {
           print(data.appRoleID.toString());
-          if (data.appRoleID.isEqual(5)) {
+          if (data.appRoleID == 5) {
             //roleId 5 is for distributor
             //use conditions to check sales,finance and distributor
-            if (otpResponse['Status']) {
+            if (!otpResponse['Status']) {
               _box.write(Session.userName, data.firstname);
               _box.write(Session.userMobile, data.mobileno);
               _box.write(Session.userMpin, data.mpin);
@@ -90,16 +88,16 @@ class OtpController extends GetxController {
             print(data.appRoleID.toString());
             //roleId 5 is for distributor
             //use conditions to check sales,finance and distributor
-            //if (otpResponse['Status']) {
-            _box.write(Session.userName, data.firstname);
-            _box.write(Session.userMobile, data.mobileno);
-            _box.write(Session.userMpin, data.mpin);
-            _box.write(Session.userId, data.id);
-            _box.write(Session.roleId, data.appRoleID);
-            _box.write(Session.deviceType, "1");
-            _box.write(Session.isLogin, true);
-            Get.offAllNamed(AppRoutes.salesMainScreen);
-            //}
+            if (!otpResponse['Status']) {
+              _box.write(Session.userName, data.firstname);
+              _box.write(Session.userMobile, data.mobileno);
+              _box.write(Session.userMpin, data.mpin);
+              _box.write(Session.userId, data.id);
+              _box.write(Session.roleId, data.appRoleID);
+              _box.write(Session.deviceType, "1");
+              _box.write(Session.isLogin, true);
+              Get.offAllNamed(AppRoutes.salesMainScreen);
+            }
           }
         } else {
           toast(otpResponse['Message']);

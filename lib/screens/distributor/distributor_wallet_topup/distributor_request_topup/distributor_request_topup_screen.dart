@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mpayparent/model/retailerDetailsResponse.dart';
-import 'package:mpayparent/screens/distributor/retailer_topup_and_report/retailer_topup/retailer_topup_controller.dart';
 import 'package:mpayparent/utils/custom_colors.dart';
 import 'package:mpayparent/widgets/custom_button.dart';
-import 'package:mpayparent/widgets/custom_edittext.dart';
 
-class RetailerTopupScreen extends GetView<RetailerTopupController> {
-  final controller = Get.put(RetailerTopupController());
-  RetailerTopupScreen({Key? key}) : super(key: key);
+import '../../../../widgets/custom_edittext.dart';
+import 'distributor_request_topup_controller.dart';
+
+class DistributorRequestTopupScreen extends GetView<DistributorRequestTopupController> {
+  @override
+  final controller = Get.put(DistributorRequestTopupController());
+
+  DistributorRequestTopupScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Retailer Top up",
+          "Request Top up",
         ),
       ),
       body: Column(
@@ -26,18 +28,17 @@ class RetailerTopupScreen extends GetView<RetailerTopupController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomEditText(
-                  width: Get.width,
                   readOnly: true,
                   showBorder: true,
                   showCursor: false,
-                  controller: controller.retailerController,
-                  hintText: "Select Retailer",
+                  controller: controller.bankController,
+                  hintText: "Select Bank",
                   suffixIcon: const Icon(
                     Icons.arrow_drop_down,
                     size: 25,
                   ),
                   onTab: () async {
-                    _showRetailerList();
+                    _showBankList(controller.bankList);
                   },
                 ),
                 const SizedBox(
@@ -69,13 +70,53 @@ class RetailerTopupScreen extends GetView<RetailerTopupController> {
                         maxLines: 5,
                       ),
                     ),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    Obx(
+                      () => CustomButton(
+                        width: Get.width * 0.25,
+                        height: 90,
+                        borderRadius: 8,
+                        onTap: () => controller.attachImage(),
+                        buttonColor: Colors.grey.shade100,
+                        widget: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.attach_file,
+                              size: 30,
+                              color: controller.isAttached.value
+                                  ? secondaryColor
+                                  : null,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                                controller.isAttached.value
+                                    ? "Attached"
+                                    : "Attach",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: controller.isAttached.value
+                                      ? secondaryColor
+                                      : null,
+                                )),
+                          ],
+                        ),
+                        text: '',
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(
                   height: 36,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomButton(
                         width: Get.width / 2.5,
@@ -92,7 +133,7 @@ class RetailerTopupScreen extends GetView<RetailerTopupController> {
                         isLoading: controller.isLoading.value,
                         text: "Save",
                         onTap: () {
-                          controller.retailerTopup();
+                          controller.dmtWalletTopup();
                         },
                       ),
                     ),
@@ -106,7 +147,7 @@ class RetailerTopupScreen extends GetView<RetailerTopupController> {
     );
   }
 
-  _showRetailerList() {
+  _showBankList(RxList bankList) {
     return Get.bottomSheet(
       isScrollControlled: true,
       Container(
@@ -121,7 +162,7 @@ class RetailerTopupScreen extends GetView<RetailerTopupController> {
           children: [
             const Padding(
               padding: EdgeInsets.all(8),
-              child: Text("Select Retailer",
+              child: Text("Select Bank",
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
@@ -135,7 +176,7 @@ class RetailerTopupScreen extends GetView<RetailerTopupController> {
               hintText: "Search",
               maxLines: 1,
               onChanged: (text) {
-                ///controller.onSearchChanged(text);
+                controller.onSearchChanged(text);
               },
               suffixIcon: const Icon(
                 Icons.search,
@@ -147,35 +188,32 @@ class RetailerTopupScreen extends GetView<RetailerTopupController> {
             ),
             Obx(
               () => Expanded(
-                child: controller.retailerList.isEmpty
+                child: bankList.isEmpty
                     ? const Center(
                         child: Padding(
                         padding: EdgeInsets.all(16),
-                        child: Text('Retailer Not Found'),
+                        child: Text('Bank Not Found'),
                       ))
                     : ListView.builder(
-                        itemCount: controller.retailerList.length,
+                        itemCount: bankList.length,
                         physics: const BouncingScrollPhysics(),
                         itemBuilder: (__, index) {
                           return ListTile(
                             dense: true,
                             isThreeLine: false,
                             leading: const Icon(
-                              Icons.person,
+                              Icons.account_balance_outlined,
                               size: 24,
                               color: secondaryButtonColor,
                             ),
                             onTap: () {
-                              controller.retailerController.text = controller
-                                  .retailerList[index].firstName
-                                  .toString();
-                              controller.retailerId =
-                                  controller.retailerList[index].userID;
+                              controller.bankController.text =
+                                  bankList[index]["BankName"].toString();
+                              controller.bankId = bankList[index]["BankID"];
                               controller.searchController.clear();
                               Get.back();
                             },
-                            title: Text(
-                                "${controller.retailerList[index].firstName} (${controller.retailerList[index].mobileNo})",
+                            title: Text(bankList[index]["BankName"].toString(),
                                 style: const TextStyle(
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold,

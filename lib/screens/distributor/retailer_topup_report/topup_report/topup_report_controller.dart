@@ -5,7 +5,6 @@ import 'package:mpayparent/model/retailerTopupHistoryResponse.dart';
 import 'package:mpayparent/utils/constant_function.dart';
 
 import '../../../../api/api_call.dart';
-import '../../../../model/distributorRequestResponse.dart';
 import '../../../../utils/session.dart';
 
 class TopupReportController extends GetxController {
@@ -53,6 +52,10 @@ class TopupReportController extends GetxController {
                   .toLowerCase()
                   .contains(text.toLowerCase()) ||
               element.transToName
+                  .toString()
+                  .toLowerCase()
+                  .contains(text.toLowerCase()) ||
+              element.transValue
                   .toString()
                   .toLowerCase()
                   .contains(text.toLowerCase()))

@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:mpayparent/model/distributorRequestResponse.dart';
 
 import '../../../../routes/app_routes.dart';
-import '../../../../utils/constant_string.dart';
 import '../../../../widgets/filter_header.dart';
-import 'distributor_Wallet_report_request_controller.dart';
+import 'distributor_wallet_report_request_controller.dart';
 
 class DistributorWalletRequestScreen
     extends GetView<DistributorWalletRequestController> {
+  @override
   final controller = Get.put(DistributorWalletRequestController());
   var boxDecoration = const BoxDecoration(
       color: Colors.white,
@@ -20,57 +20,68 @@ class DistributorWalletRequestScreen
           color: Color.fromRGBO(237, 237, 237, 1),
         )
       ]);
+
   DistributorWalletRequestScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Wallet Request"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 12, right: 12),
-        child: Column(
-          children: [
-            Obx(
-              () => FilterHeader(
-                onFilterTap: (String fromDate, String toDate) {
-                  controller.getDistributorRequestReport(fromDate, toDate);
-                },
-                onSearchChanged: (text) {
-                  controller.onSearchChanged(text);
-                },
-                isLoading: controller.isLoading.value,
-              ),
-            ),
-            Obx(
-              () => controller.reportList.isEmpty
-                  ? const Center(
-                      child: Text("No Records found",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    )
-                  : Expanded(
-                      child: ListView.builder(
-                          itemCount: controller.reportList.length,
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.symmetric(horizontal: 2),
-                          physics: const BouncingScrollPhysics(),
-                          itemBuilder: (__, index) => _showTopupTransferReport(
-                              controller.reportList[index])),
-                    ),
-            ),
-          ],
+    return GestureDetector(
+      onTap: () => Get.focusScope?.unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: const Text("Wallet Request"),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed(AppRoutes.distributorRequestTopUpScreen);
-        },
-        child: const Icon(Icons.add),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 12, right: 12),
+          child: Column(
+            children: [
+              Obx(
+                () => FilterHeader(
+                  onFilterTap: (String fromDate, String toDate) {
+                    controller.getDistributorRequestReport(fromDate, toDate);
+                  },
+                  onSearchChanged: (text) {
+                    controller.onSearchChanged(text);
+                  },
+                  isLoading: controller.isLoading.value,
+                ),
+              ),
+              Obx(
+                () => controller.reportList.isEmpty
+                    ? const Center(
+                        child: Text("No Records found",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                            itemCount: controller.reportList.length,
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (__, index) =>
+                                _showTopupTransferReport(
+                                    controller.reportList[index])),
+                      ),
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            var res =
+                await Get.toNamed(AppRoutes.distributorRequestTopUpScreen);
+            if (res != null && res) {
+              controller.getDistributorRequestReport(
+                  controller.fdate, controller.tdate);
+            }
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

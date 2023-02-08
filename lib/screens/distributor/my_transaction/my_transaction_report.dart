@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mpayparent/model/myTransactionResponse.dart';
 
@@ -8,6 +7,7 @@ import '../../../widgets/filter_header.dart';
 import 'my_transaction_controller.dart';
 
 class MyTransactionReportScreen extends GetView<MyTransactionReportController> {
+  @override
   final controller = Get.put(MyTransactionReportController());
 
   var boxDecoration = const BoxDecoration(
@@ -36,7 +36,7 @@ class MyTransactionReportScreen extends GetView<MyTransactionReportController> {
         child: Column(
           children: [
             Obx(
-              () => FilterHeader(
+                  () => FilterHeader(
                 onFilterTap: (String fromDate, String toDate) {
                   controller.getTransactionReport(fromDate, toDate);
                 },
@@ -51,22 +51,22 @@ class MyTransactionReportScreen extends GetView<MyTransactionReportController> {
             ),
             Obx(() => controller.reportData.isEmpty
                 ? const Center(
-                    child: Text("No Records found",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        )),
-                  )
-                : Expanded(
-                    child: ListView.builder(
-                        itemCount: controller.reportData.length,
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.symmetric(horizontal: 2),
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (__, index) => _showMyTransferReport(
-                            controller.reportData[index])),
+              child: Text("No Records found",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
                   )),
+            )
+                : Expanded(
+              child: ListView.builder(
+                  itemCount: controller.reportData.length,
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (__, index) => _showMyTransferReport(
+                      controller.reportData[index])),
+            )),
           ],
         ),
       ),
@@ -84,7 +84,8 @@ class MyTransactionReportScreen extends GetView<MyTransactionReportController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Description: ${reportData.description}",
+            Text(
+                "Description: ${reportData.description.isNotEmpty ? reportData.description : '-'}",
                 maxLines: 2,
                 style: const TextStyle(
                   fontSize: 12,

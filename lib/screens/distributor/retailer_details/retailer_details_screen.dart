@@ -8,6 +8,7 @@ import '../../../widgets/custom_edittext.dart';
 class RetailerDetailsScreen extends GetView<RetailerDetailsController> {
   @override
   final controller = Get.put(RetailerDetailsController());
+
   var boxDecoration = const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -23,52 +24,56 @@ class RetailerDetailsScreen extends GetView<RetailerDetailsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Retailer"),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: CustomEditText(
-              controller: controller.searchController,
-              hintText: "Search",
-              maxLines: 1,
-              onChanged: (text) {
-                controller.onSearchChanged(text);
-              },
-              suffixIcon: const Icon(
-                Icons.search,
-                size: 20,
+    return GestureDetector(
+      onTap: () => Get.focusScope?.unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: const Text("Retailer"),
+        ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: CustomEditText(
+                controller: controller.searchController,
+                hintText: "Search",
+                maxLines: 1,
+                onChanged: (text) {
+                  controller.onSearchChanged(text);
+                },
+                suffixIcon: const Icon(
+                  Icons.search,
+                  size: 20,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Obx(
-              () => controller.isLoading.value
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : controller.retailerDetails.isEmpty
-                      ? const Center(
-                          child: Text('No Retailers Found'),
-                        )
-                      : ListView.builder(
-                          itemCount: controller.retailerDetails.length,
-                          scrollDirection: Axis.vertical,
-                          physics: const BouncingScrollPhysics(),
-                          itemBuilder: (__, index) =>
-                              _showRetailerDetailsReport(
-                                  controller.retailerDetails[index]),
-                        ),
-            ),
-          )
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
+            Expanded(
+              child: Obx(
+                () => controller.isLoading.value
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : controller.retailerDetails.isEmpty
+                        ? const Center(
+                            child: Text('No Retailers Found'),
+                          )
+                        : ListView.builder(
+                            itemCount: controller.retailerDetails.length,
+                            scrollDirection: Axis.vertical,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (__, index) =>
+                                _showRetailerDetailsReport(
+                                    controller.retailerDetails[index]),
+                          ),
+              ),
+            )
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

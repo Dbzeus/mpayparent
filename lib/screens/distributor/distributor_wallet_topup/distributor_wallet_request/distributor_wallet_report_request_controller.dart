@@ -14,6 +14,8 @@ class DistributorWalletRequestController extends GetxController {
   List<DistributorRequestResponseReturnData> searchList = [];
   DateTime today = DateTime.now();
 
+  var fdate, tdate;
+
   @override
   void onInit() {
     super.onInit();
@@ -27,6 +29,8 @@ class DistributorWalletRequestController extends GetxController {
       toast("Select From & To Dates");
     } else {
       if (await isNetConnected()) {
+        fdate = fromDate;
+        tdate = toDate;
         isLoading(true);
         DistributorRequestResponse? reportResponse = await ApiCall()
             .getDistributorRequestReport(

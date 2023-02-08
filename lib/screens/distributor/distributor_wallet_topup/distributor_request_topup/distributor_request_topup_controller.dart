@@ -6,11 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
-
 import 'package:mpayparent/api/api_call.dart';
-import 'package:mpayparent/model/distributorRequestResponse.dart';
-import 'package:mpayparent/screens/distributor/distributor_main/distributor_home/distributor_home_controller.dart';
 import 'package:mpayparent/utils/constant_function.dart';
 import 'package:mpayparent/utils/constant_widgets.dart';
 import 'package:mpayparent/utils/session.dart';
@@ -92,12 +88,12 @@ class DistributorRequestTopupController extends GetxController {
           isLoading(false);
           if (topupResponse != null) {
             toast(topupResponse["Message"]);
-            var c = Get.find<DistributorHomeController>();
-            c.getDistributorWalletBalance();
-            Get.back();
+            if (topupResponse['status']) {
+              Get.back(result: true);
+            }
           }
         } else {
-          toast('Incorrect MPIN');
+          toast('Invalid MPIN');
         }
       }
     }

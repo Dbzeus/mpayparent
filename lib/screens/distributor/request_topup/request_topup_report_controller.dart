@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
@@ -7,13 +6,8 @@ import 'package:mpayparent/model/distributorRequestResponse.dart';
 
 import '../../../../utils/constant_function.dart';
 import '../../../../utils/session.dart';
-import '../../../utils/constant_string.dart';
-import '../../../utils/constant_widgets.dart';
 
 class RequestTopupController extends GetxController {
-  TextEditingController amountController = TextEditingController();
-  TextEditingController remarkController = TextEditingController();
-
   final _box = GetStorage();
   RxBool isLoading = false.obs;
   int mmpin = -1;
@@ -21,6 +15,7 @@ class RequestTopupController extends GetxController {
   RxList<DistributorRequestResponseReturnData> reportList = RxList();
   List<DistributorRequestResponseReturnData> searchList = [];
   DateTime today = DateTime.now();
+  var fdate, tdate;
 
   @override
   void onInit() {
@@ -37,6 +32,8 @@ class RequestTopupController extends GetxController {
       toast("Select From & To Dates");
     } else {
       if (await isNetConnected()) {
+        fdate = fromDate;
+        tdate = toDate;
         isLoading(true);
         DistributorRequestResponse? reportResponse = await ApiCall()
             .getDistributorRequestReport(
@@ -69,23 +66,22 @@ class RequestTopupController extends GetxController {
     }
   }
 
-  retailerTopup(DistributorRequestResponseReturnData reportData) async {
-    isLoading(true);
+  retailerTopup(String reqId, String amount, String remark) async {
     var params = {
       "TransType": 3,
       "TransFrom": userId,
-      "TransTo": reportData.topupReqID,
+      "TransTo": reqId,
       "UserID": userId,
-      "Amount": amountController.text,
-      "Remarks": remarkController.text.toString(),
+      "Amount": amount,
+      "Remarks": remark,
     };
     final topupResponse =
         await ApiCall().retailerDistributorRequestedTopup(params);
     if (topupResponse != null) {
-      toast("Amount added successfully");
-      debugPrint("Payment success");
+      toast(topupResponse['message']);
+      if (topupResponse['status']) {
+        getRequestTopupReport(fdate, tdate);
+      }
     }
-    isLoading(false);
-    Get.back();
   }
 }

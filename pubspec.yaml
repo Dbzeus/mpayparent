@@ -21,9 +21,7 @@ dependencies:
   dio:
   alice:
   fluttertoast:
-  #fwfh_text_style:
   cached_network_image:
-  #  device_info_plus:
   package_info_plus:
   connectivity_plus:
   image_picker:

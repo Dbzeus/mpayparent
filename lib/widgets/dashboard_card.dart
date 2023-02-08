@@ -4,7 +4,8 @@ import '../utils/constant_string.dart';
 import '../utils/custom_colors.dart';
 
 class DashboardCard extends StatelessWidget {
-  DashboardCard(this.title,this.value,{Key? key,this.onTab}) : super(key: key);
+  DashboardCard(this.title, this.value, {Key? key, this.onTab})
+      : super(key: key);
 
   String title;
   String value;
@@ -15,7 +16,7 @@ class DashboardCard extends StatelessWidget {
     return InkWell(
       onTap: onTab,
       child: Container(
-        height: 100,
+        height: 110,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: primaryColor,
@@ -27,7 +28,9 @@ class DashboardCard extends StatelessWidget {
           children: [
             Text(title,
                 style: const TextStyle(
-                    fontSize: 14, color: textColor, fontWeight: FontWeight.w800)),
+                    fontSize: 14,
+                    color: textColor,
+                    fontWeight: FontWeight.w800)),
             const SizedBox(
               height: 8,
             ),
@@ -42,6 +45,29 @@ class DashboardCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(
+              height: 8,
+            ),
+            onTab == null
+                ? const SizedBox.shrink()
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [
+                      Text(
+                        'View Details',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_outlined,
+                        color: Colors.white,
+                        size: 12,
+                      )
+                    ],
+                  ),
           ],
         ),
       ),
