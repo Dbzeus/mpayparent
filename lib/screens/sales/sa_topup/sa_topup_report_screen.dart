@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mpayparent/model/retailerTopupHistoryResponse.dart';
 import 'package:mpayparent/routes/app_routes.dart';
+import 'package:mpayparent/screens/sales/sa_topup/sa_topup_report_controller.dart';
 
 import '../../../../utils/constant_string.dart';
 import '../../../../widgets/filter_header.dart';
-import 'topup_report_controller.dart';
 
-class TopupReportScreen extends GetView<TopupReportController> {
-  final controller = Get.put(TopupReportController());
+class SATopupReportScreen extends GetView<SATopupReportController> {
+  final controller = Get.put(SATopupReportController());
   var boxDecoration = const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -20,7 +20,7 @@ class TopupReportScreen extends GetView<TopupReportController> {
         )
       ]);
 
-  TopupReportScreen({Key? key}) : super(key: key);
+  SATopupReportScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class TopupReportScreen extends GetView<TopupReportController> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text("Distributor"),
+          title: const Text("Topup"),
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 12, right: 12),
@@ -51,21 +51,20 @@ class TopupReportScreen extends GetView<TopupReportController> {
               ),
               Obx(
                 () => controller.reportList.isEmpty
-                    ? const Expanded(
-                        child: Center(
-                          child: Text("No Records found",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              )),
-                        ),
+                    ? const Center(
+                        child: Text("No Records found",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            )),
                       )
                     : Expanded(
                         child: ListView.builder(
                             itemCount: controller.reportList.length,
-                            //controller.reportData.length,
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 2, vertical: 4),
                             physics: const BouncingScrollPhysics(),
                             itemBuilder: (__, index) => _showTopupHistoryReport(
                                 controller.reportList[index])),
@@ -74,12 +73,6 @@ class TopupReportScreen extends GetView<TopupReportController> {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Get.toNamed(AppRoutes.retailerTopupScreen);
-          },
-          child: const Icon(Icons.add),
-        ),
       ),
     );
   }
@@ -87,7 +80,9 @@ class TopupReportScreen extends GetView<TopupReportController> {
   _showTopupHistoryReport(TopupHistoryResponseReturnData reportList) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      margin: const EdgeInsets.only(bottom: 6),
+      margin: const EdgeInsets.only(
+        bottom: 6,
+      ),
       decoration: boxDecoration,
       child: Center(
         child: Column(

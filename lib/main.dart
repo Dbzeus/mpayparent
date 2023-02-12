@@ -19,6 +19,8 @@ void main() async {
       route = AppRoutes.distributorMainScreen;
     } else if (box.read(Session.roleId) == 4) {
       route = AppRoutes.salesMainScreen;
+    } else if (box.read(Session.roleId) == 3) {
+      route = AppRoutes.financeMainScreen;
     }
   }
 

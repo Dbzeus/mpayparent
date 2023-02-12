@@ -3,29 +3,29 @@
 /// Message : "Topup details loaded sucessfully.."
 /// ReturnData : [{"TransID":15,"TransFrom":5,"TransTo":7,"TransactionDate":"07-02-2023","TransFromName":"Mpayy (DI-0005)","TransToName":"Sathya (RE-0007)","Time":"4:39PM","MobileNo":"9108259595","ToRole":"Retailer","TrToMobile":"6383083964","TransValue":200,"OpeningBalanceTrFr":1308.55,"OpeningBalanceTrTo":0,"ClosingBalanceTrFr":1108.55,"ClosingBalanceTrTo":200,"Description":"Mpayy (DI-0005) To Sathya (RE-0007)","CreatedDate":"2023-02-07T16:39:38.967","Remarks":"demo "}]
 
-class RetailerTopupHistoryResponse {
-  RetailerTopupHistoryResponse(
+class TopupHistoryResponse {
+  TopupHistoryResponse(
     this.status,
     this.statusCode,
     this.message,
     this.returnData,
   );
 
-  RetailerTopupHistoryResponse.fromJson(dynamic json) {
+  TopupHistoryResponse.fromJson(dynamic json) {
     status = json['Status'];
     statusCode = json['StatusCode'];
     message = json['Message'];
     if (json['ReturnData'] != null) {
       returnData = [];
       json['ReturnData'].forEach((v) {
-        returnData.add(RetailerTopupHistoryResponseReturnData.fromJson(v));
+        returnData.add(TopupHistoryResponseReturnData.fromJson(v));
       });
     }
   }
   late bool status;
   late int statusCode;
   late String message;
-  late List<RetailerTopupHistoryResponseReturnData> returnData;
+  late List<TopupHistoryResponseReturnData> returnData;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -58,8 +58,8 @@ class RetailerTopupHistoryResponse {
 /// CreatedDate : "2023-02-07T16:39:38.967"
 /// Remarks : "demo "
 
-class RetailerTopupHistoryResponseReturnData {
-  RetailerTopupHistoryResponseReturnData(
+class TopupHistoryResponseReturnData {
+  TopupHistoryResponseReturnData(
     this.transID,
     this.transFrom,
     this.transTo,
@@ -80,7 +80,7 @@ class RetailerTopupHistoryResponseReturnData {
     this.remarks,
   );
 
-  RetailerTopupHistoryResponseReturnData.fromJson(dynamic json) {
+  TopupHistoryResponseReturnData.fromJson(dynamic json) {
     transID = json['TransID'];
     transFrom = json['TransFrom'];
     transTo = json['TransTo'];

@@ -9,11 +9,11 @@ import '../../../utils/constant_function.dart';
 import '../../../utils/constant_widgets.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_edittext.dart';
-import 'request_topup_report_controller.dart';
+import 'di_request_topup_report_controller.dart';
 
-class RequestTopupScreen extends GetView<RequestTopupController> {
+class DIRequestTopupReportScreen extends GetView<DIRequestTopupReportController> {
   @override
-  final controller = Get.put(RequestTopupController());
+  final controller = Get.put(DIRequestTopupReportController());
   var boxDecoration = const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -25,7 +25,7 @@ class RequestTopupScreen extends GetView<RequestTopupController> {
         )
       ]);
 
-  RequestTopupScreen({Key? key}) : super(key: key);
+  DIRequestTopupReportScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class RequestTopupScreen extends GetView<RequestTopupController> {
         child: Column(
           children: [
             Obx(
-                  () => FilterHeader(
+              () => FilterHeader(
                 onFilterTap: (String fromDate, String toDate) {
                   controller.getRequestTopupReport(fromDate, toDate);
                 },
@@ -49,25 +49,25 @@ class RequestTopupScreen extends GetView<RequestTopupController> {
               ),
             ),
             Obx(
-                  () => controller.reportList.isEmpty
+              () => controller.reportList.isEmpty
                   ? const Center(
-                child: Text("No Records found",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    )),
-              )
+                      child: Text("No Records found",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    )
                   : Expanded(
-                child: ListView.builder(
-                    itemCount: controller.reportList.length,
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(horizontal: 2),
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (__, index) =>
-                        _showRequestTopupTransferReport(
-                            controller.reportList[index])),
-              ),
+                      child: ListView.builder(
+                          itemCount: controller.reportList.length,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (__, index) =>
+                              _showRequestTopupTransferReport(
+                                  controller.reportList[index])),
+                    ),
             ),
           ],
         ),
@@ -75,7 +75,8 @@ class RequestTopupScreen extends GetView<RequestTopupController> {
     );
   }
 
-  _showRequestTopupTransferReport(DistributorRequestResponseReturnData reportData) {
+  _showRequestTopupTransferReport(
+      DistributorRequestResponseReturnData reportData) {
     return GestureDetector(
       onTap: () async {
         var mpin = await showMpinDialog();
@@ -217,7 +218,7 @@ class RequestTopupScreen extends GetView<RequestTopupController> {
                             toast('Enter Valid Amount');
                           }
                         },
-                          ),
+                      ),
                     ),
                   ],
                 ),

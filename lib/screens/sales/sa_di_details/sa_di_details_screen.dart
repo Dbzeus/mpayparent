@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mpayparent/model/retailerDetailsResponse.dart';
-import 'package:mpayparent/screens/distributor/retailer_details/retailer_details_controller.dart';
 
 import '../../../widgets/custom_edittext.dart';
+import 'sa_di_details_controller.dart';
 
-class RetailerDetailsScreen extends GetView<RetailerDetailsController> {
+class SADistributorScreen extends GetView<SADistributorController> {
   @override
-  final controller = Get.put(RetailerDetailsController());
+  final controller = Get.put(SADistributorController());
 
   var boxDecoration = const BoxDecoration(
       color: Colors.white,
@@ -21,7 +21,7 @@ class RetailerDetailsScreen extends GetView<RetailerDetailsController> {
         )
       ]);
 
-  RetailerDetailsScreen({Key? key}) : super(key: key);
+  SADistributorScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class RetailerDetailsScreen extends GetView<RetailerDetailsController> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text("Retailer"),
+          title: const Text("Distributor"),
         ),
         body: Column(
           children: [
@@ -55,17 +55,17 @@ class RetailerDetailsScreen extends GetView<RetailerDetailsController> {
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : controller.retailerDetails.isEmpty
+                    : controller.distributorDetails.isEmpty
                         ? const Center(
                             child: Text('No Retailers Found'),
                           )
                         : ListView.builder(
-                            itemCount: controller.retailerDetails.length,
+                            itemCount: controller.distributorDetails.length,
                             scrollDirection: Axis.vertical,
                             physics: const BouncingScrollPhysics(),
                             itemBuilder: (__, index) =>
-                                _showRetailerDetailsReport(
-                                    controller.retailerDetails[index]),
+                                _showDistributorDetailsReport(
+                                    controller.distributorDetails[index]),
                           ),
               ),
             )
@@ -79,7 +79,7 @@ class RetailerDetailsScreen extends GetView<RetailerDetailsController> {
     );
   }
 
-  _showRetailerDetailsReport(RetailerResponseReturnData retailerData) {
+  _showDistributorDetailsReport(RetailerResponseReturnData retailerData) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       margin: const EdgeInsets.all(8),

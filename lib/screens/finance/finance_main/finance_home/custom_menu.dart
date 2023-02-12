@@ -1,42 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mpayparent/screens/sales/sales_main/sales_home/sales_home_controller.dart';
 
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/custom_colors.dart';
-import 'distributor_home_controller.dart';
+import 'finance_home_controller.dart';
 
 class CustomMenu extends StatelessWidget {
   var menus = [
     {
-      'title': 'My Transaction',
+      'title': 'Distributor',
       'iconUrl': "assets/icon/transfer_money.png",
-      'onClickUrl': AppRoutes.myTransactionReportScreen
-    },
-    {
-      'title': 'Retailer',
-      'iconUrl': "assets/icon/transfer_status.png",
-      'onClickUrl': AppRoutes.retailerDetailScreen
-    },
-    {
-      'title': 'Wallet Request',
-      'iconUrl': "assets/icon/transfer_report.png",
-      'onClickUrl': AppRoutes.distributorWalletReportRequestScreen
-    },
-    {
-      'title': 'Topup',
-      'iconUrl': "assets/icon/topup.png",
       'onClickUrl': AppRoutes.topupReportScreen
     },
     {
       'title': 'Request Topup',
+      'iconUrl': "assets/icon/transfer_status.png",
+      'onClickUrl': AppRoutes.financeRequestTopupReportScreen
+    },
+    {
+      'title': 'DMT Transaction',
+      'iconUrl': "assets/icon/transfer_report.png",
+      'onClickUrl': AppRoutes.salesDMTReportScreen
+    },
+    {
+      'title': 'My Transaction',
       'iconUrl': "assets/icon/topup.png",
-      'onClickUrl': AppRoutes.distributorRequestTopupReportScreen
+      'onClickUrl': AppRoutes.myTransactionReportScreen
     },
   ];
 
   CustomMenu(this.controller, {super.key});
 
-  DistributorHomeController controller;
+  FinanceHomeController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +43,7 @@ class CustomMenu extends StatelessWidget {
           childAspectRatio: 0.97,
           crossAxisSpacing: 20,
           mainAxisSpacing: 16),
-      itemCount: 5, //menus.length,
+      itemCount: 4, //menus.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (_, index) {

@@ -7,7 +7,7 @@ import 'package:mpayparent/model/distributorRequestResponse.dart';
 import '../../../../utils/constant_function.dart';
 import '../../../../utils/session.dart';
 
-class RequestTopupController extends GetxController {
+class DIRequestTopupReportController extends GetxController {
   final _box = GetStorage();
   RxBool isLoading = false.obs;
   int mmpin = -1;
@@ -69,7 +69,8 @@ class RequestTopupController extends GetxController {
   retailerTopup(String reqId, String amount, String remark) async {
     var params = {
       "TransType": 3,
-      "TransFrom": userId,
+      "TransFrom":
+          1, // use "1" for accept request and  "0" for reject request in integer format
       "TransTo": reqId,
       "UserID": userId,
       "Amount": amount,

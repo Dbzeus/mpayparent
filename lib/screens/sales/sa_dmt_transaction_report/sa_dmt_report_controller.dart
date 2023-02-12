@@ -1,61 +1,65 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:mpayparent/model/retailerTopupHistoryResponse.dart';
-import 'package:mpayparent/utils/constant_function.dart';
 
-import '../../../../api/api_call.dart';
-import '../../../../utils/session.dart';
+import '../../../api/api_call.dart';
+import '../../../model/dmt_report_response.dart';
+import '../../../utils/constant_function.dart';
+import '../../../utils/session.dart';
 
-class TopupReportController extends GetxController {
+class SADmtReportController extends GetxController {
   final _box = GetStorage();
   RxBool isLoading = false.obs;
-  RxList<TopupHistoryResponseReturnData> reportList = RxList();
-  List<TopupHistoryResponseReturnData> searchList = [];
+  RxList<DmtReportData> reportData = RxList();
+
+  List<DmtReportData> tempList = [];
   DateTime today = DateTime.now();
 
   @override
   void onInit() {
     super.onInit();
-    getDistributorRequestReport(
+    getDmtReport(
         DateFormat('MM/dd/yyyy').format(DateTime(today.year, today.month, 1)),
-        DateFormat('MM/dd/yyyy').format(today));
+        DateFormat('MM/dd/yyyy').format(DateTime.now()));
   }
 
-  getDistributorRequestReport(String fromDate, String toDate) async {
+  getDmtReport(String fromDate, String toDate) async {
     if (fromDate.isEmpty && toDate.isEmpty) {
       toast("Select From & To Dates");
     } else {
       if (await isNetConnected()) {
         isLoading(true);
-
-        TopupHistoryResponse? reportResponse = await ApiCall()
-            .getRetailerTopupHistoryReport(
-                _box.read(Session.userId), 6, fromDate, toDate);
-        if (reportResponse != null && reportResponse.status) {
-          reportList(reportResponse.returnData);
-          searchList = reportResponse.returnData;
-        }
+        DmtReport? reportResponse =
+            await ApiCall().getDmtReport(0, fromDate, toDate);
         isLoading(false);
+
+        if (reportResponse != null && reportResponse.status) {
+          reportData(reportResponse.dmtData);
+          tempList = reportResponse.dmtData;
+        }
       }
     }
   }
 
   onSearchChanged(String text) {
     if (text.isEmpty) {
-      reportList(searchList);
+      reportData(tempList);
     } else {
-      reportList(searchList
+      reportData(tempList
           .where((element) =>
-              element.transFromName
+              element.senderName
                   .toString()
                   .toLowerCase()
                   .contains(text.toLowerCase()) ||
-              element.transToName
+              element.amount
                   .toString()
                   .toLowerCase()
                   .contains(text.toLowerCase()) ||
-              element.transValue
+              element.accountNumber
+                  .toString()
+                  .toLowerCase()
+                  .contains(text.toLowerCase()) ||
+              element.transactionID
                   .toString()
                   .toLowerCase()
                   .contains(text.toLowerCase()))

@@ -36,7 +36,7 @@ class MyTransactionReportScreen extends GetView<MyTransactionReportController> {
         child: Column(
           children: [
             Obx(
-                  () => FilterHeader(
+              () => FilterHeader(
                 onFilterTap: (String fromDate, String toDate) {
                   controller.getTransactionReport(fromDate, toDate);
                 },
@@ -50,23 +50,25 @@ class MyTransactionReportScreen extends GetView<MyTransactionReportController> {
               height: 10,
             ),
             Obx(() => controller.reportData.isEmpty
-                ? const Center(
-              child: Text("No Records found",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  )),
-            )
+                ? const Expanded(
+                    child: Center(
+                      child: Text("No Records found",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                  )
                 : Expanded(
-              child: ListView.builder(
-                  itemCount: controller.reportData.length,
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(horizontal: 2),
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (__, index) => _showMyTransferReport(
-                      controller.reportData[index])),
-            )),
+                    child: ListView.builder(
+                        itemCount: controller.reportData.length,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (__, index) => _showMyTransferReport(
+                            controller.reportData[index])),
+                  )),
           ],
         ),
       ),

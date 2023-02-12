@@ -4,10 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:mpayparent/model/retailerTopupHistoryResponse.dart';
 import 'package:mpayparent/utils/constant_function.dart';
 
-import '../../../../api/api_call.dart';
-import '../../../../utils/session.dart';
+import '../../../api/api_call.dart';
+import '../../../utils/session.dart';
 
-class TopupReportController extends GetxController {
+class SATopupReportController extends GetxController {
   final _box = GetStorage();
   RxBool isLoading = false.obs;
   RxList<TopupHistoryResponseReturnData> reportList = RxList();
@@ -30,8 +30,7 @@ class TopupReportController extends GetxController {
         isLoading(true);
 
         TopupHistoryResponse? reportResponse = await ApiCall()
-            .getRetailerTopupHistoryReport(
-                _box.read(Session.userId), 6, fromDate, toDate);
+            .getRetailerTopupHistoryReport(0, 0, fromDate, toDate);
         if (reportResponse != null && reportResponse.status) {
           reportList(reportResponse.returnData);
           searchList = reportResponse.returnData;

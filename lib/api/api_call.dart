@@ -10,6 +10,7 @@ import 'package:mpayparent/model/retailerTopupHistoryResponse.dart';
 
 import '../main.dart';
 import '../model/balance_report_response.dart';
+import '../model/dmt_report_response.dart';
 import '../utils/constant_function.dart';
 import 'url.dart';
 
@@ -351,7 +352,7 @@ class ApiCall {
   }
 
   //Get Retailer Topup History Report
-  Future<RetailerTopupHistoryResponse?> getRetailerTopupHistoryReport(
+  Future<TopupHistoryResponse?> getRetailerTopupHistoryReport(
     int userId,
     int transType,
     String fromDate,
@@ -369,7 +370,61 @@ class ApiCall {
           queryParameters: params);
       log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
 
-      return RetailerTopupHistoryResponse.fromJson(response.data);
+      return TopupHistoryResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //DmtTRansaction Report
+  Future<DmtReport?> getDmtReport(
+      int userId, String fromDate, String toDate) async {
+    try {
+      var params = {
+        "SendeID": userId,
+        "StartDate": fromDate,
+        "EndDate": toDate,
+      };
+
+      final response =
+          await _dio.get(salesDmtReportUrl, queryParameters: params);
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return DmtReport.fromJson(response.data);
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  // get finance distributor REport List
+
+  Future<DistributorRequestResponse?> getFIDistributorRequestReport(
+    int requestFrom,
+    int requestTo,
+    int requestStatus,
+    String fromDate,
+    String toDate,
+  ) async {
+    try {
+      var params = {
+        "RequestFrom": requestFrom,
+        "RequestTo": requestTo,
+        "RequestStatus": requestStatus,
+        "StartDate": fromDate,
+        "EndDate": toDate,
+      };
+      log(jsonEncode(params));
+      final response =
+          await _dio.get(financeDITopupRequestUrl, queryParameters: params);
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return DistributorRequestResponse.fromJson(response.data);
     } on DioError catch (e) {
       toast(e.response?.data['Message'] ?? e.message);
     } catch (e) {

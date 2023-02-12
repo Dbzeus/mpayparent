@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
-import 'package:mpayparent/model/balance_report_response.dart';
 import 'package:mpayparent/model/parentDashboardResponse.dart';
 import 'package:mpayparent/routes/app_routes.dart';
 import 'package:mpayparent/utils/session.dart';
@@ -13,9 +12,10 @@ import '../../../../utils/constant_string.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_edittext.dart';
 
-class SalesHomeController extends GetxController {
+class FinanceHomeController extends GetxController {
   RxList<ParentDashboardResponseReturnData> parentDashboard = RxList();
   RxString retailerTotalBalance = "-1".obs;
+  RxString myWalletBalance = "-1".obs;
   RxString distributorTotalBalance = "-1".obs;
   final _box = GetStorage();
   int userId = -1;
@@ -29,11 +29,26 @@ class SalesHomeController extends GetxController {
     retailerTotalBalance(_box.read(Session.retailerTotalBalance) ?? "0");
     distributorTotalBalance(
         _box.read(Session.distributorCurrentBalance) ?? "0");
+    myWalletBalance(_box.read(Session.myWalletBalance) ?? "0");
     userId = _box.read(Session.userId);
     roleId = _box.read(Session.roleId);
     super.onInit();
     checkDevice(userId);
     getDashboardBalance();
+    getMyWalletBalance();
+  }
+
+  getMyWalletBalance() async {
+    if (await isNetConnected()) {
+      var response = await ApiCall().getCurrentBalance(userId); //give
+      if (response != null && response["Status"]) {
+        if (response["ReturnData"].isNotEmpty) {
+          myWalletBalance(response["ReturnData"][0]["Amount"].toString());
+          _box.write(Session.myWalletBalance, myWalletBalance.value);
+          //Not included the AEPS Amount
+        }
+      }
+    }
   }
 
   getDashboardBalance() async {
@@ -43,8 +58,7 @@ class SalesHomeController extends GetxController {
       if (response != null && response.status) {
         if (response.returnData.isNotEmpty) {
           parentDashboard(response.returnData);
-          distributorTotalBalance(parentDashboard[0].dcb);
-          retailerTotalBalance(parentDashboard[0].rcb);
+
           _box.write(Session.distributorCurrentBalance, parentDashboard[0].dcb);
           _box.write(Session.retailerTotalBalance, parentDashboard[0].rcb);
           //Not included the AEPS Amount

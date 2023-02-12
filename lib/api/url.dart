@@ -20,3 +20,9 @@ const userBankDetailsUrl = "UserBankDetails";
 const retailerDistributorTopupUrl = "Topup_Insert";
 const distributorRequestUrl = "TopupRequest";
 const retailerDistributorRequestedTopupUrl = "TopupFromRequest";
+
+//sales
+const salesDmtReportUrl = "TransactionHistory";
+
+//finance
+const financeDITopupRequestUrl = "TopupRequest_Dist";

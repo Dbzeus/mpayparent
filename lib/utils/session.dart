@@ -9,6 +9,7 @@ class Session {
   static const deviceType = "deviceType";
   static const distributorCurrentBalance = "distributorCurrentBalance";
   static const retailerTotalBalance = "retailerCurrentBalance";
+  static const myWalletBalance = "walletBalance";
 
 
 }

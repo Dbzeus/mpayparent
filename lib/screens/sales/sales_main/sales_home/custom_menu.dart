@@ -10,17 +10,17 @@ class CustomMenu extends StatelessWidget {
     {
       'title': 'Distributor',
       'iconUrl': "assets/icon/transfer_money.png",
-      'onClickUrl': AppRoutes.myTransactionReportScreen
+      'onClickUrl': AppRoutes.salesDistributorScreen
     },
     {
       'title': 'Toup',
       'iconUrl': "assets/icon/transfer_status.png",
-      'onClickUrl': AppRoutes.retailerDetailScreen
+      'onClickUrl': AppRoutes.salesTopupReportScreen
     },
     {
       'title': 'DMT Transaction',
       'iconUrl': "assets/icon/transfer_report.png",
-      'onClickUrl': AppRoutes.distributorWalletReportRequestScreen
+      'onClickUrl': AppRoutes.salesDMTReportScreen
     },
   ];
 
