@@ -7,11 +7,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mpayparent/api/api_call.dart';
-import 'package:mpayparent/model/retailerDetailsResponse.dart';
 import 'package:mpayparent/screens/parent/model/userList.dart';
 import 'package:mpayparent/utils/constant_function.dart';
-import 'package:mpayparent/utils/constant_string.dart';
-import 'package:mpayparent/utils/constant_widgets.dart';
 import 'package:mpayparent/utils/session.dart';
 
 class UserCreateController extends GetxController {
@@ -19,12 +16,13 @@ class UserCreateController extends GetxController {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController mobileNoController = TextEditingController();
   TextEditingController mailController = TextEditingController();
+  TextEditingController zoneController = TextEditingController();
   TextEditingController remarksController = TextEditingController();
 
   var userList;
   RxString imagePath = "".obs;
   String encodedImage = "";
-  var userData = Get.arguments["userData"];
+  UserListReturnData? userData = Get.arguments["userData"];
   RxBool isLoading = false.obs;
   int userId = -1;
   int roleId = -1;
@@ -36,13 +34,13 @@ class UserCreateController extends GetxController {
   @override
   void onInit() {
     if (userData != null) {
-      userData as UserListReturnData;
-      firstNameController.text = userData.firstName;
-      lastNameController.text = userData.lastName;
-      mobileNoController.text = userData.mobileNo;
-      mailController.text = userData.emailID;
-      remarksController.text = userData.remarks;
-      imagePath(userData.profileImage);
+      firstNameController.text = userData!.firstName;
+      lastNameController.text = userData!.lastName;
+      mobileNoController.text = userData!.mobileNo;
+      mailController.text = userData!.emailID;
+      remarksController.text = userData!.remarks;
+      zoneController.text = userData!.zone;
+      imagePath(userData!.profileImage ?? "");
     }
     title(Get.arguments["title"]);
     roleId = Get.arguments["roleId"];
@@ -66,20 +64,20 @@ class UserCreateController extends GetxController {
       if (await isNetConnected()) {
         isLoading(true);
         var params = {
-          "UserID": userData != null ? userData.userID : 0,
-          "RoleID": userData != null ? userData.roleID : roleId,
+          "UserID": userData?.userID ?? 0,
+          "RoleID": userData?.roleID ?? roleId,
           "FirstName": firstNameController.text,
           "LastName": lastNameController.text,
           "MobileNo": mobileNoController.text,
-          "RoleName": userData != null ? userData.roleName : "",
-          "MPin": userData != null ? userData.mPin : 0,
-          "OTP": userData != null ? userData.otp : 0,
+          "RoleName": userData?.roleName ?? "",
+          "MPin": userData!.mPin ?? 0,
+          "OTP": userData!.otp ?? 0,
           "EmailID": mailController.text,
-          "Zone": userData != null ? userData.zone : "0",
+          "Zone": zoneController.text,
           "Remarks": remarksController.text,
           "ProfileImage": encodedImage,
           "IsActive ": true,
-          "CUID": userId,
+          "CUID": userData?.isActive ?? true,
           "CUDate": "",
         };
         final userDetailsResponse =
@@ -97,7 +95,7 @@ class UserCreateController extends GetxController {
   pickImage() async {
     res = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (res != null) {
-      imagePath(res.path); // onvert Path to File
+      imagePath(res.path); // convert Path to File
       File imageFile = File(res.path); //c
       Uint8List imageBytes = await imageFile.readAsBytes(); //convert to bytes
       encodedImage = base64.encode(imageBytes); //convert bytes to base64 string

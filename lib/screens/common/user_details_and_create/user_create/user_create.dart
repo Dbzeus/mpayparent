@@ -1,18 +1,18 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
-
 import 'package:mpayparent/utils/custom_colors.dart';
 import 'package:mpayparent/widgets/custom_button.dart';
 import 'package:mpayparent/widgets/custom_edittext.dart';
 
+import '../../../../utils/constant_string.dart';
 import 'user_create_controller.dart';
 
 class UserCreateScreen extends GetView<UserCreateController> {
   @override
   final controller = Get.put(UserCreateController());
+
   var boxDecoration = const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -63,20 +63,20 @@ class UserCreateScreen extends GetView<UserCreateController> {
                                       color: primaryColor,
                                       image: controller.imagePath.isEmpty
                                           ? const DecorationImage(
-                                              image: AssetImage(
-                                              'assets/icon/profile.png',
-                                            ))
-                                          : controller.userData.profileImage
-                                                  .isNotEmpty
-                                              ? DecorationImage(
-                                                  fit: BoxFit.fill,
-                                                  image: NetworkImage(controller
-                                                          .imagePath
-                                                          .value //need to decode
-                                                      ))
-                                              : DecorationImage(
-                                                  fit: BoxFit.fill,
-                                                  image: FileImage(File(
+                                          image: AssetImage(
+                                            'assets/icon/profile.png',
+                                          ))
+                                          : controller.userData!.profileImage
+                                          .isNotEmpty
+                                          ? DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage(controller
+                                              .imagePath
+                                              .value //need to decode
+                                          ))
+                                          : DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: FileImage(File(
                                                       controller
                                                           .imagePath.value)))),
                                 ),
@@ -135,11 +135,21 @@ class UserCreateScreen extends GetView<UserCreateController> {
                   CustomEditText(
                     controller: controller.mailController,
                     hintText: "Email Id",
+                    keyboardType: TextInputType.emailAddress,
                     contentPadding: const EdgeInsets.only(left: 12),
                     maxLines: 1,
                   ),
                   const SizedBox(
                     height: 12,
+                  ),
+                  controller.roleId == saleRoleId ? CustomEditText(
+                    controller: controller.zoneController,
+                    hintText: "Zone",
+                    contentPadding: const EdgeInsets.only(left: 12),
+                    maxLines: 1,
+                  ) : const SizedBox.shrink(),
+                  SizedBox(
+                    height: controller.roleId == saleRoleId ? 12 : 0,
                   ),
                   CustomEditText(
                     controller: controller.remarksController,
