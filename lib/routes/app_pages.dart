@@ -1,11 +1,17 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:mpayparent/screens/common/show_image/show_image.dart';
+import 'package:mpayparent/screens/common/topup/topup.dart';
+import 'package:mpayparent/screens/common/user_details_and_create/user_create/user_create.dart';
+import 'package:mpayparent/screens/common/user_details_and_create/user_details/user_details_screen.dart';
 import 'package:mpayparent/screens/distributor/distributor_main/distributor_main/di_main_screen.dart';
 import 'package:mpayparent/screens/distributor/my_transaction/my_transaction_report.dart';
 import 'package:mpayparent/screens/distributor/request_topup/di_request_topup_report.dart';
 import 'package:mpayparent/screens/distributor/retailer_details/retailer_details_screen.dart';
 import 'package:mpayparent/screens/finance/finance_main/finance_main/finance_main_screen.dart';
 import 'package:mpayparent/screens/finance/request_topup/fi_request_topup_report.dart';
+import 'package:mpayparent/screens/parent/parent_aeps_report/parent_aeps_report_screen.dart';
+import 'package:mpayparent/screens/parent/parent_main/parent_main/parent_main_screen.dart';
+import 'package:mpayparent/screens/parent/topup_activity/topup_activity.dart';
 import 'package:mpayparent/screens/sales/sa_di_details/sa_di_details_screen.dart';
 
 import 'package:mpayparent/screens/sales/sa_dmt_transaction_report/sa_dmt_report_screen.dart';
@@ -26,37 +32,50 @@ class AppPages {
     GetPage(name: AppRoutes.loginScreen, page: () => LoginScreen()),
     GetPage(name: AppRoutes.otpScreen, page: () => OtpScreen()),
 
-    //show image
+    //show image common screen
     GetPage(name: AppRoutes.showImage, page: () => ShowImage()),
 
-    //distributor
-    GetPage(
-        name: AppRoutes.distributorMainScreen,
-        page: () => DistributorMainScreen()),
-    GetPage(
-        name: AppRoutes.distributorWalletReportRequestScreen,
-        page: () => DistributorWalletRequestScreen()),
-    GetPage(
-        name: AppRoutes.retailerDetailScreen,
-        page: () => RetailerDetailsScreen()),
+    //topup common screen
+    GetPage(name: AppRoutes.topupScreen, page: () => TopupScreen()),
+
+    //UserDetails common screen
+    GetPage(name: AppRoutes.userDetailsScreen, page: () => UserDetailsScreen()),
+
+    //UserCreate common screen
+    GetPage(name: AppRoutes.userCreateScreen, page: () => UserCreateScreen()),
+
+    //Balance report common screen
     GetPage(
         name: AppRoutes.balanceReportActivityScreen,
         page: () => BalanceReportScreen()),
+
+    //distributor
+    GetPage(name: AppRoutes.distributorMainScreen, page: () => DIMainScreen()),
     GetPage(
-        name: AppRoutes.myTransactionReportScreen,
-        page: () => MyTransactionReportScreen()),
+        name: AppRoutes.distributorWalletReportRequestScreen,
+        page: () => DIWalletRequestScreen()),
+    GetPage(
+        name: AppRoutes.distributorRetailerDetailScreen,
+        page: () => DIRetailerDetailsScreen()),
+
+    GetPage(
+        name: AppRoutes.distributorMyTransactionReportScreen,
+        page: () => DIMyTransactionReportScreen()),
     GetPage(
         name: AppRoutes.distributorRequestTopUpScreen,
-        page: () => DistributorRequestTopupScreen()),
+        page: () => DIRequestTopupScreen()),
     GetPage(
-        name: AppRoutes.retailerTopupScreen, page: () => RetailerTopupScreen()),
-    GetPage(name: AppRoutes.topupReportScreen, page: () => TopupReportScreen()),
+        name: AppRoutes.distributorRetailerTopupScreen,
+        page: () => DIRetailerTopupScreen()),
+    GetPage(
+        name: AppRoutes.distributorTopupReportScreen,
+        page: () => DITopupReportScreen()),
     GetPage(
         name: AppRoutes.distributorRequestTopupReportScreen,
         page: () => DIRequestTopupReportScreen()),
 
     //Sales
-    GetPage(name: AppRoutes.salesMainScreen, page: () => SalesMainScreen()),
+    GetPage(name: AppRoutes.salesMainScreen, page: () => SAMainScreen()),
     GetPage(
         name: AppRoutes.salesDistributorScreen,
         page: () => SADistributorScreen()),
@@ -67,9 +86,18 @@ class AppPages {
         page: () => SATopupReportScreen()),
 
     //finance
-    GetPage(name: AppRoutes.financeMainScreen, page: () => FinanceMainScreen()),
+    GetPage(name: AppRoutes.financeMainScreen, page: () => FIMainScreen()),
     GetPage(
         name: AppRoutes.financeRequestTopupReportScreen,
         page: () => FIRequestTopupReportScreen()),
+
+    //parent
+    GetPage(name: AppRoutes.parentMainScreen, page: () => ParentMainScreen()),
+    GetPage(
+        name: AppRoutes.parentTopupActivityScreen,
+        page: () => PATopupActivityScreen()),
+    GetPage(
+        name: AppRoutes.parentAEPSReportScreen,
+        page: () => PAAepsReportScreen()),
   ];
 }

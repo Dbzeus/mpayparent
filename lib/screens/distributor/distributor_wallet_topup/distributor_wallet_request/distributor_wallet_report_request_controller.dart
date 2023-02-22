@@ -7,7 +7,7 @@ import 'package:mpayparent/model/distributorRequestResponse.dart';
 import '../../../../utils/constant_function.dart';
 import '../../../../utils/session.dart';
 
-class DistributorWalletRequestController extends GetxController {
+class DIWalletRequestController extends GetxController {
   final _box = GetStorage();
   RxBool isLoading = false.obs;
   RxList<DistributorRequestResponseReturnData> reportList = RxList();

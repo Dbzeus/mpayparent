@@ -6,9 +6,9 @@ import '../../../utils/constant_string.dart';
 import '../../../widgets/filter_header.dart';
 import 'my_transaction_controller.dart';
 
-class MyTransactionReportScreen extends GetView<MyTransactionReportController> {
+class DIMyTransactionReportScreen extends GetView<DIMyTransactionReportController> {
   @override
-  final controller = Get.put(MyTransactionReportController());
+  final controller = Get.put(DIMyTransactionReportController());
 
   var boxDecoration = const BoxDecoration(
       color: Colors.white,
@@ -21,7 +21,7 @@ class MyTransactionReportScreen extends GetView<MyTransactionReportController> {
         )
       ]);
 
-  MyTransactionReportScreen({Key? key}) : super(key: key);
+  DIMyTransactionReportScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

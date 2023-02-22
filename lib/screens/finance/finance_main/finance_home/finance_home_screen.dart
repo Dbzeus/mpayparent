@@ -5,11 +5,11 @@ import '../../../../widgets/dashboard_card.dart';
 import 'custom_menu.dart';
 import 'finance_home_controller.dart';
 
-class FinanceHomeScreen extends GetView<FinanceHomeController> {
+class FIHomeScreen extends GetView<FIHomeController> {
   @override
-  final controller = Get.put(FinanceHomeController());
+  final controller = Get.put(FIHomeController());
 
-  FinanceHomeScreen({Key? key}) : super(key: key);
+  FIHomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

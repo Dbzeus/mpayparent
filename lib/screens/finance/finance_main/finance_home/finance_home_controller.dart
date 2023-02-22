@@ -12,7 +12,7 @@ import '../../../../utils/constant_string.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_edittext.dart';
 
-class FinanceHomeController extends GetxController {
+class FIHomeController extends GetxController {
   RxList<ParentDashboardResponseReturnData> parentDashboard = RxList();
   RxString retailerTotalBalance = "-1".obs;
   RxString myWalletBalance = "-1".obs;
@@ -26,9 +26,8 @@ class FinanceHomeController extends GetxController {
 
   @override
   void onInit() {
-    retailerTotalBalance(_box.read(Session.retailerTotalBalance) ?? "0");
-    distributorTotalBalance(
-        _box.read(Session.distributorCurrentBalance) ?? "0");
+    retailerTotalBalance(_box.read(Session.retailerBalance) ?? "0");
+    distributorTotalBalance(_box.read(Session.distributorBalance) ?? "0");
     myWalletBalance(_box.read(Session.myWalletBalance) ?? "0");
     userId = _box.read(Session.userId);
     roleId = _box.read(Session.roleId);
@@ -58,9 +57,10 @@ class FinanceHomeController extends GetxController {
       if (response != null && response.status) {
         if (response.returnData.isNotEmpty) {
           parentDashboard(response.returnData);
-
-          _box.write(Session.distributorCurrentBalance, parentDashboard[0].dcb);
-          _box.write(Session.retailerTotalBalance, parentDashboard[0].rcb);
+          distributorTotalBalance(parentDashboard[0].dcb);
+          retailerTotalBalance(parentDashboard[0].rcb);
+          _box.write(Session.distributorBalance, parentDashboard[0].dcb);
+          _box.write(Session.retailerBalance, parentDashboard[0].rcb);
           //Not included the AEPS Amount
         }
       }

@@ -20,10 +20,10 @@ class SADistributorController extends GetxController {
   void onInit() {
     super.onInit();
     userId = _box.read(Session.userId);
-    getRetailerDetails();
+    getDistributorDetails();
   }
 
-  getRetailerDetails() async {
+  getDistributorDetails() async {
     if (await isNetConnected()) {
       isLoading(true);
       RetailerDetailsResponse? distributorDetailsResponse = await ApiCall()

@@ -7,7 +7,7 @@ import '../../../api/api_call.dart';
 import '../../../utils/constant_function.dart';
 import '../../../utils/session.dart';
 
-class MyTransactionReportController extends GetxController {
+class DIMyTransactionReportController extends GetxController {
   final _box = GetStorage();
   RxBool isLoading = false.obs;
   RxList<MyTransactionResponseReturnData> reportData = RxList();

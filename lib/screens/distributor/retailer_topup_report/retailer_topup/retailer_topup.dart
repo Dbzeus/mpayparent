@@ -6,11 +6,11 @@ import 'package:mpayparent/widgets/custom_edittext.dart';
 
 import 'retailer_topup_controller.dart';
 
-class RetailerTopupScreen extends GetView<RetailerTopupController> {
+class DIRetailerTopupScreen extends GetView<DIRetailerTopupController> {
   @override
-  final controller = Get.put(RetailerTopupController());
+  final controller = Get.put(DIRetailerTopupController());
 
-  RetailerTopupScreen({Key? key}) : super(key: key);
+  DIRetailerTopupScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +86,10 @@ class RetailerTopupScreen extends GetView<RetailerTopupController> {
                         onTap: controller.isLoading.value
                             ? () {}
                             : () {
-                          Get.back();
-                        }),
+                                Get.back();
+                              }),
                     Obx(
-                          () => CustomButton(
+                      () => CustomButton(
                         width: Get.width / 2.5,
                         isLoading: controller.isLoading.value,
                         text: "Save",
@@ -148,42 +148,42 @@ class RetailerTopupScreen extends GetView<RetailerTopupController> {
               height: 12,
             ),
             Obx(
-                  () => Expanded(
+              () => Expanded(
                 child: controller.retailerList.isEmpty
                     ? const Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text('Retailer Not Found'),
-                    ))
+                        child: Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Text('Retailer Not Found'),
+                      ))
                     : ListView.builder(
-                    itemCount: controller.retailerList.length,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (__, index) {
-                      return ListTile(
-                        dense: true,
-                        isThreeLine: false,
-                        leading: const Icon(
-                          Icons.person,
-                          size: 24,
-                          color: secondaryButtonColor,
-                        ),
-                        onTap: () {
-                          controller.retailerController.text = controller
-                              .retailerList[index].firstName
-                              .toString();
-                          controller.retailerId =
-                              controller.retailerList[index].userID;
-                          controller.searchController.clear();
-                          Get.back();
-                        },
-                        title: Text(
-                            "${controller.retailerList[index].firstName} (${controller.retailerList[index].mobileNo})",
-                            style: const TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      );
-                    }),
+                        itemCount: controller.retailerList.length,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (__, index) {
+                          return ListTile(
+                            dense: true,
+                            isThreeLine: false,
+                            leading: const Icon(
+                              Icons.person,
+                              size: 24,
+                              color: secondaryButtonColor,
+                            ),
+                            onTap: () {
+                              controller.retailerController.text = controller
+                                  .retailerList[index].firstName
+                                  .toString();
+                              controller.retailerId =
+                                  controller.retailerList[index].userID;
+                              controller.searchController.clear();
+                              Get.back();
+                            },
+                            title: Text(
+                                "${controller.retailerList[index].firstName} (${controller.retailerList[index].mobileNo})",
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                          );
+                        }),
               ),
             )
           ],

@@ -10,10 +10,10 @@ import '../../../common/profile/profile_screen.dart';
 
 import 'bottom_navigation_bar.dart';
 
-class FinanceMainScreen extends StatelessWidget {
-  FinanceMainScreen({Key? key}) : super(key: key);
+class FIMainScreen extends StatelessWidget {
+  FIMainScreen({Key? key}) : super(key: key);
 
-  final pages = [FinanceHomeScreen(), NotificationScreen(), ProfileScreen()];
+  final pages = [FIHomeScreen(), NotificationScreen(), ProfileScreen()];
 
   RxInt selectedIndex = 0.obs;
 

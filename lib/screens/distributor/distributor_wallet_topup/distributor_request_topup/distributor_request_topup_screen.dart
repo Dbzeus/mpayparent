@@ -6,11 +6,11 @@ import 'package:mpayparent/widgets/custom_button.dart';
 import '../../../../widgets/custom_edittext.dart';
 import 'distributor_request_topup_controller.dart';
 
-class DistributorRequestTopupScreen extends GetView<DistributorRequestTopupController> {
+class DIRequestTopupScreen extends GetView<DIRequestTopupController> {
   @override
-  final controller = Get.put(DistributorRequestTopupController());
+  final controller = Get.put(DIRequestTopupController());
 
-  DistributorRequestTopupScreen({Key? key}) : super(key: key);
+  DIRequestTopupScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

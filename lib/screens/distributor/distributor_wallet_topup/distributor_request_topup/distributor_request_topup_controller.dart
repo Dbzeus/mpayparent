@@ -11,7 +11,7 @@ import 'package:mpayparent/utils/constant_function.dart';
 import 'package:mpayparent/utils/constant_widgets.dart';
 import 'package:mpayparent/utils/session.dart';
 
-class DistributorRequestTopupController extends GetxController {
+class DIRequestTopupController extends GetxController {
   TextEditingController bankController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController remarkController = TextEditingController();
@@ -48,15 +48,15 @@ class DistributorRequestTopupController extends GetxController {
     }
   }
 
-  attachImage() async {
-    res = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (res != null) {
-      File imageFile = File(res.path); //convert Path to File
-      Uint8List imageBytes = await imageFile.readAsBytes(); //convert to bytes
-      imagePath = base64.encode(imageBytes); //convert bytes to base64 string
-      isAttached(true);
+    attachImage() async {
+      res = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (res != null) {
+        File imageFile = File(res.path); //convert Path to File
+        Uint8List imageBytes = await imageFile.readAsBytes(); //convert to bytes
+        imagePath = base64.encode(imageBytes); //convert bytes to base64 string
+        isAttached(true);
+      }
     }
-  }
 
   dmtWalletTopup() async {
     Get.focusScope?.unfocus();

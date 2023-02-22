@@ -11,7 +11,7 @@ class CustomMenu extends StatelessWidget {
     {
       'title': 'Distributor',
       'iconUrl': "assets/icon/transfer_money.png",
-      'onClickUrl': AppRoutes.topupReportScreen
+      'onClickUrl': AppRoutes.parentTopupActivityScreen
     },
     {
       'title': 'Request Topup',
@@ -26,13 +26,13 @@ class CustomMenu extends StatelessWidget {
     {
       'title': 'My Transaction',
       'iconUrl': "assets/icon/topup.png",
-      'onClickUrl': AppRoutes.myTransactionReportScreen
+      'onClickUrl': AppRoutes.distributorMyTransactionReportScreen
     },
   ];
 
   CustomMenu(this.controller, {super.key});
 
-  FinanceHomeController controller;
+  FIHomeController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class CustomMenu extends StatelessWidget {
           childAspectRatio: 0.97,
           crossAxisSpacing: 20,
           mainAxisSpacing: 16),
-      itemCount: 4, //menus.length,
+      itemCount: menus.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (_, index) {
@@ -56,7 +56,15 @@ class CustomMenu extends StatelessWidget {
   _buildMenu(imagePath, title, onClickUrl) {
     return InkWell(
       onTap: () {
-        Get.toNamed(onClickUrl);
+        if (title == "Distributor") {
+          Get.toNamed(onClickUrl,
+              arguments: {"tType": 6, "title": "Distributor Report"});
+        } else if (title == "DMT Transaction") {
+          Get.toNamed(onClickUrl,
+              arguments: {"isParent": false, "title": "DMT Report"});
+        } else {
+          Get.toNamed(onClickUrl);
+        }
       },
       child: Container(
           padding: const EdgeInsets.all(8),

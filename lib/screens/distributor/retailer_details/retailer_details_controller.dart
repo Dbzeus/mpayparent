@@ -8,7 +8,7 @@ import '../../../api/api_call.dart';
 import '../../../utils/constant_function.dart';
 import '../../../utils/constant_string.dart';
 
-class RetailerDetailsController extends GetxController {
+class DIRetailerDetailsController extends GetxController {
   TextEditingController searchController = TextEditingController();
   int userId = -1;
   final _box = GetStorage();

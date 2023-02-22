@@ -9,7 +9,7 @@ import 'package:mpayparent/utils/session.dart';
 
 import '../../../../utils/constant_string.dart';
 
-class RetailerTopupController extends GetxController {
+class DIRetailerTopupController extends GetxController {
   TextEditingController retailerController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController remarkController = TextEditingController();

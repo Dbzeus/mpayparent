@@ -7,12 +7,13 @@ import 'package:mpayparent/utils/constant_function.dart';
 import '../../../../api/api_call.dart';
 import '../../../../utils/session.dart';
 
-class TopupReportController extends GetxController {
+class DITopupReportController extends GetxController {
   final _box = GetStorage();
   RxBool isLoading = false.obs;
   RxList<TopupHistoryResponseReturnData> reportList = RxList();
   List<TopupHistoryResponseReturnData> searchList = [];
   DateTime today = DateTime.now();
+  int tType = 6; // Transaction type
 
   @override
   void onInit() {
@@ -30,8 +31,8 @@ class TopupReportController extends GetxController {
         isLoading(true);
 
         TopupHistoryResponse? reportResponse = await ApiCall()
-            .getRetailerTopupHistoryReport(
-                _box.read(Session.userId), 6, fromDate, toDate);
+            .getTopupHistoryReport(
+                _box.read(Session.userId), tType, fromDate, toDate);
         if (reportResponse != null && reportResponse.status) {
           reportList(reportResponse.returnData);
           searchList = reportResponse.returnData;

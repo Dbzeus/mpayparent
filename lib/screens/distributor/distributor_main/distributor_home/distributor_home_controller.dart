@@ -25,8 +25,8 @@ class DistributorHomeController extends GetxController {
   @override
   void onInit() {
     distributorCurrentBalance(
-        _box.read(Session.distributorCurrentBalance) ?? "0");
-    retailerTotalBalance(_box.read(Session.retailerTotalBalance) ?? "0");
+        _box.read(Session.distributorBalance) ?? "0");
+    retailerTotalBalance(_box.read(Session.retailerBalance) ?? "0");
     userId = _box.read(Session.userId);
     roleId = _box.read(Session.roleId);
     super.onInit();
@@ -44,7 +44,7 @@ class DistributorHomeController extends GetxController {
         if (distributorBalanceResponse["ReturnData"].isNotEmpty) {
           distributorCurrentBalance(
               distributorBalanceResponse["ReturnData"][0]["Amount"].toString());
-          _box.write(Session.distributorCurrentBalance,
+          _box.write(Session.distributorBalance,
               distributorCurrentBalance.value);
           //Not included the AEPS Amount
         }
@@ -60,7 +60,7 @@ class DistributorHomeController extends GetxController {
       if (retailerBalanceResponse != null && retailerBalanceResponse.status) {
         if (retailerBalanceResponse.returnData.isNotEmpty) {
           retailerTotalBalance(retailerBalanceResponse.message);
-          _box.write(Session.retailerTotalBalance, retailerTotalBalance.value);
+          _box.write(Session.retailerBalance, retailerTotalBalance.value);
           //Not included the AEPS Amount
         }
       }

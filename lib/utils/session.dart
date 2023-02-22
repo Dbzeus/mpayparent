@@ -7,9 +7,14 @@ class Session {
   static const userId = "userId";
   static const roleId = "roleId";
   static const deviceType = "deviceType";
-  static const distributorCurrentBalance = "distributorCurrentBalance";
-  static const retailerTotalBalance = "retailerCurrentBalance";
+  static const distributorBalance = "distributorCurrentBalance";
+  static const retailerBalance = "retailerCurrentBalance";
   static const myWalletBalance = "walletBalance";
-
-
+  static const bankItBalance = "bankItBalance";
+  static const parentBalance = "parentBalance";
+  static const financierBalance = "financierBalance";
+  static const paySprintBalance = "paySprintBalance";
+  static const ourCommision = "ourCommision";
+  static const distributorCommision = "distributorCommision";
+  static const retailerCommision = "retailerCommision";
 }

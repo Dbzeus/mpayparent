@@ -8,8 +8,8 @@ import '../../../common/profile/profile_screen.dart';
 
 import 'bottom_navigation_bar.dart';
 
-class DistributorMainScreen extends StatelessWidget {
-  DistributorMainScreen({Key? key}) : super(key: key);
+class DIMainScreen extends StatelessWidget {
+  DIMainScreen({Key? key}) : super(key: key);
 
   final pages = [
     DistributorHomeScreen(),

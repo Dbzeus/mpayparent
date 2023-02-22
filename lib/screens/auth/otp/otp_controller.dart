@@ -72,8 +72,8 @@ class OtpController extends GetxController {
         if (otpResponse != null) {
           print(data.appRoleID.toString());
           if (data.appRoleID == 5) {
-            //roleId 5 is for distributor
-            //use conditions to check sales,finance and distributor
+            //distributor
+
             if (!otpResponse['Status']) {
               _box.write(Session.userName, data.firstname);
               _box.write(Session.userMobile, data.mobileno);
@@ -85,21 +85,8 @@ class OtpController extends GetxController {
               Get.offAllNamed(AppRoutes.distributorMainScreen);
             }
           } else if (data.appRoleID == 4) {
-            //roleId 5 is for distributor
-            //use conditions to check sales,finance and distributor
-            if (!otpResponse['Status']) {
-              _box.write(Session.userName, data.firstname);
-              _box.write(Session.userMobile, data.mobileno);
-              _box.write(Session.userMpin, data.mpin);
-              _box.write(Session.userId, data.id);
-              _box.write(Session.roleId, data.appRoleID);
-              _box.write(Session.deviceType, "1");
-              _box.write(Session.isLogin, true);
-              Get.offAllNamed(AppRoutes.salesMainScreen);
-            }
-          } else if (data.appRoleID == 4) {
-            //roleId 5 is for distributor
-            //use conditions to check sales,finance and distributor
+            //sales
+
             if (!otpResponse['Status']) {
               _box.write(Session.userName, data.firstname);
               _box.write(Session.userMobile, data.mobileno);
@@ -111,8 +98,8 @@ class OtpController extends GetxController {
               Get.offAllNamed(AppRoutes.salesMainScreen);
             }
           } else if (data.appRoleID == 3) {
-            //roleId 5 is for distributor
-            //use conditions to check sales,finance and distributor
+            //finance
+
             if (!otpResponse['Status']) {
               _box.write(Session.userName, data.firstname);
               _box.write(Session.userMobile, data.mobileno);
@@ -122,6 +109,18 @@ class OtpController extends GetxController {
               _box.write(Session.deviceType, "1");
               _box.write(Session.isLogin, true);
               Get.offAllNamed(AppRoutes.financeMainScreen);
+            }
+          } else if (data.appRoleID == 1) {
+            //Parent or Admin screen
+            if (!otpResponse['Status']) {
+              _box.write(Session.userName, data.firstname);
+              _box.write(Session.userMobile, data.mobileno);
+              _box.write(Session.userMpin, data.mpin);
+              _box.write(Session.userId, data.id);
+              _box.write(Session.roleId, data.appRoleID);
+              _box.write(Session.deviceType, "1");
+              _box.write(Session.isLogin, true);
+              Get.offAllNamed(AppRoutes.parentMainScreen);
             }
           }
         } else {

@@ -30,7 +30,7 @@ class SATopupReportController extends GetxController {
         isLoading(true);
 
         TopupHistoryResponse? reportResponse = await ApiCall()
-            .getRetailerTopupHistoryReport(0, 0, fromDate, toDate);
+            .getTopupHistoryReport(0, 0, fromDate, toDate);
         if (reportResponse != null && reportResponse.status) {
           reportList(reportResponse.returnData);
           searchList = reportResponse.returnData;

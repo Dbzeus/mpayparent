@@ -21,6 +21,8 @@ void main() async {
       route = AppRoutes.salesMainScreen;
     } else if (box.read(Session.roleId) == 3) {
       route = AppRoutes.financeMainScreen;
+    } else if (box.read(Session.roleId) == 1) {
+      route = AppRoutes.parentMainScreen;
     }
   }
 

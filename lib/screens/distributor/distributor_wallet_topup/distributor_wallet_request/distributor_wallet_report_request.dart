@@ -6,10 +6,10 @@ import '../../../../routes/app_routes.dart';
 import '../../../../widgets/filter_header.dart';
 import 'distributor_wallet_report_request_controller.dart';
 
-class DistributorWalletRequestScreen
-    extends GetView<DistributorWalletRequestController> {
+class DIWalletRequestScreen
+    extends GetView<DIWalletRequestController> {
   @override
-  final controller = Get.put(DistributorWalletRequestController());
+  final controller = Get.put(DIWalletRequestController());
   var boxDecoration = const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -21,7 +21,7 @@ class DistributorWalletRequestScreen
         )
       ]);
 
-  DistributorWalletRequestScreen({Key? key}) : super(key: key);
+  DIWalletRequestScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

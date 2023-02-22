@@ -9,8 +9,8 @@ import '../../../common/profile/profile_screen.dart';
 
 import 'bottom_navigation_bar.dart';
 
-class SalesMainScreen extends StatelessWidget {
-  SalesMainScreen({Key? key}) : super(key: key);
+class SAMainScreen extends StatelessWidget {
+  SAMainScreen({Key? key}) : super(key: key);
 
   final pages = [SalesHomeScreen(), NotificationScreen(), ProfileScreen()];
 

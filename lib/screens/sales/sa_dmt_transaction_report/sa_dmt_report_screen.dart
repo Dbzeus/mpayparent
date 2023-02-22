@@ -7,7 +7,7 @@ import 'package:mpayparent/utils/custom_colors.dart';
 import 'package:mpayparent/widgets/filter_header.dart';
 
 import '../../../model/dmt_report_response.dart';
-import '../../../routes/app_routes.dart';
+
 import '../../../utils/constant_function.dart';
 import '../../../utils/constant_string.dart';
 
@@ -32,8 +32,10 @@ class SADmtReportScreen extends GetView<SADmtReportController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "DMT Transaction",
+        title: Obx(
+          () => Text(
+            controller.title.value,
+          ),
         ),
       ),
       body: Padding(

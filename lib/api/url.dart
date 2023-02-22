@@ -2,6 +2,9 @@ const baseUrl = "https://mpayy.dbzapps.com/api/";
 
 const parentDashboardUrl = "ParentDashboard";
 
+//insert user
+const userInsertFinAndSale = "User_InsertUpdate";
+
 const loginUrl = "AppLogin";
 const forgotMpinUrl = "access/MobileAppforgotmpin";
 const checkDeviceUrl = "DeviceCheck";
@@ -14,7 +17,7 @@ const retailerBalanceUrl =
 const mywalletBalanceUrl = "User_CurrentBalance";
 const myTransactionUrl = "MoneyFlow";
 const retailerDistributorUrl = "DistributorDetails";
-const retailerTopupHistoryReportUrl = "TopupHistory";
+const topupHistoryReportUrl = "TopupHistory";
 const distributorTopupUrl = "TopupReq_Insert";
 const userBankDetailsUrl = "UserBankDetails";
 const retailerDistributorTopupUrl = "Topup_Insert";
@@ -26,3 +29,6 @@ const salesDmtReportUrl = "TransactionHistory";
 
 //finance
 const financeDITopupRequestUrl = "TopupRequest_Dist";
+
+//Parent
+const userDetailsByRoleUrl = "UserDetails";

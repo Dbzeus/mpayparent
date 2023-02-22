@@ -6,9 +6,9 @@ import 'package:mpayparent/screens/distributor/retailer_details/retailer_details
 
 import '../../../widgets/custom_edittext.dart';
 
-class RetailerDetailsScreen extends GetView<RetailerDetailsController> {
+class DIRetailerDetailsScreen extends GetView<DIRetailerDetailsController> {
   @override
-  final controller = Get.put(RetailerDetailsController());
+  final controller = Get.put(DIRetailerDetailsController());
 
   var boxDecoration = const BoxDecoration(
       color: Colors.white,
@@ -21,7 +21,7 @@ class RetailerDetailsScreen extends GetView<RetailerDetailsController> {
         )
       ]);
 
-  RetailerDetailsScreen({Key? key}) : super(key: key);
+  DIRetailerDetailsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

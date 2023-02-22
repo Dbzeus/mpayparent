@@ -39,7 +39,7 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/finance_main/kotlin'
+        main.java.srcDirs += 'src/parent_main/kotlin'
     }
 
     defaultConfig {

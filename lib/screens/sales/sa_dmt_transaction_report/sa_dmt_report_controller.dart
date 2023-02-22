@@ -12,11 +12,15 @@ class SADmtReportController extends GetxController {
   RxBool isLoading = false.obs;
   RxList<DmtReportData> reportData = RxList();
 
+  bool isParent = false;
+  RxString title = "".obs;
   List<DmtReportData> tempList = [];
   DateTime today = DateTime.now();
 
   @override
   void onInit() {
+    isParent = Get.arguments["isParent"];
+    title(Get.arguments["title"] ?? "DMT Transaction");
     super.onInit();
     getDmtReport(
         DateFormat('MM/dd/yyyy').format(DateTime(today.year, today.month, 1)),
@@ -29,8 +33,8 @@ class SADmtReportController extends GetxController {
     } else {
       if (await isNetConnected()) {
         isLoading(true);
-        DmtReport? reportResponse =
-            await ApiCall().getDmtReport(0, fromDate, toDate);
+        DmtReport? reportResponse = await ApiCall().getDmtReport(
+            isParent ? 0 : _box.read(Session.userId), fromDate, toDate);
         isLoading(false);
 
         if (reportResponse != null && reportResponse.status) {

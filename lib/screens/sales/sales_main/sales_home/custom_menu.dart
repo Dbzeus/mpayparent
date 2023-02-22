@@ -37,7 +37,7 @@ class CustomMenu extends StatelessWidget {
           childAspectRatio: 0.97,
           crossAxisSpacing: 20,
           mainAxisSpacing: 16),
-      itemCount: 3, //menus.length,
+      itemCount: menus.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (_, index) {

@@ -7,8 +7,8 @@ import '../../../../utils/constant_string.dart';
 import '../../../../widgets/filter_header.dart';
 import 'topup_report_controller.dart';
 
-class TopupReportScreen extends GetView<TopupReportController> {
-  final controller = Get.put(TopupReportController());
+class DITopupReportScreen extends GetView<DITopupReportController> {
+  final controller = Get.put(DITopupReportController());
   var boxDecoration = const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -20,7 +20,7 @@ class TopupReportScreen extends GetView<TopupReportController> {
         )
       ]);
 
-  TopupReportScreen({Key? key}) : super(key: key);
+  DITopupReportScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class TopupReportScreen extends GetView<TopupReportController> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Get.toNamed(AppRoutes.retailerTopupScreen);
+            Get.toNamed(AppRoutes.distributorRetailerTopupScreen);
           },
           child: const Icon(Icons.add),
         ),

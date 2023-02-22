@@ -2,21 +2,31 @@ class AppRoutes {
   static const loginScreen = '/login'; //use variable type (login)
   static const otpScreen = '/otp';
 
-  //show Image
-  static const showImage ='/showImage';
+  //Common screens
+  //balance report common screen
+  static const balanceReportActivityScreen =
+      '/distributor/balanceReportActivity';
+  //show Image common screen
+  static const showImage = '/showImage';
+  //Topup common screen
+  static const topupScreen = '/topupScreen';
+  //UserDetails common screen
+  static const userDetailsScreen = '/userDetails';
+  //UserCreate common screen
+  static const userCreateScreen = '/userCreate';
 
   //Distributor
   static const distributorMainScreen = '/distributor/Main';
-  static const balanceReportActivityScreen =
-      '/distributor/balanceReportActivity';
-  static const myTransactionReportScreen = '/distributor/myTranactionReport';
-  static const retailerDetailScreen = '/distributor/retailerDetails';
+  static const distributorMyTransactionReportScreen =
+      '/distributor/myTranactionReport';
+  static const distributorRetailerDetailScreen = '/distributor/retailerDetails';
   static const distributorWalletReportRequestScreen =
       '/distributor/WalletRequest';
+  static const distributorRetailerTopupScreen = '/distributor/retailerTopup';
+  static const distributorTopupReportScreen = '/distributor/topupReport';
   static const distributorRequestTopUpScreen = '/distributor/RequestTopUp';
-  static const retailerTopupScreen = '/distributor/retailerTopup';
-  static const topupReportScreen = '/distributor/topupReport';
-  static const distributorRequestTopupReportScreen = '/distributor/requestTopup';
+  static const distributorRequestTopupReportScreen =
+      '/distributor/requestTopupReport';
 
   //Sales Screen
   static const salesMainScreen = '/sales/MainScreen';
@@ -26,6 +36,11 @@ class AppRoutes {
 
   //finance Screen
   static const financeMainScreen = '/finance/MainScreen';
-  static const financeRequestTopupReportScreen = '/finance/RequestTopupReportScreen';
+  static const financeRequestTopupReportScreen =
+      '/finance/RequestTopupReportScreen';
 
+  //parent screen
+  static const parentMainScreen = '/parent/MainScreen';
+  static const parentTopupActivityScreen = '/parent/TopupActivityScreen';
+  static const parentAEPSReportScreen = '/parent/AEPSReportScreen';
 }

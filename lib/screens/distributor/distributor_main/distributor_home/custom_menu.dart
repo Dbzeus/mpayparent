@@ -10,12 +10,12 @@ class CustomMenu extends StatelessWidget {
     {
       'title': 'My Transaction',
       'iconUrl': "assets/icon/transfer_money.png",
-      'onClickUrl': AppRoutes.myTransactionReportScreen
+      'onClickUrl': AppRoutes.distributorMyTransactionReportScreen
     },
     {
       'title': 'Retailer',
       'iconUrl': "assets/icon/transfer_status.png",
-      'onClickUrl': AppRoutes.retailerDetailScreen
+      'onClickUrl': AppRoutes.distributorRetailerDetailScreen
     },
     {
       'title': 'Wallet Request',
@@ -25,7 +25,7 @@ class CustomMenu extends StatelessWidget {
     {
       'title': 'Topup',
       'iconUrl': "assets/icon/topup.png",
-      'onClickUrl': AppRoutes.topupReportScreen
+      'onClickUrl': AppRoutes.distributorTopupReportScreen
     },
     {
       'title': 'Request Topup',
@@ -47,7 +47,7 @@ class CustomMenu extends StatelessWidget {
           childAspectRatio: 0.97,
           crossAxisSpacing: 20,
           mainAxisSpacing: 16),
-      itemCount: 5, //menus.length,
+      itemCount: menus.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (_, index) {

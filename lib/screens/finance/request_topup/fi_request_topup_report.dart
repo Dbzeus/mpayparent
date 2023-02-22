@@ -132,11 +132,14 @@ class FIRequestTopupReportScreen
                             "ImageUrl": reportData.proofImage.toString()
                           });
                         },
-                        child: const Text("Attachment",
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: secondaryColor)),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: Text("Attachment",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: secondaryColor)),
+                        ),
                       ),
                 Align(
                   alignment: Alignment.bottomRight,

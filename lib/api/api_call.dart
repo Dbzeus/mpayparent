@@ -7,6 +7,7 @@ import 'package:mpayparent/model/myTransactionResponse.dart';
 import 'package:mpayparent/model/parentDashboardResponse.dart';
 import 'package:mpayparent/model/retailerDetailsResponse.dart';
 import 'package:mpayparent/model/retailerTopupHistoryResponse.dart';
+import 'package:mpayparent/screens/parent/model/userList.dart';
 
 import '../main.dart';
 import '../model/balance_report_response.dart';
@@ -351,8 +352,8 @@ class ApiCall {
     }
   }
 
-  //Get Retailer Topup History Report
-  Future<TopupHistoryResponse?> getRetailerTopupHistoryReport(
+  //Get Topup History Report
+  Future<TopupHistoryResponse?> getTopupHistoryReport(
     int userId,
     int transType,
     String fromDate,
@@ -366,8 +367,8 @@ class ApiCall {
         "ToDate": toDate,
       };
       log(jsonEncode(params));
-      final response = await _dio.get(retailerTopupHistoryReportUrl,
-          queryParameters: params);
+      final response =
+          await _dio.get(topupHistoryReportUrl, queryParameters: params);
       log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
 
       return TopupHistoryResponse.fromJson(response.data);
@@ -425,6 +426,47 @@ class ApiCall {
       log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
 
       return DistributorRequestResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //get UsersDetails by role
+  Future<UserList?> getUserDetailsByRole(
+      String userId, String roleId, String showAll) async {
+    try {
+      var params = {"UserID": userId, "RoleID": roleId, "ShowAll": showAll};
+
+      log(jsonEncode(params));
+
+      final response =
+          await _dio.get(userDetailsByRoleUrl, queryParameters: params);
+
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return UserList.fromJson(response.data);
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+    return null;
+  }
+
+  //insert user finance and sales
+  Future<dynamic> insertUserFinAndSale(var params) async {
+    try {
+      log(jsonEncode(params));
+
+      final response = await _dio.post(userInsertFinAndSale, data: params);
+
+      log('response code ${response.requestOptions.path} ${response.statusCode} $params ${response.data}');
+
+      return response.data;
     } on DioError catch (e) {
       toast(e.response?.data['Message'] ?? e.message);
     } catch (e) {
