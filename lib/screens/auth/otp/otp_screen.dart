@@ -37,7 +37,14 @@ class OtpScreen extends GetView<OtpController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
+              Align(
+                  alignment: Alignment.center,
+                  child: Image.asset(
+                    'assets/icon/otp.png',
+                  )),
+              const SizedBox(
+                height: 12,
+              ),
               const Text("OTP\nVerify!",
                   style: TextStyle(
                     fontSize: 26,

@@ -13,7 +13,7 @@ class CustomMenu extends StatelessWidget {
       'onClickUrl': AppRoutes.salesDistributorScreen
     },
     {
-      'title': 'Toup',
+      'title': 'Topup',
       'iconUrl': "assets/icon/transfer_status.png",
       'onClickUrl': AppRoutes.salesTopupReportScreen
     },
@@ -51,11 +51,6 @@ class CustomMenu extends StatelessWidget {
     return InkWell(
       onTap: () {
         Get.toNamed(onClickUrl);
-        /*if (onClickUrl == AppRoutes.transactionDetail) {
-          controller.getRefNumber();
-        } else {
-          Get.toNamed(onClickUrl);
-        }*/
       },
       child: Container(
           padding: const EdgeInsets.all(8),
