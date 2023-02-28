@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:mpayparent/model/distributorRequestResponse.dart';
 import 'package:mpayparent/model/myTransactionResponse.dart';
 import 'package:mpayparent/model/parentDashboardResponse.dart';
@@ -469,6 +470,24 @@ class ApiCall {
       return response.data;
     } on DioError catch (e) {
       toast(e.response?.data['Message'] ?? e.message);
+    } catch (e) {
+      log(e.toString());
+      toast(null);
+    }
+  }
+
+  //insert user Retailer and distributor
+  Future<dynamic> insertUserReAndDi(formData) async {
+    try {
+      //log(jsonEncode(params));
+
+      final response = await _dio.post(userInsertReAndDi, data: formData);
+
+      log('response code ${response.requestOptions.path} ${response.statusCode} $formData ${response.data}');
+
+      return response.data;
+    } on DioError catch (e) {
+      toast(e.response?.data['Message'].toString() ?? e.message);
     } catch (e) {
       log(e.toString());
       toast(null);

@@ -59,7 +59,7 @@ class CustomMenu extends StatelessWidget {
     {
       'title': 'Distributor',
       'iconUrl': "assets/icon/transfer_report.png",
-      'onClickUrl': "" //AppRoutes.parentTopupActivityScreen
+      'onClickUrl': AppRoutes.userDetailsScreen
     },
   ];
 

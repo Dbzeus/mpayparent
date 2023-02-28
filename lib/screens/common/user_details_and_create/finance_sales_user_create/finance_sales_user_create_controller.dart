@@ -11,7 +11,7 @@ import 'package:mpayparent/screens/parent/model/userList.dart';
 import 'package:mpayparent/utils/constant_function.dart';
 import 'package:mpayparent/utils/session.dart';
 
-class UserCreateController extends GetxController {
+class FinanceSalesCreateController extends GetxController {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController mobileNoController = TextEditingController();
@@ -98,7 +98,8 @@ class UserCreateController extends GetxController {
       imagePath(res.path); // convert Path to File
       File imageFile = File(res.path); //c
       Uint8List imageBytes = await imageFile.readAsBytes(); //convert to bytes
-      encodedImage = base64.encode(imageBytes); //convert bytes to base64 string
+      encodedImage = base64.encode(imageBytes);
+      return res.path;//convert bytes to base64 string
     }
   }
 }

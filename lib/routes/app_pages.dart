@@ -1,7 +1,8 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:mpayparent/screens/common/show_image/show_image.dart';
 import 'package:mpayparent/screens/common/topup/topup.dart';
-import 'package:mpayparent/screens/common/user_details_and_create/user_create/user_create.dart';
+import 'package:mpayparent/screens/common/user_details_and_create/distributor_user_create/distributor_user.dart';
+import 'package:mpayparent/screens/common/user_details_and_create/finance_sales_user_create/finance_sales_user_create.dart';
 import 'package:mpayparent/screens/common/user_details_and_create/user_details/user_details_screen.dart';
 import 'package:mpayparent/screens/distributor/distributor_main/distributor_main/di_main_screen.dart';
 import 'package:mpayparent/screens/distributor/my_transaction/my_transaction_report.dart';
@@ -41,8 +42,15 @@ class AppPages {
     //UserDetails common screen
     GetPage(name: AppRoutes.userDetailsScreen, page: () => UserDetailsScreen()),
 
-    //UserCreate common screen
-    GetPage(name: AppRoutes.userCreateScreen, page: () => UserCreateScreen()),
+    //Finance and sales Create common screen
+    GetPage(
+        name: AppRoutes.financeSalesCreateScreen,
+        page: () => FinanceSalesCreateScreen()),
+
+    //Distributor Create common screen
+    GetPage(
+        name: AppRoutes.distributorCreateScreen,
+        page: () => DistributorCreateScreen()),
 
     //Balance report common screen
     GetPage(

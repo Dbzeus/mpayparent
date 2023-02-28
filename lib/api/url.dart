@@ -4,6 +4,7 @@ const parentDashboardUrl = "ParentDashboard";
 
 //insert user
 const userInsertFinAndSale = "User_InsertUpdate";
+const userInsertReAndDi = "Partners_InsertUpdate";
 
 const loginUrl = "AppLogin";
 const forgotMpinUrl = "access/MobileAppforgotmpin";

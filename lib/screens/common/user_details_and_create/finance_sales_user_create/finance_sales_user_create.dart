@@ -7,11 +7,11 @@ import 'package:mpayparent/widgets/custom_button.dart';
 import 'package:mpayparent/widgets/custom_edittext.dart';
 
 import '../../../../utils/constant_string.dart';
-import 'user_create_controller.dart';
+import 'finance_sales_user_create_controller.dart';
 
-class UserCreateScreen extends GetView<UserCreateController> {
+class FinanceSalesCreateScreen extends GetView<FinanceSalesCreateController> {
   @override
-  final controller = Get.put(UserCreateController());
+  final controller = Get.put(FinanceSalesCreateController());
 
   var boxDecoration = const BoxDecoration(
       color: Colors.white,
@@ -24,7 +24,7 @@ class UserCreateScreen extends GetView<UserCreateController> {
         )
       ]);
 
-  UserCreateScreen({Key? key}) : super(key: key);
+  FinanceSalesCreateScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,35 +50,37 @@ class UserCreateScreen extends GetView<UserCreateController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                controller.pickImage();
-                              },
-                              child: Obx(
-                                () => Container(
+                            Obx(
+                              () => GestureDetector(
+                                onTap: () {
+                                  var image = controller.pickImage();
+                                  controller.imagePath(image);
+                                },
+                                child: Container(
                                   height: Get.height * 0.14,
-                                  width: Get.width / 4.3,
+                                  width: Get.width * 0.23,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: primaryColor,
                                       image: controller.imagePath.isEmpty
                                           ? const DecorationImage(
-                                          image: AssetImage(
-                                            'assets/icon/profile.png',
-                                          ))
-                                          : controller.userData!.profileImage
-                                          .isNotEmpty
-                                          ? DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: NetworkImage(controller
-                                              .imagePath
-                                              .value //need to decode
-                                          ))
-                                          : DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: FileImage(File(
+                                              image: AssetImage(
+                                              'assets/icon/profile.png',
+                                            ))
+                                          : controller.userData?.profileImage
+                                                      .isEmpty ??
+                                                  false
+                                              ? DecorationImage(
+                                                  fit: BoxFit.fill,
+                                                  image: FileImage(File(
                                                       controller
-                                                          .imagePath.value)))),
+                                                          .imagePath.value)))
+                                              : DecorationImage(
+                                                  fit: BoxFit.fill,
+                                                  image: NetworkImage(controller
+                                                          .imagePath
+                                                          .value //need to decode
+                                                      ))),
                                 ),
                               ),
                             ),
@@ -142,12 +144,14 @@ class UserCreateScreen extends GetView<UserCreateController> {
                   const SizedBox(
                     height: 12,
                   ),
-                  controller.roleId == saleRoleId ? CustomEditText(
-                    controller: controller.zoneController,
-                    hintText: "Zone",
-                    contentPadding: const EdgeInsets.only(left: 12),
-                    maxLines: 1,
-                  ) : const SizedBox.shrink(),
+                  controller.roleId == saleRoleId
+                      ? CustomEditText(
+                          controller: controller.zoneController,
+                          hintText: "Zone",
+                          contentPadding: const EdgeInsets.only(left: 12),
+                          maxLines: 1,
+                        )
+                      : const SizedBox.shrink(),
                   SizedBox(
                     height: controller.roleId == saleRoleId ? 12 : 0,
                   ),

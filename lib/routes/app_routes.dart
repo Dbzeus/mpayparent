@@ -12,8 +12,10 @@ class AppRoutes {
   static const topupScreen = '/topupScreen';
   //UserDetails common screen
   static const userDetailsScreen = '/userDetails';
-  //UserCreate common screen
-  static const userCreateScreen = '/userCreate';
+  //Finance and Sales Create common screen
+  static const financeSalesCreateScreen = '/financeSalesCreateScreen';
+  //Distributor Create common screen
+  static const distributorCreateScreen = '/distributorCreateScreen';
 
   //Distributor
   static const distributorMainScreen = '/distributor/Main';

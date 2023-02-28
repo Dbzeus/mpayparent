@@ -14,19 +14,39 @@ class UserDetailsController extends GetxController {
   int userId = -1;
   int roleId = -1;
   final _box = GetStorage();
-  RxString title= "-1".obs;
+  RxString title = "-1".obs;
   RxList<UserListReturnData> userList = RxList();
+  RxList<RetailerResponseReturnData> distributorList = RxList();
   List<UserListReturnData> tempList = [];
+  List<RetailerResponseReturnData> tempListDI = [];
+
   RxBool isLoading = false.obs;
 
   void onInit() {
     roleId = Get.arguments["roleId"];
-    title( Get.arguments["title"]);
+    title(Get.arguments["title"]);
     super.onInit();
     userId = _box.read(Session.userId);
     if (roleId.isEqual(distributorRoleId)) {
+      getDistributorDetails();
     } else {
       getUserDetails();
+    }
+  }
+
+  getDistributorDetails() async {
+    if (await isNetConnected()) {
+      isLoading(true);
+      RetailerDetailsResponse? distributorDetailsResponse =
+          await ApiCall().getRetailerDistributor("0", roleId.toString(), "1");
+      if (distributorDetailsResponse != null &&
+          distributorDetailsResponse.status) {
+        if (distributorDetailsResponse.returnData.isNotEmpty) {
+          distributorList(distributorDetailsResponse.returnData);
+          tempListDI = distributorDetailsResponse.returnData;
+        }
+        isLoading(false);
+      }
     }
   }
 
@@ -50,6 +70,18 @@ class UserDetailsController extends GetxController {
       userList(tempList);
     } else {
       userList(tempList
+          .where((element) =>
+              element.firstName.toLowerCase().contains(text.toLowerCase()) ||
+              element.mobileNo.contains(text.toLowerCase()))
+          .toList());
+    }
+  }
+
+  onSearchChangedDI(String text) {
+    if (text.isEmpty) {
+      distributorList(tempListDI);
+    } else {
+      distributorList(tempListDI
           .where((element) =>
               element.firstName.toLowerCase().contains(text.toLowerCase()) ||
               element.mobileNo.contains(text.toLowerCase()))

@@ -45,7 +45,11 @@ class UserDetailsScreen extends GetView<UserDetailsController> {
                 hintText: "Search",
                 maxLines: 1,
                 onChanged: (text) {
-                  controller.onSearchChanged(text);
+                  if (controller.roleId.isEqual(distributorRoleId)) {
+                    controller.onSearchChangedDI(text);
+                  } else {
+                    controller.onSearchChanged(text);
+                  }
                 },
                 suffixIcon: const Icon(
                   Icons.search,
@@ -54,39 +58,62 @@ class UserDetailsScreen extends GetView<UserDetailsController> {
               ),
             ),
             Expanded(
-              child: Obx(
-                () => controller.isLoading.value
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : controller.userList.isEmpty
-                        ? const Center(
-                            child: Text('No User Found'),
-                          )
-                        : ListView.builder(
-                            itemCount: controller.userList.length,
-                            scrollDirection: Axis.vertical,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (__, index) =>
-                                _showRetailerDetailsReport(
-                                    controller.userList[index]),
-                          ),
-              ),
+              child: Obx(() => controller.isLoading.value
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : controller.userList.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: controller.userList.length,
+                          scrollDirection: Axis.vertical,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (__, index) => _showUserDetailsReport(
+                              controller.userList[index]))
+                      : controller.distributorList.isNotEmpty
+                          ? ListView.builder(
+                              itemCount: controller.distributorList.length,
+                              scrollDirection: Axis.vertical,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (__, index) =>
+                                  _showDistributorDetailsReport(
+                                      controller.distributorList[index]))
+                          : const Center(
+                              child: Text('No Users Found',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            )),
             )
           ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             if (controller.roleId.isEqual(financeRoleId)) {
-              Get.toNamed(AppRoutes.userCreateScreen, arguments: {
+              var res =
+                  Get.toNamed(AppRoutes.financeSalesCreateScreen, arguments: {
                 "title": "Create Financier",
                 "roleId": controller.roleId,
               });
+              if (res == true) {
+                controller.getUserDetails();
+              }
             } else if (controller.roleId.isEqual(saleRoleId)) {
-              Get.toNamed(AppRoutes.userCreateScreen, arguments: {
+              var res =
+                  Get.toNamed(AppRoutes.financeSalesCreateScreen, arguments: {
                 "title": "Create Sales User",
                 "roleId": controller.roleId,
               });
+              if (res == true) {
+                controller.getUserDetails();
+              }
+            } else if (controller.roleId.isEqual(distributorRoleId)) {
+              var res =
+                  Get.toNamed(AppRoutes.distributorCreateScreen, arguments: {
+                "title": "Create Distributor User",
+                "roleId": controller.roleId,
+              });
+              if (res == true) {
+                controller.getDistributorDetails();
+              }
             }
           },
           child: const Icon(Icons.add),
@@ -95,7 +122,7 @@ class UserDetailsScreen extends GetView<UserDetailsController> {
     );
   }
 
-  _showRetailerDetailsReport(UserListReturnData userData) {
+  _showUserDetailsReport(UserListReturnData userData) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       margin: const EdgeInsets.all(8),
@@ -140,14 +167,72 @@ class UserDetailsScreen extends GetView<UserDetailsController> {
           IconButton(
               onPressed: () {
                 if (controller.roleId.isEqual(financeRoleId)) {
-                  Get.toNamed(AppRoutes.userCreateScreen, arguments: {
+                  Get.toNamed(AppRoutes.financeSalesCreateScreen, arguments: {
                     "title": "Edit Financier",
                     "roleId": controller.roleId,
                     "userData": userData
                   });
                 } else if (controller.roleId.isEqual(saleRoleId)) {
-                  Get.toNamed(AppRoutes.userCreateScreen, arguments: {
+                  Get.toNamed(AppRoutes.financeSalesCreateScreen, arguments: {
                     "title": "Edit Sales User",
+                    "roleId": controller.roleId,
+                    "userData": userData
+                  });
+                }
+              },
+              icon: const Icon(Icons.edit)),
+        ],
+      ),
+    );
+  }
+
+  _showDistributorDetailsReport(RetailerResponseReturnData userData) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      margin: const EdgeInsets.all(8),
+      decoration: boxDecoration,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CircleAvatar(
+            radius: 22,
+            backgroundColor: userData.isActive ? Colors.green : Colors.red,
+            child: CircleAvatar(
+                radius: 20,
+                backgroundImage: CachedNetworkImageProvider(
+                  userData.profilePhoto,
+                )),
+          ),
+          const SizedBox(
+            width: 12,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(userData.firstName, //response.firstName,
+                    style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800)),
+                Text(userData.lastName,
+                    //response.mobileNo.toString(),
+                    style: const TextStyle(
+                      fontSize: 14,
+                    )),
+                Text(userData.mobileNo,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    )),
+              ],
+            ),
+          ),
+          IconButton(
+              onPressed: () {
+                if (controller.roleId.isEqual(distributorRoleId)) {
+                  Get.toNamed(AppRoutes.distributorCreateScreen, arguments: {
+                    "title": "Edit Distributor User",
                     "roleId": controller.roleId,
                     "userData": userData
                   });
