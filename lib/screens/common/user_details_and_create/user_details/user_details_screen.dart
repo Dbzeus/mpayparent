@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:mpayparent/model/retailerDetailsResponse.dart';
 import 'package:mpayparent/routes/app_routes.dart';
 import 'package:mpayparent/screens/common/user_details_and_create/user_details/user_details_controller.dart';
-import 'package:mpayparent/screens/distributor/retailer_details/retailer_details_controller.dart';
 import 'package:mpayparent/screens/parent/model/userList.dart';
 import 'package:mpayparent/utils/constant_string.dart';
 
@@ -86,32 +85,34 @@ class UserDetailsScreen extends GetView<UserDetailsController> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async {
             if (controller.roleId.isEqual(financeRoleId)) {
-              var res =
-                  Get.toNamed(AppRoutes.financeSalesCreateScreen, arguments: {
-                "title": "Create Financier",
-                "roleId": controller.roleId,
-              });
-              if (res == true) {
+              var res = await Get.toNamed(AppRoutes.financeSalesCreateScreen,
+                  arguments: {
+                    "title": "Create Financier",
+                    "roleId": controller.roleId,
+                  });
+              if (res != null && res) {
                 controller.getUserDetails();
               }
             } else if (controller.roleId.isEqual(saleRoleId)) {
               var res =
-                  Get.toNamed(AppRoutes.financeSalesCreateScreen, arguments: {
-                "title": "Create Sales User",
-                "roleId": controller.roleId,
-              });
-              if (res == true) {
+              await Get.toNamed(AppRoutes.financeSalesCreateScreen,
+                  arguments: {
+                    "title": "Create Sales User",
+                    "roleId": controller.roleId,
+                  });
+              if (res != null && res) {
                 controller.getUserDetails();
               }
             } else if (controller.roleId.isEqual(distributorRoleId)) {
               var res =
-                  Get.toNamed(AppRoutes.distributorCreateScreen, arguments: {
-                "title": "Create Distributor User",
-                "roleId": controller.roleId,
-              });
-              if (res == true) {
+              await Get.toNamed(AppRoutes.distributorCreateScreen,
+                  arguments: {
+                    "title": "Create Distributor User",
+                    "roleId": controller.roleId,
+                  });
+              if (res != null && res) {
                 controller.getDistributorDetails();
               }
             }

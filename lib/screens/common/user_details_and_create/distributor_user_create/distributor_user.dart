@@ -6,7 +6,6 @@ import 'package:mpayparent/utils/custom_colors.dart';
 import 'package:mpayparent/widgets/custom_button.dart';
 import 'package:mpayparent/widgets/custom_edittext.dart';
 
-import '../../../../utils/constant_string.dart';
 import 'distributor_user_controller.dart';
 
 class DistributorCreateScreen extends GetView<DistributorCreateController> {
@@ -53,7 +52,9 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                             GestureDetector(
                               onTap: () async {
                                 var image = await controller.pickImage();
-                                controller.profileImage(image);
+                                if (image != null) {
+                                  controller.profileImage(image);
+                                }
                               },
                               child: Obx(
                                 () => Container(
@@ -67,10 +68,16 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                                               image: AssetImage(
                                               'assets/icon/profile.png',
                                             ))
-                                          : DecorationImage(
-                                              fit: BoxFit.fill,
-                                              image: FileImage(File(controller
-                                                  .profileImage.value)))),
+                                          : controller.profileImage.value.isURL
+                                              ? DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: NetworkImage(controller
+                                                      .profileImage.value))
+                                              : DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: FileImage(File(
+                                                      controller.profileImage
+                                                          .value)))),
                                 ),
                               ),
                             ),
@@ -169,6 +176,7 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                         CustomEditText(
                           controller: controller.gstController,
                           hintText: "GST NO",
+                          isUpperCase: true,
                           contentPadding: const EdgeInsets.only(left: 12),
                           maxLines: 1,
                         ),
@@ -196,8 +204,8 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                                                 color: secondaryColor),
                                             image: DecorationImage(
                                                 image: FileImage(File(controller
-                                                    .bankAgreementFront
-                                                    .value)))),
+                                                    .bankAgreementFront.value)),
+                                                fit: BoxFit.cover)),
                                         child: controller.bankAgreementFront
                                                 .value.isEmpty
                                             ? Column(
@@ -243,8 +251,8 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                                                 color: secondaryColor),
                                             image: DecorationImage(
                                                 image: FileImage(File(controller
-                                                    .bankAgreementBack
-                                                    .value)))),
+                                                    .bankAgreementBack.value)),
+                                                fit: BoxFit.cover)),
                                         child: controller
                                                 .bankAgreementBack.isEmpty
                                             ? Column(
@@ -293,6 +301,7 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                           maxLength: 12,
                           contentPadding: const EdgeInsets.only(left: 12),
                           maxLines: 1,
+                          isOnlyInt: true,
                           keyboardType: TextInputType.number,
                         ),
                         const SizedBox(

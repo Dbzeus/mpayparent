@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mpayparent/model/retailerDetailsResponse.dart';
+import 'package:mpayparent/routes/app_routes.dart';
 import 'package:mpayparent/screens/distributor/retailer_details/retailer_details_controller.dart';
+import 'package:mpayparent/utils/constant_string.dart';
 
 import '../../../widgets/custom_edittext.dart';
 
@@ -72,7 +74,17 @@ class DIRetailerDetailsScreen extends GetView<DIRetailerDetailsController> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () async {
+            var res = await Get.toNamed(AppRoutes.distributorCreateScreen,
+                arguments: {
+                  "title": "Create Retailer",
+                  "roleId": retailerRoleId,
+                });
+
+            if (res != null && res) {
+              controller.getRetailerDetails();
+            }
+          },
           child: const Icon(Icons.add),
         ),
       ),
@@ -121,7 +133,20 @@ class DIRetailerDetailsScreen extends GetView<DIRetailerDetailsController> {
               ],
             ),
           ),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+          IconButton(
+              onPressed: () async {
+                var res = await Get.toNamed(AppRoutes.distributorCreateScreen,
+                    arguments: {
+                      "title": "Edit Retailer",
+                      "roleId": retailerData.roleID,
+                      "userData": retailerData
+                    });
+
+                if (res != null && res) {
+                  controller.getRetailerDetails();
+                }
+              },
+              icon: const Icon(Icons.edit)),
         ],
       ),
     );

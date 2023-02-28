@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart' hide Response, FormData, MultipartFile;
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mpayparent/api/api_call.dart';
-
 import 'package:mpayparent/utils/constant_function.dart';
-
 import 'package:mpayparent/utils/session.dart';
 
 import '../../../../model/retailerDetailsResponse.dart';
@@ -88,7 +84,7 @@ class DistributorCreateController extends GetxController {
         aadharController.text.isEmpty &&
         panController.text.isEmpty &&
         aepsController.text.isEmpty &&
-        profileImage.isEmpty &&
+        profileImage.value.isEmpty &&
         bankAgreementFront.isEmpty &&
         bankAgreementBack.isEmpty &&
         aadharFront.isEmpty &&
@@ -120,8 +116,12 @@ class DistributorCreateController extends GetxController {
           "CUID": userId,
           "AEPSID": aepsController.text,
         };
+
         FormData formData = FormData.fromMap({
-          "ProfilePhoto": await MultipartFile.fromFile(profileImage.toString()),
+          "RetailerDetails": jsonEncode(params),
+          "ProfilePhoto": profileImage.value.isURL
+              ? null
+              : await MultipartFile.fromFile(profileImage.toString()),
           "ShopPhoto": await MultipartFile.fromFile(shopImage.toString()),
           "AadharBackPhoto":
               await MultipartFile.fromFile(aadharBack.toString()),
@@ -136,7 +136,6 @@ class DistributorCreateController extends GetxController {
               await MultipartFile.fromFile(bankAgreementFront.toString()),
           "YesYesAgreementBackPhoto":
               await MultipartFile.fromFile(bankAgreementBack.toString()),
-          //"RetailerDetails": params,
         });
 
         final userDetailsResponse = await ApiCall().insertUserReAndDi(formData);
@@ -150,8 +149,9 @@ class DistributorCreateController extends GetxController {
     }
   }
 
-/*  pickImage() async {
-    await Get.defaultDialog(
+  pickImage() async {
+    Get.focusScope?.unfocus();
+    return await Get.defaultDialog(
         title: "Pick Image From",
         content: Column(
           children: [
@@ -159,15 +159,7 @@ class DistributorCreateController extends GetxController {
               title: const Text("Camera"),
               onTap: () async {
                 res = await ImagePicker().pickImage(source: ImageSource.camera);
-
-                if (res != null) {
-                  File imageFile = File(res.path); //c
-                  Uint8List imageBytes =
-                      await imageFile.readAsBytes(); //convert to bytes
-                  encodedImage = base64.encode(imageBytes);
-                  Get.back(result: res.path); //convert bytes to base64 string
-                  //return res.path;
-                }
+                Get.back(result: res?.path);
               },
               leading: const Icon(Icons.camera_alt),
               dense: true,
@@ -178,29 +170,17 @@ class DistributorCreateController extends GetxController {
               onTap: () async {
                 res =
                     await ImagePicker().pickImage(source: ImageSource.gallery);
-                if (res != null) {
-                  File imageFile = File(res.path); //convert to imageFile
-                  Uint8List imageBytes =
-                      await imageFile.readAsBytes(); //convert to bytes
-                  encodedImage = base64
-                      .encode(imageBytes); //convert bytes to base64 string
-                  return res.path;
-                }
+                Get.back(result: res?.path);
               },
               leading: const Icon(Icons.photo),
               dense: true,
             ),
           ],
         ));
-  }*/
-
-  pickImage() async {
-    res = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (res != null) {
-      File imageFile = File(res.path); //convert to imageFile
-      Uint8List imageBytes = await imageFile.readAsBytes(); //convert to bytes
-      encodedImage = base64.encode(imageBytes); //convert bytes to base64 string
-      return res.path;
-    }
   }
+
+/*  pickImage() async {
+    res = await ImagePicker().pickImage(source: ImageSource.gallery);
+    return res?.path ?? "";
+  }*/
 }

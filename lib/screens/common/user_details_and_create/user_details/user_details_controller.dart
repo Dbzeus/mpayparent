@@ -14,7 +14,7 @@ class UserDetailsController extends GetxController {
   int userId = -1;
   int roleId = -1;
   final _box = GetStorage();
-  RxString title = "-1".obs;
+  RxString title = "".obs;
   RxList<UserListReturnData> userList = RxList();
   RxList<RetailerResponseReturnData> distributorList = RxList();
   List<UserListReturnData> tempList = [];
