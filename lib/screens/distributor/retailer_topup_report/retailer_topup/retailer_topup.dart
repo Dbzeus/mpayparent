@@ -137,7 +137,7 @@ class DIRetailerTopupScreen extends GetView<DIRetailerTopupController> {
               hintText: "Search",
               maxLines: 1,
               onChanged: (text) {
-                ///controller.onSearchChanged(text);
+                controller.onSearchChanged(text);
               },
               suffixIcon: const Icon(
                 Icons.search,

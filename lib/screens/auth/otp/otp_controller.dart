@@ -66,7 +66,6 @@ class OtpController extends GetxController {
       if (await isNetConnected()) {
         isLoading(true);
         var otpResponse = await ApiCall().otpVerification(data.mobileno, otp);
-
         print(data.appRoleID.toString());
         isLoading(false);
         if (otpResponse != null) {

@@ -46,17 +46,16 @@ class SATopupReportScreen extends GetView<SATopupReportController> {
                   isLoading: controller.isLoading.value,
                 ),
               ),
-              const SizedBox(
-                height: 8,
-              ),
               Obx(
                 () => controller.reportList.isEmpty
-                    ? const Center(
-                        child: Text("No Records found",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            )),
+                    ? const Expanded(
+                        child: Center(
+                          child: Text("No Records found",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ),
                       )
                     : Expanded(
                         child: ListView.builder(

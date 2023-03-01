@@ -6,8 +6,7 @@ import '../../../../routes/app_routes.dart';
 import '../../../../widgets/filter_header.dart';
 import 'distributor_wallet_report_request_controller.dart';
 
-class DIWalletRequestScreen
-    extends GetView<DIWalletRequestController> {
+class DIWalletRequestScreen extends GetView<DIWalletRequestController> {
   @override
   final controller = Get.put(DIWalletRequestController());
   var boxDecoration = const BoxDecoration(
@@ -47,14 +46,19 @@ class DIWalletRequestScreen
                   isLoading: controller.isLoading.value,
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
               Obx(
                 () => controller.reportList.isEmpty
-                    ? const Center(
-                        child: Text("No Records found",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            )),
+                    ? const Expanded(
+                        child: Center(
+                          child: Text("No Records found",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ),
                       )
                     : Expanded(
                         child: ListView.builder(

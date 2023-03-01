@@ -30,7 +30,7 @@ class CustomMenu extends StatelessWidget {
     {
       'title': 'Request Topup',
       'iconUrl': "assets/icon/topup.png",
-      'onClickUrl': AppRoutes.distributorRequestTopupReportScreen
+      'onClickUrl': AppRoutes.distributorRequestReportScreen
     },
   ];
 

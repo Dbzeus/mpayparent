@@ -21,10 +21,12 @@ class TopupController extends GetxController {
   TextEditingController searchController = TextEditingController();
 
   RxList<RetailerResponseReturnData> distributorList = RxList();
-  List tempList = [];
+  //List<RetailerResponseReturnData> tempListDi = [];
   var userList;
+  var tempList;
   String imagePath = "";
   RxList<UserListReturnData> financierList = RxList();
+//  List<UserListReturnData> tempList = [];
   RxBool isAttached = false.obs;
   RxBool isLoading = false.obs;
   int payeeId = -1;
@@ -45,12 +47,11 @@ class TopupController extends GetxController {
     if (tType == financierTypeId) {
       title("Financier Topup");
       payeeTitle("Financier");
-      tempList.cast<UserListReturnData>();
       getFinancierDetails();
     } else if (tType == distributorTypeId) {
       title("Distributor Topup");
       payeeTitle("Distributor");
-      tempList.cast<RetailerResponseReturnData>();
+
       getDistributorDetails();
     } else if (tType == bankItTypeId) {
       title("BankIt Topup");
@@ -61,7 +62,6 @@ class TopupController extends GetxController {
       payeeTitle("Distributor");
       isFinance = true;
       getDistributorDetails();
-      tempList.cast<RetailerResponseReturnData>();
     }
     userId = _box.read(Session.userId) ?? -1;
     super.onInit();
@@ -77,7 +77,7 @@ class TopupController extends GetxController {
           distributorDetailsResponse.status) {
         if (distributorDetailsResponse.returnData.isNotEmpty) {
           distributorList(distributorDetailsResponse.returnData);
-          tempList = distributorDetailsResponse.returnData;
+          //tempListDi = distributorDetailsResponse.returnData;
           userList = distributorList
               .map((element) => {
                     "name": element.firstName,
@@ -85,7 +85,7 @@ class TopupController extends GetxController {
                     "id": element.userID
                   })
               .toList();
-          debugPrint("aaa" + userList.toString());
+          tempList = userList;
         }
       }
       isLoading(false);
@@ -100,7 +100,7 @@ class TopupController extends GetxController {
       if (financierDetailsResponse != null && financierDetailsResponse.status) {
         if (financierDetailsResponse.returnData.isNotEmpty) {
           financierList(financierDetailsResponse.returnData);
-          tempList = financierDetailsResponse.returnData;
+          //tempList = financierDetailsResponse.returnData;
           userList = financierList
               .map((element) => {
                     "name": element.firstName,
@@ -108,6 +108,7 @@ class TopupController extends GetxController {
                     "id": element.userID,
                   })
               .toList();
+          tempList = userList;
         }
       }
       isLoading(false);
@@ -169,31 +170,29 @@ class TopupController extends GetxController {
 
   onSearchChangedDistributor(String text) {
     if (text.isEmpty) {
-      distributorList(tempList.cast<RetailerResponseReturnData>());
+      userList(tempList);
     } else {
-      distributorList(tempList
-          .where((element) => element.firstName
+      userList(tempList
+          .where((element) => element["name"]
               .toString()
               .toLowerCase()
               .contains(text.toLowerCase()))
-          .cast<RetailerResponseReturnData>()
           .toList());
     }
   }
 
-  onSearchChangedFinancier(String text) {
+  /* onSearchChangedFinancier(String text) {
     if (text.isEmpty) {
-      financierList(tempList.cast<UserListReturnData>());
+      financierList(tempList);
     } else {
       financierList(tempList
           .where((element) => element.firstName
               .toString()
               .toLowerCase()
               .contains(text.toLowerCase()))
-          .cast<UserListReturnData>()
           .toList());
     }
-  }
+  }*/
 
   attachImage() async {
     res = await ImagePicker().pickImage(source: ImageSource.gallery);

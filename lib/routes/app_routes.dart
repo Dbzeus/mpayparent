@@ -27,8 +27,8 @@ class AppRoutes {
   static const distributorRetailerTopupScreen = '/distributor/retailerTopup';
   static const distributorTopupReportScreen = '/distributor/topupReport';
   static const distributorRequestTopUpScreen = '/distributor/RequestTopUp';
-  static const distributorRequestTopupReportScreen =
-      '/distributor/requestTopupReport';
+  static const distributorRequestReportScreen =
+      '/distributor/requestReport';
 
   //Sales Screen
   static const salesMainScreen = '/sales/MainScreen';

@@ -50,7 +50,14 @@ class CustomMenu extends StatelessWidget {
   _buildMenu(imagePath, title, onClickUrl) {
     return InkWell(
       onTap: () {
-        Get.toNamed(onClickUrl);
+        if (title == "DMT Transaction") {
+          Get.toNamed(onClickUrl, arguments: {
+            "isParent": false,
+            "title": "DMT Transaction Report"
+          });
+        } else {
+          Get.toNamed(onClickUrl);
+        }
       },
       child: Container(
           padding: const EdgeInsets.all(8),

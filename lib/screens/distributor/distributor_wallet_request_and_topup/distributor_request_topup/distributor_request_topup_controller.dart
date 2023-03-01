@@ -21,7 +21,7 @@ class DIRequestTopupController extends GetxController {
   List tempList = [];
   RxBool isAttached = false.obs;
   RxBool isLoading = false.obs;
-  int bankId = 0;
+  int bankId = -1;
   String imagePath = "";
   int userId = -1;
   var res;
@@ -48,19 +48,19 @@ class DIRequestTopupController extends GetxController {
     }
   }
 
-    attachImage() async {
-      res = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (res != null) {
-        File imageFile = File(res.path); //convert Path to File
-        Uint8List imageBytes = await imageFile.readAsBytes(); //convert to bytes
-        imagePath = base64.encode(imageBytes); //convert bytes to base64 string
-        isAttached(true);
-      }
+  attachImage() async {
+    res = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (res != null) {
+      File imageFile = File(res.path); //convert Path to File
+      Uint8List imageBytes = await imageFile.readAsBytes(); //convert to bytes
+      imagePath = base64.encode(imageBytes); //convert bytes to base64 string
+      isAttached(true);
     }
+  }
 
   dmtWalletTopup() async {
     Get.focusScope?.unfocus();
-    if (bankId == 0) {
+    if (bankId == -1) {
       toast("Select Bank");
     } else if (amountController.text.isEmpty) {
       toast("Enter Amount");
@@ -88,7 +88,7 @@ class DIRequestTopupController extends GetxController {
           isLoading(false);
           if (topupResponse != null) {
             toast(topupResponse["Message"]);
-            if (topupResponse['status']) {
+            if (topupResponse['Status']) {
               Get.back(result: true);
             }
           }

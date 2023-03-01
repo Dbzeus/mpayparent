@@ -11,9 +11,10 @@ import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_edittext.dart';
 import 'di_request_topup_report_controller.dart';
 
-class DIRequestTopupReportScreen extends GetView<DIRequestTopupReportController> {
+class DIRetailerRequestReportScreen
+    extends GetView<DIRetailerRequestReportController> {
   @override
-  final controller = Get.put(DIRequestTopupReportController());
+  final controller = Get.put(DIRetailerRequestReportController());
   var boxDecoration = const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -25,7 +26,7 @@ class DIRequestTopupReportScreen extends GetView<DIRequestTopupReportController>
         )
       ]);
 
-  DIRequestTopupReportScreen({Key? key}) : super(key: key);
+  DIRetailerRequestReportScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +51,14 @@ class DIRequestTopupReportScreen extends GetView<DIRequestTopupReportController>
             ),
             Obx(
               () => controller.reportList.isEmpty
-                  ? const Center(
-                      child: Text("No Records found",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          )),
+                  ? Expanded(
+                      child: const Center(
+                        child: Text("No Records found",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
                     )
                   : Expanded(
                       child: ListView.builder(

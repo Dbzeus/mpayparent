@@ -29,7 +29,7 @@ class DITopupReportScreen extends GetView<DITopupReportController> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text("Distributor"),
+          title: const Text("Distributor paid Details"),
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 12, right: 12),
@@ -75,8 +75,10 @@ class DITopupReportScreen extends GetView<DITopupReportController> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Get.toNamed(AppRoutes.distributorRetailerTopupScreen);
+          onPressed: () async {
+            var res =
+                await Get.toNamed(AppRoutes.distributorRetailerTopupScreen);
+            if (res != null && res) {}
           },
           child: const Icon(Icons.add),
         ),

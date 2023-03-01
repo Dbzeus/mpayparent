@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mpayparent/model/retailerTopupHistoryResponse.dart';
 import 'package:mpayparent/routes/app_routes.dart';
@@ -28,64 +27,69 @@ class PATopupActivityScreen extends GetView<PATopupActivityController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Obx(
-          () => Text(
-            controller.title.value,
+    return GestureDetector(
+      onTap: () {
+        Get.focusScope!.unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Obx(
+            () => Text(
+              controller.title.value,
+            ),
           ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 12, right: 12),
-        child: Column(
-          children: [
-            Obx(
-              () => FilterHeader(
-                onFilterTap: (String fromDate, String toDate) {
-                  controller.getTopupReport(fromDate, toDate);
-                },
-                onSearchChanged: (text) {
-                  controller.onSearchChanged(text);
-                },
-                isLoading: controller.isLoading.value,
+        body: Padding(
+          padding: const EdgeInsets.only(left: 12, right: 12),
+          child: Column(
+            children: [
+              Obx(
+                () => FilterHeader(
+                  onFilterTap: (String fromDate, String toDate) {
+                    controller.getTopupReport(fromDate, toDate);
+                  },
+                  onSearchChanged: (text) {
+                    controller.onSearchChanged(text);
+                  },
+                  isLoading: controller.isLoading.value,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Obx(
-              () => controller.reportList.isEmpty
-                  ? Expanded(
-                      child: const Center(
-                        child: Text("No Records found",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
-                    )
-                  : Expanded(
-                      child: Obx(
-                      () => ListView.builder(
-                        itemCount: 2, //controller.reportList.length,
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (__, index) =>
-                            _showTopupReport(controller.reportList[index]),
-                      ),
-                    )),
-            ),
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              Obx(
+                () => controller.reportList.isEmpty
+                    ? const Expanded(
+                        child: Center(
+                          child: Text("No Records found",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ),
+                      )
+                    : Expanded(
+                        child: Obx(
+                        () => ListView.builder(
+                          itemCount: 2, //controller.reportList.length,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (__, index) =>
+                              _showTopupReport(controller.reportList[index]),
+                        ),
+                      )),
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed(AppRoutes.topupScreen,
-              arguments: {"tType": controller.tType});
-        },
-        child: const Icon(Icons.add),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Get.toNamed(AppRoutes.topupScreen,
+                arguments: {"tType": controller.tType});
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

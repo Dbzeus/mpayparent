@@ -33,3 +33,4 @@ const financeDITopupRequestUrl = "TopupRequest_Dist";
 
 //Parent
 const userDetailsByRoleUrl = "UserDetails";
+//const userDetailsByRoleUrl = "AEPSSchedulementDetails_BankIT";

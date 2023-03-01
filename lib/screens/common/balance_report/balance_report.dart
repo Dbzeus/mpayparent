@@ -30,73 +30,76 @@ class BalanceReportScreen extends GetView<BalanceReportController> {
       appBar: AppBar(
         title: Obx(() => Text(controller.title.value)),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: CustomEditText(
-              controller: controller.searchController,
-              hintText: "Search",
-              maxLines: 1,
-              onChanged: (text) {
-                controller.onSearchChanged(text);
-              },
-              suffixIcon: const Icon(
-                Icons.search,
-                size: 20,
+      body: GestureDetector(
+        onTap: () {
+          Get.focusScope!.unfocus();
+        },
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: CustomEditText(
+                controller: controller.searchController,
+                hintText: "Search",
+                maxLines: 1,
+                onChanged: (text) {
+                  controller.onSearchChanged(text);
+                },
+                suffixIcon: const Icon(
+                  Icons.search,
+                  size: 20,
+                ),
               ),
             ),
-          ),
-          Container(
-            height: 50,
-            width: Get.width,
-            color: primaryColor,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Total Balance",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: textColor,
-                    )),
-                Obx(
-                      () =>
-                      Text("$rs ${controller.totalBalance.value}",
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.greenAccent,
-                            fontWeight: FontWeight.bold,
-                          )),
-                ),
-              ],
+            Container(
+              height: 50,
+              width: Get.width,
+              color: primaryColor,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Total Balance",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: textColor,
+                      )),
+                  Obx(
+                    () => Text("$rs ${controller.totalBalance.value}",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.greenAccent,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: Obx(
-                  () =>
-              controller.isLoading.value
-                  ? const Center(
-                child: CircularProgressIndicator(),
-              )
-                  : controller.balanceList.isEmpty
-                  ? const Center(
-                child: Text("No Records found",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    )),
-              )
-                  : ListView.builder(
-                  itemCount: controller.balanceList.length,
-                  padding: const EdgeInsets.all(8),
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (__, index) =>
-                      _showRetailerBalanceReport(
-                          controller.balanceList[index])),
+            Expanded(
+              child: Obx(
+                () => controller.isLoading.value
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : controller.balanceList.isEmpty
+                        ? const Center(
+                            child: Text("No Records found",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                          )
+                        : ListView.builder(
+                            itemCount: controller.balanceList.length,
+                            padding: const EdgeInsets.all(8),
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (__, index) =>
+                                _showRetailerBalanceReport(
+                                    controller.balanceList[index])),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -118,9 +121,7 @@ class BalanceReportScreen extends GetView<BalanceReportController> {
               children: [
                 Text(response.firstName,
                     style: const TextStyle(
-                      fontSize: 14,
-                        fontWeight: FontWeight.bold
-                    )),
+                        fontSize: 14, fontWeight: FontWeight.bold)),
                 Text(response.mobileNo.toString(),
                     style: const TextStyle(
                       fontSize: 14,

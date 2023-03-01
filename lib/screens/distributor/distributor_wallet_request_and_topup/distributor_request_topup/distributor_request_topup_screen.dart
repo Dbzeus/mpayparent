@@ -17,7 +17,7 @@ class DIRequestTopupScreen extends GetView<DIRequestTopupController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Request Top up",
+          "Distributor Request Top up",
         ),
       ),
       body: Column(
@@ -210,6 +210,8 @@ class DIRequestTopupScreen extends GetView<DIRequestTopupController> {
                               controller.bankController.text =
                                   bankList[index]["BankName"].toString();
                               controller.bankId = bankList[index]["BankID"];
+                              debugPrint("Bank id" +
+                                  bankList[index]["BankID"].toString());
                               controller.searchController.clear();
                               Get.back();
                             },

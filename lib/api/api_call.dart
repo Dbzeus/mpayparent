@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+
 import 'package:mpayparent/model/distributorRequestResponse.dart';
 import 'package:mpayparent/model/myTransactionResponse.dart';
 import 'package:mpayparent/model/parentDashboardResponse.dart';
@@ -479,7 +479,7 @@ class ApiCall {
   //insert user Retailer and distributor
   Future<dynamic> insertUserReAndDi(formData) async {
     try {
-      //log(jsonEncode(params));
+      log(formData.toString());
 
       final response = await _dio.post(userInsertReAndDi, data: formData);
 

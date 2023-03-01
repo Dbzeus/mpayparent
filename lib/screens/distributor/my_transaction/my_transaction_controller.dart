@@ -18,8 +18,8 @@ class DIMyTransactionReportController extends GetxController {
   void onInit() {
     super.onInit();
     getTransactionReport(
-        DateFormat('MM/dd/yyyy').format(DateTime(today.year, today.month, 1)),
-        DateFormat('MM/dd/yyyy').format(today));
+        DateFormat('dd/MM/yyyy').format(DateTime(today.year, today.month, 1)),
+        DateFormat('dd/MM/yyyy').format(today));
   }
 
   getTransactionReport(String startDate, String endDate) async {

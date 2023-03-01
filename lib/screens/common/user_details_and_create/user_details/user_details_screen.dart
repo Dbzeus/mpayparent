@@ -96,8 +96,7 @@ class UserDetailsScreen extends GetView<UserDetailsController> {
                 controller.getUserDetails();
               }
             } else if (controller.roleId.isEqual(saleRoleId)) {
-              var res =
-              await Get.toNamed(AppRoutes.financeSalesCreateScreen,
+              var res = await Get.toNamed(AppRoutes.financeSalesCreateScreen,
                   arguments: {
                     "title": "Create Sales User",
                     "roleId": controller.roleId,
@@ -106,8 +105,7 @@ class UserDetailsScreen extends GetView<UserDetailsController> {
                 controller.getUserDetails();
               }
             } else if (controller.roleId.isEqual(distributorRoleId)) {
-              var res =
-              await Get.toNamed(AppRoutes.distributorCreateScreen,
+              var res = await Get.toNamed(AppRoutes.distributorCreateScreen,
                   arguments: {
                     "title": "Create Distributor User",
                     "roleId": controller.roleId,
@@ -166,19 +164,29 @@ class UserDetailsScreen extends GetView<UserDetailsController> {
             ),
           ),
           IconButton(
-              onPressed: () {
+              onPressed: () async {
                 if (controller.roleId.isEqual(financeRoleId)) {
-                  Get.toNamed(AppRoutes.financeSalesCreateScreen, arguments: {
-                    "title": "Edit Financier",
-                    "roleId": controller.roleId,
-                    "userData": userData
-                  });
+                  var res = await Get.toNamed(
+                      AppRoutes.financeSalesCreateScreen,
+                      arguments: {
+                        "title": "Edit Financier",
+                        "roleId": controller.roleId,
+                        "userData": userData
+                      });
+                  if (res != null && res) {
+                    controller.getUserDetails();
+                  }
                 } else if (controller.roleId.isEqual(saleRoleId)) {
-                  Get.toNamed(AppRoutes.financeSalesCreateScreen, arguments: {
-                    "title": "Edit Sales User",
-                    "roleId": controller.roleId,
-                    "userData": userData
-                  });
+                  var res = await Get.toNamed(
+                      AppRoutes.financeSalesCreateScreen,
+                      arguments: {
+                        "title": "Edit Sales User",
+                        "roleId": controller.roleId,
+                        "userData": userData
+                      });
+                  if (res != null && res) {
+                    controller.getUserDetails();
+                  }
                 }
               },
               icon: const Icon(Icons.edit)),
@@ -230,13 +238,17 @@ class UserDetailsScreen extends GetView<UserDetailsController> {
             ),
           ),
           IconButton(
-              onPressed: () {
+              onPressed: () async {
                 if (controller.roleId.isEqual(distributorRoleId)) {
-                  Get.toNamed(AppRoutes.distributorCreateScreen, arguments: {
-                    "title": "Edit Distributor User",
-                    "roleId": controller.roleId,
-                    "userData": userData
-                  });
+                  var res = await Get.toNamed(AppRoutes.distributorCreateScreen,
+                      arguments: {
+                        "title": "Edit Distributor User",
+                        "roleId": controller.roleId,
+                        "userData": userData
+                      });
+                  if (res != null && res) {
+                    controller.getDistributorDetails();
+                  }
                 }
               },
               icon: const Icon(Icons.edit)),

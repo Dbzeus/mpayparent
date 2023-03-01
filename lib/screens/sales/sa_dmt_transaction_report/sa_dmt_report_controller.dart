@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +20,8 @@ class SADmtReportController extends GetxController {
 
   @override
   void onInit() {
-    isParent = Get.arguments["isParent"];
+    isParent = Get.arguments["isParent"] ?? false;
+    debugPrint("Is parent: $isParent");
     title(Get.arguments["title"] ?? "DMT Transaction");
     super.onInit();
     getDmtReport(
@@ -34,7 +36,7 @@ class SADmtReportController extends GetxController {
       if (await isNetConnected()) {
         isLoading(true);
         DmtReport? reportResponse = await ApiCall().getDmtReport(
-            isParent ? 0 : _box.read(Session.userId), fromDate, toDate);
+            isParent ? _box.read(Session.userId) : 0, fromDate, toDate);
         isLoading(false);
 
         if (reportResponse != null && reportResponse.status) {

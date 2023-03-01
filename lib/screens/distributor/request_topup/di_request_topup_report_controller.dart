@@ -7,7 +7,7 @@ import 'package:mpayparent/model/distributorRequestResponse.dart';
 import '../../../../utils/constant_function.dart';
 import '../../../../utils/session.dart';
 
-class DIRequestTopupReportController extends GetxController {
+class DIRetailerRequestReportController extends GetxController {
   final _box = GetStorage();
   RxBool isLoading = false.obs;
   int mmpin = -1;

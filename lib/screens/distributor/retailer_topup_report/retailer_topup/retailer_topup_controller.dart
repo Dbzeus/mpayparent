@@ -70,7 +70,7 @@ class DIRetailerTopupController extends GetxController {
 
   retailerTopup() async {
     Get.focusScope?.unfocus();
-    if (retailerId == 0) {
+    if (retailerId == -1) {
       toast("Select Retailer");
     } else if (amountController.text.isEmpty) {
       toast("Enter Amount");
@@ -108,31 +108,30 @@ class DIRetailerTopupController extends GetxController {
                     await ApiCall().retailerDistributorTopup(params);
                 if (topupResponse != null) {
                   toast("Amount added successfully");
-                  debugPrint("Payment success");
                 }
                 isLoading(false);
                 Get.back();
               } else {
-                toast('Incorrect MPIN');
+                toast('Invalid MPIN');
                 Get.back();
               }
             }
           }
         }
       }
+    }
+  }
 
-      onSearchChanged(String text) {
-        if (text.isEmpty) {
-          retailerList(tempList);
-        } else {
-          retailerList(tempList
-              .where((element) => element.firstName
-                  .toString()
-                  .toLowerCase()
-                  .contains(text.toLowerCase()))
-              .toList());
-        }
-      }
+  onSearchChanged(String text) {
+    if (text.isEmpty) {
+      retailerList(tempList);
+    } else {
+      retailerList(tempList
+          .where((element) => element.firstName
+              .toString()
+              .toLowerCase()
+              .contains(text.toLowerCase()))
+          .toList());
     }
   }
 }

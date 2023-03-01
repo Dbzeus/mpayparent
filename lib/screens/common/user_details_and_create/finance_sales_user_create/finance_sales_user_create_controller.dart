@@ -21,7 +21,6 @@ class FinanceSalesCreateController extends GetxController {
 
   var userList;
   RxString imagePath = "".obs;
-  String encodedImage = "";
   UserListReturnData? userData = Get.arguments["userData"];
   RxBool isLoading = false.obs;
   int userId = -1;
@@ -70,12 +69,12 @@ class FinanceSalesCreateController extends GetxController {
           "LastName": lastNameController.text,
           "MobileNo": mobileNoController.text,
           "RoleName": userData?.roleName ?? "",
-          "MPin": userData!.mPin ?? 0,
+          "MPin": userData!.mPin ?? 0, // need to clarify mpin andd otp
           "OTP": userData!.otp ?? 0,
           "EmailID": mailController.text,
           "Zone": zoneController.text,
           "Remarks": remarksController.text,
-          "ProfileImage": encodedImage,
+          "ProfileImage": imagePath,
           "IsActive ": true,
           "CUID": userData?.isActive ?? true,
           "CUDate": "",
@@ -94,12 +93,7 @@ class FinanceSalesCreateController extends GetxController {
 
   pickImage() async {
     res = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (res != null) {
-      imagePath(res.path); // convert Path to File
-      File imageFile = File(res.path); //c
-      Uint8List imageBytes = await imageFile.readAsBytes(); //convert to bytes
-      encodedImage = base64.encode(imageBytes);
-      return res.path;//convert bytes to base64 string
-    }
+
+    return res.path;
   }
 }

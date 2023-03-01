@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mpayparent/model/retailerDetailsResponse.dart';
+import 'package:mpayparent/utils/constant_string.dart';
 
+import '../../../routes/app_routes.dart';
 import '../../../widgets/custom_edittext.dart';
 import 'sa_di_details_controller.dart';
 
@@ -72,14 +74,23 @@ class SADistributorScreen extends GetView<SADistributorController> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () async {
+            var res = await Get.toNamed(AppRoutes.distributorCreateScreen,
+                arguments: {
+                  "title": "Create Distributor User",
+                  "roleId": distributorRoleId,
+                });
+            if (res != null && res) {
+              controller.getDistributorDetails();
+            }
+          },
           child: const Icon(Icons.add),
         ),
       ),
     );
   }
 
-  _showDistributorDetailsReport(RetailerResponseReturnData retailerData) {
+  _showDistributorDetailsReport(RetailerResponseReturnData distributorData) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       margin: const EdgeInsets.all(8),
@@ -89,11 +100,12 @@ class SADistributorScreen extends GetView<SADistributorController> {
         children: [
           CircleAvatar(
             radius: 22,
-            backgroundColor: retailerData.isActive ? Colors.green : Colors.red,
+            backgroundColor:
+                distributorData.isActive ? Colors.green : Colors.red,
             child: CircleAvatar(
                 radius: 20,
                 backgroundImage: CachedNetworkImageProvider(
-                  retailerData.profilePhoto,
+                  distributorData.profilePhoto,
                 )),
           ),
           const SizedBox(
@@ -104,24 +116,36 @@ class SADistributorScreen extends GetView<SADistributorController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(retailerData.firstName, //response.firstName,
+                Text(distributorData.firstName, //response.firstName,
                     style: const TextStyle(
                         fontSize: 15,
                         color: Colors.black,
                         fontWeight: FontWeight.w800)),
-                Text(retailerData.organisationName,
+                Text(distributorData.organisationName,
                     //response.mobileNo.toString(),
                     style: const TextStyle(
                       fontSize: 14,
                     )),
-                Text(retailerData.mobileNo,
+                Text(distributorData.mobileNo,
                     style: const TextStyle(
                       fontSize: 14,
                     )),
               ],
             ),
           ),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+          IconButton(
+              onPressed: () async {
+                var res = await Get.toNamed(AppRoutes.distributorCreateScreen,
+                    arguments: {
+                      "title": "Edit Distributor User",
+                      "roleId": distributorRoleId,
+                      "userData": distributorData
+                    });
+                if (res != null && res) {
+                  controller.getDistributorDetails();
+                }
+              },
+              icon: const Icon(Icons.edit)),
         ],
       ),
     );

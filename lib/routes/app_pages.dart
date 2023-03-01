@@ -5,6 +5,8 @@ import 'package:mpayparent/screens/common/user_details_and_create/distributor_us
 import 'package:mpayparent/screens/common/user_details_and_create/finance_sales_user_create/finance_sales_user_create.dart';
 import 'package:mpayparent/screens/common/user_details_and_create/user_details/user_details_screen.dart';
 import 'package:mpayparent/screens/distributor/distributor_main/distributor_main/di_main_screen.dart';
+import 'package:mpayparent/screens/distributor/distributor_wallet_request_and_topup/distributor_request_topup/distributor_request_topup_screen.dart';
+import 'package:mpayparent/screens/distributor/distributor_wallet_request_and_topup/distributor_wallet_request/distributor_wallet_report_request.dart';
 import 'package:mpayparent/screens/distributor/my_transaction/my_transaction_report.dart';
 import 'package:mpayparent/screens/distributor/request_topup/di_request_topup_report.dart';
 import 'package:mpayparent/screens/distributor/retailer_details/retailer_details_screen.dart';
@@ -22,8 +24,7 @@ import 'package:mpayparent/screens/sales/sales_main/sales_main/sales_main_screen
 import '../screens/auth/login/login_screen.dart';
 import '../screens/auth/otp/otp_screen.dart';
 import '../screens/common/balance_report/balance_report.dart';
-import '../screens/distributor/distributor_wallet_topup/distributor_request_topup/distributor_request_topup_screen.dart';
-import '../screens/distributor/distributor_wallet_topup/distributor_wallet_request/distributor_wallet_report_request.dart';
+
 import '../screens/distributor/retailer_topup_report/retailer_topup/retailer_topup.dart';
 import '../screens/distributor/retailer_topup_report/topup_report/topup_report_screen.dart';
 import 'app_routes.dart';
@@ -79,8 +80,8 @@ class AppPages {
         name: AppRoutes.distributorTopupReportScreen,
         page: () => DITopupReportScreen()),
     GetPage(
-        name: AppRoutes.distributorRequestTopupReportScreen,
-        page: () => DIRequestTopupReportScreen()),
+        name: AppRoutes.distributorRequestReportScreen,
+        page: () => DIRetailerRequestReportScreen()),
 
     //Sales
     GetPage(name: AppRoutes.salesMainScreen, page: () => SAMainScreen()),

@@ -6,7 +6,8 @@ import '../../../utils/constant_string.dart';
 import '../../../widgets/filter_header.dart';
 import 'my_transaction_controller.dart';
 
-class DIMyTransactionReportScreen extends GetView<DIMyTransactionReportController> {
+class DIMyTransactionReportScreen
+    extends GetView<DIMyTransactionReportController> {
   @override
   final controller = Get.put(DIMyTransactionReportController());
 
@@ -33,43 +34,48 @@ class DIMyTransactionReportScreen extends GetView<DIMyTransactionReportControlle
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 12, right: 12),
-        child: Column(
-          children: [
-            Obx(
-              () => FilterHeader(
-                onFilterTap: (String fromDate, String toDate) {
-                  controller.getTransactionReport(fromDate, toDate);
-                },
-                onSearchChanged: (text) {
-                  controller.onSearchChanged(text);
-                },
-                isLoading: controller.isLoading.value,
+        child: GestureDetector(
+          onTap: () {
+            Get.focusScope!.unfocus();
+          },
+          child: Column(
+            children: [
+              Obx(
+                () => FilterHeader(
+                  onFilterTap: (String fromDate, String toDate) {
+                    controller.getTransactionReport(fromDate, toDate);
+                  },
+                  onSearchChanged: (text) {
+                    controller.onSearchChanged(text);
+                  },
+                  isLoading: controller.isLoading.value,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Obx(() => controller.reportData.isEmpty
-                ? const Expanded(
-                    child: Center(
-                      child: Text("No Records found",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ),
-                  )
-                : Expanded(
-                    child: ListView.builder(
-                        itemCount: controller.reportData.length,
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.symmetric(horizontal: 2),
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (__, index) => _showMyTransferReport(
-                            controller.reportData[index])),
-                  )),
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              Obx(() => controller.reportData.isEmpty
+                  ? const Expanded(
+                      child: Center(
+                        child: Text("No Records found",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                          itemCount: controller.reportData.length,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (__, index) => _showMyTransferReport(
+                              controller.reportData[index])),
+                    )),
+            ],
+          ),
         ),
       ),
     );

@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mpayparent/utils/custom_colors.dart';
 import 'package:mpayparent/widgets/custom_button.dart';
 import 'package:mpayparent/widgets/custom_edittext.dart';
 
+import '../../../../utils/constant_string.dart';
 import 'distributor_user_controller.dart';
 
 class DistributorCreateScreen extends GetView<DistributorCreateController> {
@@ -52,9 +54,7 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                             GestureDetector(
                               onTap: () async {
                                 var image = await controller.pickImage();
-                                if (image != null) {
-                                  controller.profileImage(image);
-                                }
+                                controller.profileImage(image);
                               },
                               child: Obx(
                                 () => Container(
@@ -71,8 +71,11 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                                           : controller.profileImage.value.isURL
                                               ? DecorationImage(
                                                   fit: BoxFit.cover,
-                                                  image: NetworkImage(controller
-                                                      .profileImage.value))
+                                                  image:
+                                                      CachedNetworkImageProvider(
+                                                    controller.profileImage
+                                                        .value, //need to decode
+                                                  ))
                                               : DecorationImage(
                                                   fit: BoxFit.cover,
                                                   image: FileImage(File(
@@ -176,9 +179,9 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                         CustomEditText(
                           controller: controller.gstController,
                           hintText: "GST NO",
-                          isUpperCase: true,
                           contentPadding: const EdgeInsets.only(left: 12),
                           maxLines: 1,
+                          isUpperCase: true,
                         ),
                         const SizedBox(
                           height: 12,
@@ -202,10 +205,22 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                                                 BorderRadius.circular(12),
                                             border: Border.all(
                                                 color: secondaryColor),
-                                            image: DecorationImage(
-                                                image: FileImage(File(controller
-                                                    .bankAgreementFront.value)),
-                                                fit: BoxFit.cover)),
+                                            image: controller.bankAgreementFront
+                                                    .value.isURL
+                                                ? DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image:
+                                                        CachedNetworkImageProvider(
+                                                      controller
+                                                          .bankAgreementFront
+                                                          .value, //need to decode
+                                                    ))
+                                                : DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: FileImage(File(
+                                                        controller
+                                                            .bankAgreementFront
+                                                            .value)))),
                                         child: controller.bankAgreementFront
                                                 .value.isEmpty
                                             ? Column(
@@ -249,10 +264,22 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                                                 BorderRadius.circular(12),
                                             border: Border.all(
                                                 color: secondaryColor),
-                                            image: DecorationImage(
-                                                image: FileImage(File(controller
-                                                    .bankAgreementBack.value)),
-                                                fit: BoxFit.cover)),
+                                            image: controller.bankAgreementBack
+                                                    .value.isURL
+                                                ? DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image:
+                                                        CachedNetworkImageProvider(
+                                                      controller
+                                                          .bankAgreementBack
+                                                          .value, //need to decode
+                                                    ))
+                                                : DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: FileImage(File(
+                                                        controller
+                                                            .bankAgreementBack
+                                                            .value)))),
                                         child: controller
                                                 .bankAgreementBack.isEmpty
                                             ? Column(
@@ -326,9 +353,20 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                                                 BorderRadius.circular(12),
                                             border: Border.all(
                                                 color: secondaryColor),
-                                            image: DecorationImage(
-                                                image: FileImage(File(controller
-                                                    .aadharFront.value)))),
+                                            image: controller
+                                                    .aadharFront.value.isURL
+                                                ? DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image:
+                                                        CachedNetworkImageProvider(
+                                                      controller.aadharFront
+                                                          .value, //need to decode
+                                                    ))
+                                                : DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: FileImage(File(
+                                                        controller.aadharFront
+                                                            .value)))),
                                         child: controller.aadharFront.isEmpty
                                             ? Column(
                                                 crossAxisAlignment:
@@ -371,9 +409,20 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                                                 BorderRadius.circular(12),
                                             border: Border.all(
                                                 color: secondaryColor),
-                                            image: DecorationImage(
-                                                image: FileImage(File(controller
-                                                    .aadharBack.value)))),
+                                            image: controller
+                                                    .aadharBack.value.isURL
+                                                ? DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image:
+                                                        CachedNetworkImageProvider(
+                                                      controller.aadharBack
+                                                          .value, //need to decode
+                                                    ))
+                                                : DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: FileImage(File(
+                                                        controller.aadharBack
+                                                            .value)))),
                                         child: controller.aadharBack.isEmpty
                                             ? Column(
                                                 crossAxisAlignment:
@@ -440,9 +489,18 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                                         borderRadius: BorderRadius.circular(12),
                                         border:
                                             Border.all(color: secondaryColor),
-                                        image: DecorationImage(
-                                            image: FileImage(File(
-                                                controller.panFront.value)))),
+                                        image: controller.panFront.value.isURL
+                                            ? DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image:
+                                                    CachedNetworkImageProvider(
+                                                  controller.panFront
+                                                      .value, //need to decode
+                                                ))
+                                            : DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: FileImage(File(controller
+                                                    .panFront.value)))),
                                     child: controller.panFront.isEmpty
                                         ? Column(
                                             crossAxisAlignment:
@@ -508,10 +566,22 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                                                 BorderRadius.circular(12),
                                             border: Border.all(
                                                 color: secondaryColor),
-                                            image: DecorationImage(
-                                                image: FileImage(File(controller
-                                                    .mpayAgreementFront
-                                                    .value)))),
+                                            image: controller.mpayAgreementFront
+                                                    .value.isURL
+                                                ? DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image:
+                                                        CachedNetworkImageProvider(
+                                                      controller
+                                                          .mpayAgreementFront
+                                                          .value, //need to decode
+                                                    ))
+                                                : DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: FileImage(File(
+                                                        controller
+                                                            .mpayAgreementFront
+                                                            .value)))),
                                         child: controller
                                                 .mpayAgreementFront.isEmpty
                                             ? Column(
@@ -555,10 +625,22 @@ class DistributorCreateScreen extends GetView<DistributorCreateController> {
                                                 BorderRadius.circular(12),
                                             border: Border.all(
                                                 color: secondaryColor),
-                                            image: DecorationImage(
-                                                image: FileImage(File(controller
-                                                    .mpayAgreementBack
-                                                    .value)))),
+                                            image: controller.mpayAgreementBack
+                                                    .value.isURL
+                                                ? DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image:
+                                                        CachedNetworkImageProvider(
+                                                      controller
+                                                          .mpayAgreementBack
+                                                          .value, //need to decode
+                                                    ))
+                                                : DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: FileImage(File(
+                                                        controller
+                                                            .mpayAgreementBack
+                                                            .value)))),
                                         child: controller
                                                 .mpayAgreementBack.isEmpty
                                             ? Column(

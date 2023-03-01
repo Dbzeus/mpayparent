@@ -39,11 +39,11 @@ class CustomMenu extends StatelessWidget {
       'iconUrl': "assets/icon/transfer_status.png",
       'onClickUrl': AppRoutes.distributorMyTransactionReportScreen
     },
-    {
+    /*{
       'title': 'AEPS Request',
       'iconUrl': "assets/icon/transfer_status.png",
       'onClickUrl': AppRoutes.parentAEPSReportScreen
-    },
+    },*/
   ];
   var userMenus = [
     {
@@ -106,7 +106,7 @@ class CustomMenu extends StatelessWidget {
           });
         } else if (title == "DMT") {
           Get.toNamed(onClickUrl,
-              arguments: {"isParent": true, "title": "DMT Report"});
+              arguments: {"isParent": false, "title": "DMT Report"});
         } else if (title == "Financier") {
           Get.toNamed(onClickUrl, arguments: {
             "roleId": financeRoleId,

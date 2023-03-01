@@ -8,7 +8,7 @@ import '../../../api/api_call.dart';
 import '../../../utils/session.dart';
 
 class SATopupReportController extends GetxController {
-  final _box = GetStorage();
+
   RxBool isLoading = false.obs;
   RxList<TopupHistoryResponseReturnData> reportList = RxList();
   List<TopupHistoryResponseReturnData> searchList = [];
