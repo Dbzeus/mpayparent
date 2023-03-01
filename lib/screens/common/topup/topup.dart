@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mpayparent/utils/constant_string.dart';
 import 'package:mpayparent/utils/custom_colors.dart';
 import 'package:mpayparent/widgets/custom_button.dart';
 import 'package:mpayparent/widgets/custom_edittext.dart';
@@ -210,18 +209,27 @@ class TopupScreen extends GetView<TopupController> {
               const SizedBox(
                 height: 12,
               ),
+              // Expanded(
+              //   child: ListView.builder(
+              //       itemCount: controller.userList.length,
+              //       physics: const BouncingScrollPhysics(),
+              //       itemBuilder: (_,index){
+              //     return Text("sdsadasd");
+              //   }),
+              // ),
               Expanded(
-                child: controller.userList.isEmpty
-                    ? const Center(
-                        child: Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text('User Not Found'),
-                      ))
-                    : ListView.builder(
-                        itemCount: controller.userList.length,
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (__, index) {
-                          return ListTile(
+                child: Obx(
+                  () => controller.userList.isEmpty
+                      ? const Center(
+                          child: Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text('User Not Found'),
+                        ))
+                      : ListView.builder(
+                          itemCount: controller.userList.length,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (__, index) {
+                            return ListTile(
                             dense: true,
                             isThreeLine: false,
                             leading: const Icon(
@@ -234,17 +242,18 @@ class TopupScreen extends GetView<TopupController> {
                                   controller.userList[index]["name"].toString();
                               controller.payeeId =
                                   controller.userList[index]["id"];
-                              controller.searchController.clear();
-                              Get.back();
-                            },
-                            title: Text(
-                                "${controller.userList[index]["name"]} (${controller.userList[index]["no"]})",
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                          );
-                        }),
+                                controller.searchController.clear();
+                                Get.back();
+                              },
+                              title: Text(
+                                  "${controller.userList[index]["name"]} (${controller.userList[index]["no"]})",
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            );
+                          }),
+                ),
               ),
             ],
           ),

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-
 import 'package:mpayparent/model/distributorRequestResponse.dart';
 import 'package:mpayparent/model/myTransactionResponse.dart';
 import 'package:mpayparent/model/parentDashboardResponse.dart';
@@ -224,7 +223,7 @@ class ApiCall {
 
       return MyTransactionResponse.fromJson(response.data);
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);

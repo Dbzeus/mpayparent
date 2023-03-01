@@ -30,12 +30,13 @@ class DIMyTransactionReportController extends GetxController {
       MyTransactionResponse? reportResponse = await ApiCall()
           .getMyTranactionReport(_box.read(Session.userId), startDate, endDate);
       isLoading(false);
-      if (reportResponse != null && reportResponse.status) {
-        reportData(reportResponse.returnData);
-        searchList = reportResponse.returnData;
-        //searchList = reportResponse.reportData;
-      } else {
-        toast(reportResponse?.message);
+      if (reportResponse != null) {
+        if (reportResponse.status) {
+          reportData(reportResponse.returnData);
+          searchList = reportResponse.returnData;
+        } else {
+          toast(reportResponse.message);
+        }
       }
     }
   }

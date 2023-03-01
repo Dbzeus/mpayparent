@@ -21,11 +21,13 @@ class TopupController extends GetxController {
   TextEditingController searchController = TextEditingController();
 
   RxList<RetailerResponseReturnData> distributorList = RxList();
+
   //List<RetailerResponseReturnData> tempListDi = [];
-  var userList;
-  var tempList;
+  var userList = RxList();
+  List<Map<String, dynamic>> tempList = [];
   String imagePath = "";
   RxList<UserListReturnData> financierList = RxList();
+
 //  List<UserListReturnData> tempList = [];
   RxBool isAttached = false.obs;
   RxBool isLoading = false.obs;
@@ -51,7 +53,6 @@ class TopupController extends GetxController {
     } else if (tType == distributorTypeId) {
       title("Distributor Topup");
       payeeTitle("Distributor");
-
       getDistributorDetails();
     } else if (tType == bankItTypeId) {
       title("BankIt Topup");
@@ -78,14 +79,14 @@ class TopupController extends GetxController {
         if (distributorDetailsResponse.returnData.isNotEmpty) {
           distributorList(distributorDetailsResponse.returnData);
           //tempListDi = distributorDetailsResponse.returnData;
-          userList = distributorList
+          userList(distributorList
               .map((element) => {
                     "name": element.firstName,
                     "no": element.mobileNo,
                     "id": element.userID
                   })
-              .toList();
-          tempList = userList;
+              .toList());
+          tempList = userList.value as List<Map<String, dynamic>>;
         }
       }
       isLoading(false);
@@ -101,14 +102,14 @@ class TopupController extends GetxController {
         if (financierDetailsResponse.returnData.isNotEmpty) {
           financierList(financierDetailsResponse.returnData);
           //tempList = financierDetailsResponse.returnData;
-          userList = financierList
+          userList(financierList
               .map((element) => {
                     "name": element.firstName,
                     "no": element.mobileNo,
                     "id": element.userID,
                   })
-              .toList();
-          tempList = userList;
+              .toList());
+          tempList = userList.value as List<Map<String, dynamic>>;
         }
       }
       isLoading(false);

@@ -72,7 +72,6 @@ class OtpController extends GetxController {
           print(data.appRoleID.toString());
           if (data.appRoleID == 5) {
             //distributor
-
             if (!otpResponse['Status']) {
               _box.write(Session.userName, data.firstname);
               _box.write(Session.userMobile, data.mobileno);

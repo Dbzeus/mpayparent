@@ -30,7 +30,7 @@ toast(String? msg) {
   Fluttertoast.showToast(
     gravity: ToastGravity.CENTER,
     backgroundColor: secondaryColor,
-    msg: msg ?? "Something went wrong",
+    msg: (msg.isBlank ?? true) ? "Something went wrong" : msg!,
   );
 }
 
