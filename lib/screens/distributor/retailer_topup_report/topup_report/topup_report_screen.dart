@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mpayparent/model/retailerTopupHistoryResponse.dart';
 import 'package:mpayparent/routes/app_routes.dart';
 
@@ -78,7 +79,12 @@ class DITopupReportScreen extends GetView<DITopupReportController> {
           onPressed: () async {
             var res =
                 await Get.toNamed(AppRoutes.distributorRetailerTopupScreen);
-            if (res != null && res) {}
+            if (res != null && res) {
+              controller.getDistributorRequestReport(
+                  DateFormat('MM/dd/yyyy').format(
+                      DateTime(DateTime.now().year, DateTime.now().month, 1)),
+                  DateFormat('MM/dd/yyyy').format(DateTime.now()));
+            }
           },
           child: const Icon(Icons.add),
         ),
@@ -89,7 +95,7 @@ class DITopupReportScreen extends GetView<DITopupReportController> {
   _showTopupHistoryReport(TopupHistoryResponseReturnData reportList) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      margin: const EdgeInsets.only(bottom: 6),
+      margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 6),
       decoration: boxDecoration,
       child: Center(
         child: Column(
@@ -117,7 +123,7 @@ class DITopupReportScreen extends GetView<DITopupReportController> {
               ],
             ),
             const SizedBox(
-              height: 8,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,7 +145,7 @@ class DITopupReportScreen extends GetView<DITopupReportController> {
                     Text(
                         "Balance: $rs ${reportList.closingBalanceTrTo.toString()}",
                         style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold))
+                            fontSize: 14, fontWeight: FontWeight.w400))
                   ],
                 )
               ],

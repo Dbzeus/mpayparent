@@ -38,7 +38,7 @@ class TopupController extends GetxController {
   RxString title = "-1".obs;
   RxString payeeTitle = "-1".obs;
   bool isParent = false;
-  bool isFinance = false;
+  bool isDistributor = false;
   var res;
 
   final _box = GetStorage();
@@ -47,11 +47,11 @@ class TopupController extends GetxController {
   void onInit() {
     tType = Get.arguments["tType"];
     if (tType == financierTypeId) {
-      title("Financier Topup");
+      title("Topup to Financier");
       payeeTitle("Financier");
       getFinancierDetails();
     } else if (tType == distributorTypeId) {
-      title("Distributor Topup");
+      title("Topup to Distributor");
       payeeTitle("Distributor");
       getDistributorDetails();
     } else if (tType == bankItTypeId) {
@@ -59,9 +59,9 @@ class TopupController extends GetxController {
       isParent = true;
       payeeId = 1;
     } else {
-      title("Distributor Topup");
+      title("Topup to Distributor");
       payeeTitle("Distributor");
-      isFinance = true;
+      isDistributor = true;
       getDistributorDetails();
     }
     userId = _box.read(Session.userId) ?? -1;

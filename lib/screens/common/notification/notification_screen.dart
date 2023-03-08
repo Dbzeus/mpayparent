@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,10 +34,13 @@ class NotificationScreen extends GetView<NotificationController> {
                             title: Text(
                               '${controller.notifications[index]['NotificationTitle']}',
                               style: const TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w600),
+                                  fontSize: 15, fontWeight: FontWeight.bold),
                             ),
                             subtitle: Text(
-                                '${controller.notifications[index]['NotificationMsg']}'),
+                              '${controller.notifications[index]['NotificationMsg']}',
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w600),
+                            ),
                             trailing: Text(
                               '${controller.notifications[index]['CuDate']}',
                               style: const TextStyle(fontSize: 10),

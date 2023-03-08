@@ -51,10 +51,8 @@ class CustomMenu extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (title == "DMT Transaction") {
-          Get.toNamed(onClickUrl, arguments: {
-            "isParent": false,
-            "title": "DMT Transaction Report"
-          });
+          Get.toNamed(onClickUrl,
+              arguments: {"title": "DMT Transaction Report"});
         } else {
           Get.toNamed(onClickUrl);
         }

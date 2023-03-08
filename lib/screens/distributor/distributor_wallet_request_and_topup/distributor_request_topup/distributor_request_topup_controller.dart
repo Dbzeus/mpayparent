@@ -21,6 +21,8 @@ class DIRequestTopupController extends GetxController {
   List tempList = [];
   RxBool isAttached = false.obs;
   RxBool isLoading = false.obs;
+  RxBool isPageLoading = false.obs;
+
   int bankId = -1;
   String imagePath = "";
   int userId = -1;
@@ -39,12 +41,16 @@ class DIRequestTopupController extends GetxController {
 
   getBankList() async {
     if (await isNetConnected()) {
+      isPageLoading(true);
       var response = await ApiCall().getRetailerBankList(userId);
-
       if (response != null && response["Status"] == true) {
         bankList(response["ReturnData"]);
+        bankList.length.isEqual(1)
+            ? bankController.text = bankList[0]["BankName"].toString()
+            : "";
         tempList = response["ReturnData"];
       }
+      isPageLoading(false);
     }
   }
 

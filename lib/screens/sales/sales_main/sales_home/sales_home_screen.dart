@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +17,20 @@ class SalesHomeScreen extends GetView<SalesHomeController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sales Dashboard'),
+        actions: [
+          controller.profileImage.isEmpty
+              ? const CircleAvatar(
+                  backgroundImage: AssetImage(
+                    'assets/icon/profile.png',
+                  ),
+                )
+              : Obx(
+                  () => CircleAvatar(
+                    backgroundImage: CachedNetworkImageProvider(
+                        controller.profileImage.value),
+                  ),
+                )
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () => controller.onRefresh(),

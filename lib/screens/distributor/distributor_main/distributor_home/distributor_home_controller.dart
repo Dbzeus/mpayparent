@@ -18,17 +18,18 @@ class DistributorHomeController extends GetxController {
   final _box = GetStorage();
   int userId = -1;
   int roleId = -1;
+  RxString profileImage = "".obs;
 
   TextEditingController refnoController = TextEditingController();
   RxBool isLoading = false.obs;
 
   @override
   void onInit() {
-    distributorCurrentBalance(
-        _box.read(Session.distributorBalance) ?? "0");
+    distributorCurrentBalance(_box.read(Session.distributorBalance) ?? "0");
     retailerTotalBalance(_box.read(Session.retailerBalance) ?? "0");
     userId = _box.read(Session.userId);
     roleId = _box.read(Session.roleId);
+    profileImage(_box.read(Session.profileImage));
     super.onInit();
     checkDevice(userId);
     getDistributorWalletBalance();
@@ -44,8 +45,8 @@ class DistributorHomeController extends GetxController {
         if (distributorBalanceResponse["ReturnData"].isNotEmpty) {
           distributorCurrentBalance(
               distributorBalanceResponse["ReturnData"][0]["Amount"].toString());
-          _box.write(Session.distributorBalance,
-              distributorCurrentBalance.value);
+          _box.write(
+              Session.distributorBalance, distributorCurrentBalance.value);
           //Not included the AEPS Amount
         }
       }
@@ -80,7 +81,7 @@ class DistributorHomeController extends GetxController {
     await getRetailerWalletBalance();
   }
 
-  getRefNumber() async {
+  /*getRefNumber() async {
     if (await isNetConnected()) {
       refnoController.clear();
       String? refNo = await Get.bottomSheet(
@@ -120,7 +121,7 @@ class DistributorHomeController extends GetxController {
               ],
             ),
           ));
-      /*if (refNo != null) {
+      */ /*if (refNo != null) {
         isLoading(true);
         var response = await ApiCall().dmtTransactionStatus(refNo);
         isLoading(false);
@@ -205,7 +206,7 @@ class DistributorHomeController extends GetxController {
             toast(response['message']);
           }
         }
-      }*/
+      }*/ /*
     }
-  }
+  }*/
 }

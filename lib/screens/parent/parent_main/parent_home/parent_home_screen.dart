@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mpayparent/screens/common/profile/profile_screen.dart';
 
 import '../../../../widgets/dashboard_card.dart';
 import 'custom_menu.dart';
@@ -16,6 +18,23 @@ class ParentHomeScreen extends GetView<ParentHomeController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Parent Dashboard'),
+        actions: [
+          controller.profileImage.isEmpty
+              ? const CircleAvatar(
+                  backgroundImage: AssetImage(
+                    'assets/icon/logo.png',
+                  ),
+                )
+              : Obx(
+                  () => CircleAvatar(
+                    backgroundImage: CachedNetworkImageProvider(
+                        controller.profileImage.value),
+                  ),
+                ),
+          const SizedBox(
+            width: 10,
+          )
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () => controller.onRefresh(),

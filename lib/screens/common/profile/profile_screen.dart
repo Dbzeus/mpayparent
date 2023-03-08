@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -48,11 +49,17 @@ class ProfileScreen extends GetView<ProfileController> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const CircleAvatar(
-                        backgroundImage: AssetImage(
-                          'assets/icon/profile.png',
-                        ),
-                      ),
+                      controller.profileImage.isEmpty
+                          ? const CircleAvatar(
+                              backgroundImage: AssetImage(
+                                'assets/icon/profile.png',
+                              ),
+                            )
+                          : CircleAvatar(
+                              backgroundImage: CachedNetworkImageProvider(
+                                controller.profileImage.value,
+                              ),
+                            ),
                       const SizedBox(
                         width: 24,
                       ),

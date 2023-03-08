@@ -28,6 +28,7 @@ class DashboardCard extends StatelessWidget {
           children: [
             Text(title,
                 style: const TextStyle(
+                    overflow: TextOverflow.ellipsis,
                     fontSize: 14,
                     color: textColor,
                     fontWeight: FontWeight.w800)),

@@ -17,7 +17,7 @@ class DIRetailerTopupScreen extends GetView<DIRetailerTopupController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Retailer Top up",
+          "Topup a Retailer",
         ),
       ),
       body: Column(

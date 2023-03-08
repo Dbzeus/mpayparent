@@ -9,7 +9,7 @@ import 'finance_home_controller.dart';
 class CustomMenu extends StatelessWidget {
   var menus = [
     {
-      'title': 'Distributor',
+      'title': 'Distributor Topup',
       'iconUrl': "assets/icon/transfer_money.png",
       'onClickUrl': AppRoutes.parentTopupActivityScreen
     },
@@ -56,12 +56,11 @@ class CustomMenu extends StatelessWidget {
   _buildMenu(imagePath, title, onClickUrl) {
     return InkWell(
       onTap: () {
-        if (title == "Distributor") {
+        if (title == "Distributor Topup") {
           Get.toNamed(onClickUrl,
-              arguments: {"tType": 6, "title": "Distributor Report"});
+              arguments: {"tType": 6, "title": "Distributor Topup"});
         } else if (title == "DMT Transaction") {
-          Get.toNamed(onClickUrl,
-              arguments: {"isParent": false, "title": "DMT Report"});
+          Get.toNamed(onClickUrl, arguments: {"title": "DMT Report"});
         } else {
           Get.toNamed(onClickUrl);
         }

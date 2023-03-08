@@ -81,7 +81,7 @@ class TopupScreen extends GetView<TopupController> {
                             maxLines: 5,
                           ),
                         ),
-                        controller.isParent || controller.isFinance
+                        controller.isParent || controller.isDistributor
                             ? Obx(
                                 () => Padding(
                                   padding: const EdgeInsets.only(left: 12),
@@ -230,18 +230,19 @@ class TopupScreen extends GetView<TopupController> {
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (__, index) {
                             return ListTile(
-                            dense: true,
-                            isThreeLine: false,
-                            leading: const Icon(
-                              Icons.person,
-                              size: 24,
-                              color: secondaryButtonColor,
-                            ),
-                            onTap: () {
-                              controller.payeeController.text =
-                                  controller.userList[index]["name"].toString();
-                              controller.payeeId =
-                                  controller.userList[index]["id"];
+                              dense: true,
+                              isThreeLine: false,
+                              leading: const Icon(
+                                Icons.person,
+                                size: 24,
+                                color: secondaryButtonColor,
+                              ),
+                              onTap: () {
+                                controller.payeeController.text = controller
+                                    .userList[index]["name"]
+                                    .toString();
+                                controller.payeeId =
+                                    controller.userList[index]["id"];
                                 controller.searchController.clear();
                                 Get.back();
                               },

@@ -16,9 +16,11 @@ class ProfileController extends GetxController {
   RxBool isLoading = false.obs;
   RxString appVersion = '-'.obs;
   final box = GetStorage();
+  RxString profileImage = "".obs;
 
   @override
   void onInit() async {
+    profileImage(box.read(Session.profileImage));
     super.onInit();
     appVersion(await getAppVersion());
   }
@@ -79,7 +81,10 @@ class ProfileController extends GetxController {
                     )),
               ),
             ),
-            const Divider(indent: 24, endIndent: 24,),
+            const Divider(
+              indent: 24,
+              endIndent: 24,
+            ),
             ListTile(
               title: const Text(supportMailId),
               trailing: InkWell(

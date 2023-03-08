@@ -23,12 +23,12 @@ class CustomMenu extends StatelessWidget {
       'onClickUrl': AppRoutes.distributorWalletReportRequestScreen
     },
     {
-      'title': 'Topup',
+      'title': 'Retailer Topup',
       'iconUrl': "assets/icon/topup.png",
       'onClickUrl': AppRoutes.distributorTopupReportScreen
     },
     {
-      'title': 'Request Topup',
+      'title': 'Retailer Request',
       'iconUrl': "assets/icon/topup.png",
       'onClickUrl': AppRoutes.distributorRequestReportScreen
     },

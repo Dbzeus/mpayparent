@@ -110,7 +110,7 @@ class DIRetailerTopupController extends GetxController {
                   toast("Amount added successfully");
                 }
                 isLoading(false);
-                Get.back();
+                Get.back(result: true);
               } else {
                 toast('Invalid MPIN');
                 Get.back();

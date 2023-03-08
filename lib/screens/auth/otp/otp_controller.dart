@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mpayparent/utils/constant_string.dart';
 
 import '../../../api/api_call.dart';
 import '../../../model/user_login_response.dart';
@@ -57,7 +58,6 @@ class OtpController extends GetxController {
         fieldFive.text +
         fieldSix.text;
     debugPrint(otp);
-    //debugPrint(data.toString());
 
     if (otp.length < 6) {
       toast("Enter OTP");
@@ -66,60 +66,31 @@ class OtpController extends GetxController {
       if (await isNetConnected()) {
         isLoading(true);
         var otpResponse = await ApiCall().otpVerification(data.mobileno, otp);
-        print(data.appRoleID.toString());
         isLoading(false);
         if (otpResponse != null) {
-          print(data.appRoleID.toString());
-          if (data.appRoleID == 5) {
-            //distributor
-            if (!otpResponse['Status']) {
-              _box.write(Session.userName, data.firstname);
-              _box.write(Session.userMobile, data.mobileno);
-              _box.write(Session.userMpin, data.mpin);
-              _box.write(Session.userId, data.id);
-              _box.write(Session.roleId, data.appRoleID);
-              _box.write(Session.deviceType, "1");
-              _box.write(Session.isLogin, true);
+          if (!otpResponse['Status'] || otpResponse['Status']) {
+            _box.write(Session.userName, data.firstname);
+            _box.write(Session.userMobile, data.mobileno);
+            _box.write(Session.userMpin, data.mpin);
+            _box.write(Session.userId, data.id);
+            _box.write(Session.roleId, data.appRoleID);
+            _box.write(Session.profileImage, data.profileimage);
+            _box.write(Session.isLogin, true);
+            if (data.appRoleID == distributorRoleId) {
+              //distributor
               Get.offAllNamed(AppRoutes.distributorMainScreen);
-            }
-          } else if (data.appRoleID == 4) {
-            //sales
-
-            if (!otpResponse['Status']) {
-              _box.write(Session.userName, data.firstname);
-              _box.write(Session.userMobile, data.mobileno);
-              _box.write(Session.userMpin, data.mpin);
-              _box.write(Session.userId, data.id);
-              _box.write(Session.roleId, data.appRoleID);
-              _box.write(Session.deviceType, "1");
-              _box.write(Session.isLogin, true);
+            } else if (data.appRoleID == saleRoleId) {
+              //sales
               Get.offAllNamed(AppRoutes.salesMainScreen);
-            }
-          } else if (data.appRoleID == 3) {
-            //finance
-
-            if (!otpResponse['Status']) {
-              _box.write(Session.userName, data.firstname);
-              _box.write(Session.userMobile, data.mobileno);
-              _box.write(Session.userMpin, data.mpin);
-              _box.write(Session.userId, data.id);
-              _box.write(Session.roleId, data.appRoleID);
-              _box.write(Session.deviceType, "1");
-              _box.write(Session.isLogin, true);
+            } else if (data.appRoleID == financeRoleId) {
+              //finance
               Get.offAllNamed(AppRoutes.financeMainScreen);
-            }
-          } else if (data.appRoleID == 1) {
-            //Parent or Admin screen
-            if (!otpResponse['Status']) {
-              _box.write(Session.userName, data.firstname);
-              _box.write(Session.userMobile, data.mobileno);
-              _box.write(Session.userMpin, data.mpin);
-              _box.write(Session.userId, data.id);
-              _box.write(Session.roleId, data.appRoleID);
-              _box.write(Session.deviceType, "1");
-              _box.write(Session.isLogin, true);
+            } else if (data.appRoleID == parentRoleId) {
+              //Parent or Admin screen
               Get.offAllNamed(AppRoutes.parentMainScreen);
             }
+          } else {
+            toast(otpResponse['Message']);
           }
         } else {
           toast(otpResponse['Message']);

@@ -17,6 +17,7 @@ class ParentHomeController extends GetxController {
   final _box = GetStorage();
   int userId = -1;
   int roleId = -1;
+  RxString profileImage = "".obs;
   RxString bankItValue = "-1".obs,
       parentValue = "-1".obs,
       distributorValue = "-1".obs,
@@ -43,6 +44,7 @@ class ParentHomeController extends GetxController {
     retailerCommision(_box.read(Session.retailerCommision) ?? "0");
     userId = _box.read(Session.userId);
     roleId = _box.read(Session.roleId);
+    profileImage(_box.read(Session.profileImage));
     super.onInit();
     checkDevice(userId);
     getDashboardBalance();
@@ -134,11 +136,14 @@ class ParentHomeController extends GetxController {
   }*/
 
   showDistributorList() {
-    Get.toNamed(AppRoutes.balanceReportActivityScreen, arguments: {
-      "ISALL": true,
-      "ROLEID": distributorRoleId,
-      "TITLE": "Distributor Balance"
-    });
+    Get.toNamed(
+      AppRoutes.balanceReportActivityScreen,
+      arguments: {
+        "ISALL": true,
+        "ROLEID": distributorRoleId,
+        "TITLE": "Distributor Balance"
+      },
+    );
   }
 
   showRetailerList() {

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mpayparent/utils/custom_colors.dart';
@@ -18,6 +19,24 @@ class DistributorHomeScreen extends GetView<DistributorHomeController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dashboard'),
+        actions: [
+          controller.profileImage.isEmpty
+              ? const CircleAvatar(
+                  radius: 20,
+                  backgroundImage: AssetImage(
+                    'assets/icon/profile.png',
+                  ),
+                )
+              : Obx(
+                  () => CircleAvatar(
+                    backgroundImage: CachedNetworkImageProvider(
+                        controller.profileImage.value),
+                  ),
+                ),
+          const SizedBox(
+            width: 20,
+          )
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () => controller.onRefresh(),
@@ -72,6 +91,4 @@ class DistributorHomeScreen extends GetView<DistributorHomeController> {
       ),
     );
   }
-
-
 }

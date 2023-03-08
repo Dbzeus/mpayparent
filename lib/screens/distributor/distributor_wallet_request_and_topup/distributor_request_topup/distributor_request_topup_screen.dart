@@ -20,129 +20,137 @@ class DIRequestTopupScreen extends GetView<DIRequestTopupController> {
           "Distributor Request Top up",
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomEditText(
-                  readOnly: true,
-                  showBorder: true,
-                  showCursor: false,
-                  controller: controller.bankController,
-                  hintText: "Select Bank",
-                  suffixIcon: const Icon(
-                    Icons.arrow_drop_down,
-                    size: 25,
-                  ),
-                  onTab: () async {
-                    _showBankList(controller.bankList);
-                  },
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                CustomEditText(
-                  width: Get.width,
-                  contentPadding: const EdgeInsets.only(left: 12),
-                  controller: controller.amountController,
-                  maxLength: 10,
-                  showBorder: true,
-                  hintText: "Amount",
-                  isOnlyInt: true,
-                  keyboardType: TextInputType.number,
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: CustomEditText(
-                        controller: controller.remarkController,
-                        hintText: "Remarks",
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 12),
-                        maxLines: 5,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Obx(
-                      () => CustomButton(
-                        width: Get.width * 0.25,
-                        height: 90,
-                        borderRadius: 8,
-                        onTap: () => controller.attachImage(),
-                        buttonColor: Colors.grey.shade100,
-                        widget: Column(
+      body: Obx(
+        () => controller.isPageLoading.value
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomEditText(
+                          readOnly: true,
+                          showBorder: true,
+                          showCursor: false,
+                          controller: controller.bankController,
+                          hintText: "Select Bank",
+                          suffixIcon: const Icon(
+                            Icons.arrow_drop_down,
+                            size: 25,
+                          ),
+                          onTab: () async {
+                            controller.bankList.length.isGreaterThan(1)
+                                ? _showBankList(controller.bankList)
+                                : null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        CustomEditText(
+                          width: Get.width,
+                          contentPadding: const EdgeInsets.only(left: 12),
+                          controller: controller.amountController,
+                          maxLength: 10,
+                          showBorder: true,
+                          hintText: "Amount",
+                          isOnlyInt: true,
+                          keyboardType: TextInputType.number,
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.attach_file,
-                              size: 30,
-                              color: controller.isAttached.value
-                                  ? secondaryColor
-                                  : null,
+                            Expanded(
+                              child: CustomEditText(
+                                controller: controller.remarkController,
+                                hintText: "Remarks",
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 12),
+                                maxLines: 5,
+                              ),
                             ),
                             const SizedBox(
-                              height: 5,
+                              width: 12,
                             ),
-                            Text(
-                                controller.isAttached.value
-                                    ? "Attached"
-                                    : "Attach",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: controller.isAttached.value
-                                      ? secondaryColor
-                                      : null,
-                                )),
+                            Obx(
+                              () => CustomButton(
+                                width: Get.width * 0.25,
+                                height: 90,
+                                borderRadius: 8,
+                                onTap: () => controller.attachImage(),
+                                buttonColor: Colors.grey.shade100,
+                                widget: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.attach_file,
+                                      size: 30,
+                                      color: controller.isAttached.value
+                                          ? secondaryColor
+                                          : null,
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                        controller.isAttached.value
+                                            ? "Attached"
+                                            : "Attach",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: controller.isAttached.value
+                                              ? secondaryColor
+                                              : null,
+                                        )),
+                                  ],
+                                ),
+                                text: '',
+                              ),
+                            ),
                           ],
                         ),
-                        text: '',
-                      ),
+                        const SizedBox(
+                          height: 36,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomButton(
+                                width: Get.width / 2.5,
+                                buttonColor: secondaryColor,
+                                text: "Cancel",
+                                onTap: controller.isLoading.value
+                                    ? () {}
+                                    : () {
+                                        Get.back();
+                                      }),
+                            Obx(
+                              () => CustomButton(
+                                width: Get.width / 2.5,
+                                isLoading: controller.isLoading.value,
+                                text: "Save",
+                                onTap: () {
+                                  controller.dmtWalletTopup();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 36,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomButton(
-                        width: Get.width / 2.5,
-                        buttonColor: secondaryColor,
-                        text: "Cancel",
-                        onTap: controller.isLoading.value
-                            ? () {}
-                            : () {
-                                Get.back();
-                              }),
-                    Obx(
-                      () => CustomButton(
-                        width: Get.width / 2.5,
-                        isLoading: controller.isLoading.value,
-                        text: "Save",
-                        onTap: () {
-                          controller.dmtWalletTopup();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
+                  )
+                ],
+              ),
       ),
     );
   }
@@ -210,8 +218,6 @@ class DIRequestTopupScreen extends GetView<DIRequestTopupController> {
                               controller.bankController.text =
                                   bankList[index]["BankName"].toString();
                               controller.bankId = bankList[index]["BankID"];
-                              debugPrint("Bank id" +
-                                  bankList[index]["BankID"].toString());
                               controller.searchController.clear();
                               Get.back();
                             },

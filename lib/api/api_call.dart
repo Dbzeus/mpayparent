@@ -41,7 +41,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -63,7 +63,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -86,7 +86,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -106,7 +106,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -129,7 +129,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -145,7 +145,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -162,7 +162,7 @@ class ApiCall {
 
       return BalanceReportResponse.fromJson(response.data);
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -180,7 +180,7 @@ class ApiCall {
 
       return ParentDashboardResponse.fromJson(response.data);
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -200,7 +200,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -242,7 +242,7 @@ class ApiCall {
 
       return RetailerDetailsResponse.fromJson(response.data);
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -261,7 +261,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -277,7 +277,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -296,7 +296,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -315,7 +315,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -345,7 +345,7 @@ class ApiCall {
 
       return DistributorRequestResponse.fromJson(response.data);
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -373,7 +373,7 @@ class ApiCall {
 
       return TopupHistoryResponse.fromJson(response.data);
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -396,7 +396,7 @@ class ApiCall {
 
       return DmtReport.fromJson(response.data);
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -427,7 +427,7 @@ class ApiCall {
 
       return DistributorRequestResponse.fromJson(response.data);
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -449,7 +449,7 @@ class ApiCall {
 
       return UserList.fromJson(response.data);
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -468,7 +468,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'] ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);
@@ -486,7 +486,7 @@ class ApiCall {
 
       return response.data;
     } on DioError catch (e) {
-      toast(e.response?.data['Message'].toString() ?? e.message);
+      toast(e.message);
     } catch (e) {
       log(e.toString());
       toast(null);

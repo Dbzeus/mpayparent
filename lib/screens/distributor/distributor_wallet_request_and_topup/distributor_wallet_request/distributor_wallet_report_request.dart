@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mpayparent/model/distributorRequestResponse.dart';
+import 'package:mpayparent/utils/constant_string.dart';
 
 import '../../../../routes/app_routes.dart';
 import '../../../../widgets/filter_header.dart';
@@ -128,7 +129,7 @@ class DIWalletRequestScreen extends GetView<DIWalletRequestController> {
               _buildRow(
                 "Request Amount",
               ),
-              _buildRow(reportData.reqAmt.toString(), weightedFont: true)
+              _buildRow("$rs ${reportData.reqAmt}", weightedFont: true)
             ],
           ),
           const SizedBox(

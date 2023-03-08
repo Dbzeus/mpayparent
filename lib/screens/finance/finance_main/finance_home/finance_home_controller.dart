@@ -20,6 +20,7 @@ class FIHomeController extends GetxController {
   final _box = GetStorage();
   int userId = -1;
   int roleId = -1;
+  RxString profileImage = "".obs;
 
   TextEditingController refnoController = TextEditingController();
   RxBool isLoading = false.obs;
@@ -31,6 +32,7 @@ class FIHomeController extends GetxController {
     myWalletBalance(_box.read(Session.myWalletBalance) ?? "0");
     userId = _box.read(Session.userId);
     roleId = _box.read(Session.roleId);
+    profileImage(_box.read(Session.profileImage));
     super.onInit();
     checkDevice(userId);
     getDashboardBalance();

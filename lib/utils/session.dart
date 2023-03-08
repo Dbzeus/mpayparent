@@ -6,7 +6,8 @@ class Session {
   static const userMpin = "userMpin";
   static const userId = "userId";
   static const roleId = "roleId";
-  static const deviceType = "deviceType";
+  static const profileImage = "profileImage";
+
   static const distributorBalance = "distributorCurrentBalance";
   static const retailerBalance = "retailerCurrentBalance";
   static const myWalletBalance = "walletBalance";

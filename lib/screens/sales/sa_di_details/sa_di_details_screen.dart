@@ -59,7 +59,7 @@ class SADistributorScreen extends GetView<SADistributorController> {
                       )
                     : controller.distributorDetails.isEmpty
                         ? const Center(
-                            child: Text('No Retailers Found'),
+                            child: Text('No Distributors Found'),
                           )
                         : ListView.builder(
                             itemCount: controller.distributorDetails.length,

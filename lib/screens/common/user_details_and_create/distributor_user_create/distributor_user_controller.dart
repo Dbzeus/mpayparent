@@ -75,31 +75,6 @@ class DistributorCreateController extends GetxController {
   }
 
   insertUser() async {
-    /*  List<dynamic> fields = [
-      firstNameController.text,
-      lastNameController.text,
-      mobileNoController.text,
-      mailController.text,
-      organisationNameController.text,
-      addressController.text,
-      gstController.text,
-      aadharController.text,
-      panController.text,
-      aepsController.text,
-      profileImage.value,
-      bankAgreementFront.value,
-      bankAgreementBack.value,
-      aadharFront.value,
-      aadharBack.value,
-      panFront.value,
-      mpayAgreementFront.value,
-      mpayAgreementBack.value,
-    ];
-
-    if (fields.every((field) => field.isEmpty)) {
-      toast("Enter all fields");
-    }
-*/
     if (firstNameController.text.isEmpty) {
       toast("First name should not be empty");
     } else if (lastNameController.text.isEmpty) {

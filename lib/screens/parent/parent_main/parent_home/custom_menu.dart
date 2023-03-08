@@ -105,8 +105,7 @@ class CustomMenu extends StatelessWidget {
             "title": "Distributor Report"
           });
         } else if (title == "DMT") {
-          Get.toNamed(onClickUrl,
-              arguments: {"isParent": false, "title": "DMT Report"});
+          Get.toNamed(onClickUrl, arguments: {"title": "DMT Report"});
         } else if (title == "Financier") {
           Get.toNamed(onClickUrl, arguments: {
             "roleId": financeRoleId,
